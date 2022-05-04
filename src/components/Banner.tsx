@@ -17,7 +17,6 @@ const Container = styled.div`
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 50px;
   }
 `;
 const Row = styled.div`
@@ -25,9 +24,15 @@ const Row = styled.div`
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
+    @media (max-width: 768px) {
+        flex-wrap: nowrap;
+        height: auto;
+      }
+
 `;
 const Col6 = styled.div`
     width: 40%;
+
 `;
 const HeaderContent = styled.div`
     display: flex;
@@ -62,20 +67,23 @@ const HeaderSubtitle = styled.p`
         font-weight: 300;
         line-height: 30px;
         margin-bottom: 20px;
+        width: 372px;
+        height: 52px;
       }
 `;
 const Img = styled.img`
     padding: 0 1px;
     margin-top: 150px;
     @media (max-width: 768px) {
-        display: none;
+        width: 300px;
+        height: 400px;  
       }
 `;
 const Headerstars = styled.img`
     position: absolute;
     width: 236px;
     height: 236px;
-    left: 1253px;
+    left: 1203px;
     top: 290px;
     overflow: hidden;
     @media (max-width: 768px) {
@@ -88,7 +96,6 @@ const HeaderElement = styled.div`
     height: 22px;
     left: 468px;
     top: 605px;
-
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     @media (max-width: 768px) {
@@ -101,7 +108,6 @@ const HeaderElement2 = styled.div`
     height: 26px;
     left: 229px;
     top: 187px;
-
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     @media (max-width: 768px) {
@@ -114,16 +120,16 @@ const HeaderElement3 = styled.div`
     height: 33px;
     left: 631px;
     top: 171px;
-
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     @media (max-width: 768px) {
-        // display: none; 
+        display: none; 
       }
 `;
 
 const Banner = () => {
   return (
+    <>
     <Header id='header'>
         <Container>
             <Row>
@@ -142,11 +148,14 @@ const Banner = () => {
                 </Col6>
             </Row>
         </Container>
+        
+    </Header>
         <Headerstars src={BannnerStars} />
         <HeaderElement />
         <HeaderElement2 />
         <HeaderElement3 />
-    </Header>
+    </>
+    
   )
 }
 

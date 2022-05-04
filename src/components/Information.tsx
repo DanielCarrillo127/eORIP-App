@@ -12,7 +12,6 @@ const Container = styled.div`
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 50px;
   }
 `;
 const Row = styled.div`
@@ -32,6 +31,7 @@ const Col6 = styled.div`
   margin: 10px 0;
   @media (max-width: 768px) {
     width: 100%;
+    width: 85%;
   }
 `;
 
@@ -81,7 +81,6 @@ const Information = () => {
             </ImgContainer>
           </Col6>
           <Col6>
-
             <TextTitle>Sede Principal y Atención al Ciudadano</TextTitle>
             <Text>Calle 26 No. 13-49 Interior 201, Bogotá D.C. Colombia.</Text>
             <TextSeparator/>

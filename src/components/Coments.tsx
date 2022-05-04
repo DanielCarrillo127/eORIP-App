@@ -15,7 +15,6 @@ const Container = styled.div`
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 50px;
   }
 `;
 const Common = styled.div`

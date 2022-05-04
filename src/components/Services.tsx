@@ -14,7 +14,6 @@ const Container = styled.div`
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 50px;
   }
 `;
 const Common = styled.div`
@@ -36,6 +35,7 @@ const MainContent = styled.p`
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
+
 `;
 const CommonBorder = styled.div`
     background: #4d8ae5;

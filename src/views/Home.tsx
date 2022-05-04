@@ -15,7 +15,7 @@ function Home() {
         <Banner/>
         <Services/>
         <About/>
-        <Information/>
+        <Information/> 
         <SocialMedia/>
         <Coments/>
         <Footer/>

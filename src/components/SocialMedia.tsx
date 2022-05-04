@@ -6,7 +6,7 @@ import { BsFacebook,BsTwitter,BsInstagram,BsYoutube,BsLinkedin } from "react-ico
 
 const SocialC = styled.div`
     background: #fff;
-    padding: 10px 0;
+    padding: 50px 0;
     color: #000;
 `;
 const Container = styled.div`
@@ -14,7 +14,6 @@ const Container = styled.div`
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 50px;
   }
 `;
 const Common = styled.div`
@@ -61,21 +60,22 @@ const MediaName= styled.p`
     font-weight: 300;
     font-size: 11px;
     width: 102px;
-    height: 92px;
     color: #163966;
     padding-left: 8px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 const MediaIcon= styled.div`
-padding: 12px;
-width: 20px;
-height: 20px;
-background: #163966;
-border-radius: 40px;
-align-items: center;
-justify-content: center;
-display: flex;
-flex-direction: columnn;
+    padding: 12px;
+    width: 20px;
+    height: 20px;
+    background: #163966;
+    border-radius: 40px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: columnn;
 `;
 
 const SocialMedia = () => {

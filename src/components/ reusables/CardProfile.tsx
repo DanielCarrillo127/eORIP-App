@@ -5,7 +5,6 @@ const CardContainer = styled.div`
     padding: 1em;
 `;
 
-
 interface ImgProps {
     readonly img: string;
   }
@@ -38,8 +37,6 @@ const CardSubtitle = styled.p`
     line-height: 29px;
     text-align: right;
     color: #fff;
-
-
 `;
 const CardButton = styled.button`
     border: none;

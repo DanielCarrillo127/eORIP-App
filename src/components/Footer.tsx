@@ -19,7 +19,6 @@ const Container = styled.div`
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0 50px;
   }
 `;
 const Row = styled.div`
@@ -39,17 +38,14 @@ const RowLast = styled.div`
   width: 100%;
   flex-direction: row;
   align-items: center;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    height: auto;
-  }
 `;
 
 const Col3 = styled.div`
   width: 40%;
   margin: 10px 0;
   @media (max-width: 768px) {
-    width: 100%;
+    width: 50%;
+    margin: 10px 0;
   }
 `;
 const Col7 = styled.div`
@@ -61,8 +57,9 @@ const Col7 = styled.div`
 `;
 
 const InformationContainer = styled.div`
-  @media (max-width: 768px) {
-  }
+    @media (max-width: 768px) {
+      display: none; 
+    }
 `;
 const Text = styled.p`
   font-style: normal;
@@ -118,14 +115,16 @@ const MediaIcon = styled.div`
   margin: 20px 0 20px 10px;
 `;
 const ImgGov = styled.img`
-float: left;`;
+  float: left;
+`;
+
 const CopyRight = styled.p`
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 18px;
-color: #515151;
-padding: 0 90px 0 50px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #515151;
+  padding: 0 90px 0 50px;
 `;
 
 const Footer = () => {
