@@ -1,0 +1,153 @@
+import React from 'react'
+import styled from "styled-components";
+import Button from './ reusables/Button';
+import BannerImg from '../assets/svgs/BitcoinP2P.svg';
+import BannnerStars from '../assets/svgs/Rectangle.svg';
+
+const Header = styled.header`
+    width: 100%;
+    height: 100vh;
+    background-color: #E5EAFF;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+`;
+const Container = styled.div`
+  width: 1200px;
+  margin: 0 auto;
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 50px;
+  }
+`;
+const Row = styled.div`
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+`;
+const Col6 = styled.div`
+    width: 40%;
+`;
+const HeaderContent = styled.div`
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    color: #150C01;
+`;
+const HeaderTitle = styled.h1`
+    margin-top: 150px;
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-style: normal;
+    line-height: 78px;
+    @media (max-width: 768px) {
+        font-size: 35px;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+`;
+const HeaderSubtitle = styled.p`
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
+    margin-bottom: 20px;
+    color: #515151;
+    width: 372px;
+    height: 52px;
+    @media (max-width: 768px) {
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 30px;
+        margin-bottom: 20px;
+      }
+`;
+const Img = styled.img`
+    padding: 0 1px;
+    margin-top: 150px;
+    @media (max-width: 768px) {
+        display: none;
+      }
+`;
+const Headerstars = styled.img`
+    position: absolute;
+    width: 236px;
+    height: 236px;
+    left: 1253px;
+    top: 290px;
+    overflow: hidden;
+    @media (max-width: 768px) {
+        display: none; 
+      }
+`;
+const HeaderElement = styled.div`
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 468px;
+    top: 605px;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    @media (max-width: 768px) {
+        // display: none; 
+      }
+`;
+const HeaderElement2 = styled.div`
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 229px;
+    top: 187px;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    @media (max-width: 768px) {
+        // display: none; 
+      }
+`;
+const HeaderElement3 = styled.div`
+    position: absolute;
+    width: 45px;
+    height: 33px;
+    left: 631px;
+    top: 171px;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    @media (max-width: 768px) {
+        // display: none; 
+      }
+`;
+
+const Banner = () => {
+  return (
+    <Header id='header'>
+        <Container>
+            <Row>
+                <Col6>
+                    <HeaderContent>
+                        <div>
+                            <HeaderTitle>Confianza, Transparecia</HeaderTitle>
+                            <HeaderSubtitle>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus diam ultrices.</HeaderSubtitle>      
+                            <Button name='Vamos' onclick='/login'></Button>
+                        </div>
+                    </HeaderContent>
+
+                </Col6>
+                <Col6>
+                    <Img src={BannerImg} alt="sec-1"></Img>
+                </Col6>
+            </Row>
+        </Container>
+        <Headerstars src={BannnerStars} />
+        <HeaderElement />
+        <HeaderElement2 />
+        <HeaderElement3 />
+    </Header>
+  )
+}
+
+export default Banner
