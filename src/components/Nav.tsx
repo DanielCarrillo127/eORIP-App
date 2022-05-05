@@ -28,6 +28,18 @@ export const NavLink = styled(Link)`
     color: #15cdfc;
   }
 `;
+export const NavLinkBtn = styled.div`
+  color: rgba(81, 81, 81, 0.7);
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 0 0 ;
+  height: 100%;
+  cursor: pointer;
+  &.active {
+    color: #15cdfc;
+  }
+`;
+
 export const NavLinkLogo = styled(Link)`
   color: #4d8ae5;
   display: flex;
@@ -134,9 +146,9 @@ const Nav = () => {
           <NavLink to="information" smooth={true} duration={1000}>
             Contactanos
           </NavLink>
-          <NavLink to="/">
-            <Button name="Iniciar Sesión" onclick="/login"></Button>
-          </NavLink>
+          <NavLinkBtn>
+            <Button name="Iniciar Sesión" path="/login"></Button>
+          </NavLinkBtn>
         </NavMenu>
       </NavBar>
     </>

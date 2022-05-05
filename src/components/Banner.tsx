@@ -80,11 +80,13 @@ const Img = styled.img`
       }
 `;
 const Headerstars = styled.img`
-    position: absolute;
+
     width: 236px;
     height: 236px;
-    left: 1203px;
-    top: 290px;
+    position:absolute;
+    left:90%;
+    top:43%;
+    max-width: 10%;
     overflow: hidden;
     @media (max-width: 768px) {
         display: none; 
@@ -138,7 +140,7 @@ const Banner = () => {
                         <div>
                             <HeaderTitle>Confianza, Transparecia</HeaderTitle>
                             <HeaderSubtitle>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus diam ultrices.</HeaderSubtitle>      
-                            <Button name='Vamos' onclick='/login'></Button>
+                            <Button name='Vamos' path='/login'></Button>
                         </div>
                     </HeaderContent>
 

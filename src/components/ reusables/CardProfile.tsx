@@ -46,7 +46,8 @@ const CardButton = styled.button`
     background: #fff;
     border-radius: 20px;
     color: #000;
-    float: right;
+    float: right;   
+    cursor: pointer;
 `;
 
 
