@@ -88,6 +88,9 @@ const Headerstars = styled.img`
     top:43%;
     max-width: 10%;
     overflow: hidden;
+    // @media (max-width: 1190px) {
+    //     display: none; 
+    //   }
     @media (max-width: 768px) {
         display: none; 
       }
