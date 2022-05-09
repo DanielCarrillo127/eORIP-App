@@ -160,7 +160,7 @@ const Login = () => {
         </ContainerName>
         {change ? (
           <>
-          <Title> |Registro</Title>
+          <Title> Registro</Title>
             {" "}
             <StyledForm id="register">
               <StyledInput type="text" placeholder="Nombre & Apellido" required onChange={handleChangeUser}/>
@@ -178,7 +178,7 @@ const Login = () => {
           </>
         ) : (
           <>
-            <Title>|Inicio de sesión</Title>
+            <Title>Inicio de sesión</Title>
             <StyledForm id="login">
               <StyledInput
                 type="text"
