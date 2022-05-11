@@ -6,7 +6,7 @@ import BannnerStars from '../assets/svgs/Rectangle.svg';
 
 const Header = styled.header`
     width: 100%;
-    height: 100vh;
+    height: 75vh;
     background-color: #E5EAFF;
     background-repeat: no-repeat;
     background-size: cover;
@@ -37,7 +37,7 @@ const Col6 = styled.div`
 const HeaderContent = styled.div`
     display: flex;
     align-items: center;
-    height: 100vh;
+    height: 50vh;
     width: 100%;
     color: #150C01;
 `;
@@ -73,10 +73,9 @@ const HeaderSubtitle = styled.p`
 `;
 const Img = styled.img`
     padding: 0 1px;
-    margin-top: 150px;
     @media (max-width: 768px) {
-        width: 300px;
-        height: 400px;  
+        width: 290px;
+        height: 360px; 
       }
 `;
 const Headerstars = styled.img`
@@ -85,7 +84,7 @@ const Headerstars = styled.img`
     height: 236px;
     position:absolute;
     left:90%;
-    top:43%;
+    top:33%;
     max-width: 10%;
     overflow: hidden;
     // @media (max-width: 1190px) {
@@ -100,7 +99,7 @@ const HeaderElement = styled.div`
     width: 22px;
     height: 22px;
     left: 468px;
-    top: 605px;
+    top: 505px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     @media (max-width: 768px) {
@@ -149,7 +148,7 @@ const Banner = () => {
 
                 </Col6>
                 <Col6>
-                    <Img src={BannerImg} alt="sec-1"></Img>
+                    <Img src={BannerImg} alt="banner-img"></Img>
                 </Col6>
             </Row>
         </Container>

@@ -61,11 +61,6 @@ export const Bars = styled(FaAlignJustify)`
     position: absolute;
     top: 0;
     right: 0;
-    background: transparent;
-    color: #fff;
-    width: 40px;
-    height: 40px;
-    border-radius: 10%;
     transform: translate(-100%, 75%);
     font-size: 1.8rem;
     cursor: pointer;
@@ -76,11 +71,8 @@ export const NavMenu = styled.div`
   display: flex;
   align-items: center;
   margin-right: -24px;
-  /* Second Nav */
-  /* margin-right: 24px; */
-  /* Third Nav */
-  /* width: 100vw;
-  white-space: nowrap; */
+  width: 100vw;
+  white-space: nowrap;
   @media screen and (max-width: 768px) {
     display: none;
   }

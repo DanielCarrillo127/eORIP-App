@@ -7,8 +7,8 @@ interface PropType {
 
 const PrivateRoute: FC<PropType> = ({ component: Component }) => {
     const isAuthenticated = true; //window.localStorage.getItem('TOKEN')
-    if (isAuthenticated) return <Component />;
-    return <Navigate to='/' />;
+    if (isAuthenticated != null) return <Component />;
+    return <Navigate to='/login' />;
 };
 
 export default PrivateRoute;

@@ -55,7 +55,6 @@ const CardButton = styled.button`
 const CardProfile = (props: any) => {
   return (
     <CardContainer>
-        {/* <Shadow/> */}
         <CardImg img={props.profile} width="272" height="312"/>
         <CardContent >
             <Cardtitle>{props.Profilename}</Cardtitle>
