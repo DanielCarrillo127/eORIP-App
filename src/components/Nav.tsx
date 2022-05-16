@@ -32,7 +32,7 @@ export const NavLinkBtn = styled.div`
   color: rgba(81, 81, 81, 0.7);
   display: flex;
   justify-content: center;
-  padding: 40px 0 0 0 ;
+  padding: 10px 0 0 0 ;
   height: 100%;
   cursor: pointer;
   &.active {
@@ -71,12 +71,12 @@ export const NavMenu = styled.div`
   display: flex;
   align-items: center;
   margin-right: -24px;
-  width: 100vw;
-  white-space: nowrap;
   @media screen and (max-width: 768px) {
     display: none;
   }
 `;
+  // width: 100vw;
+  // white-space: nowrap;
 
 const ContainerName = styled.div`
   font-style: normal;

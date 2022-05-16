@@ -14,7 +14,6 @@ export const RoutesTree = () => {
         <Route path="/login" element={<Login/>} />
         {/* Private Routes */}
         <>
-        
         <Route path="/userDashboard" element={<PrivateRoute component={UserDashboard} />} />
         </>
       </Routes>
