@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { auth } from "../utils/auth";
 import { login, createUser } from "../utils/request";
 import logo from "../assets/svgs/logo.svg";
 import { useNavigate } from "react-router-dom";
@@ -173,8 +172,7 @@ const Login = () => {
   const handleLogin = async (username: string, password: string) => {
     const req = await login(username, password);
     if (req.status === 200) {
-      auth(req.data.accesToken,true);
-      saveUser(req.data.info);
+      saveUser(req.data.accesToken,req.data.info);
       toast.success(`✅ Bienvenido,${req.data.info.name} ${req.data.info.surnames}.`, {
         position: "top-right",
         autoClose: 3000,
@@ -254,8 +252,7 @@ const Login = () => {
       );
       console.log(req);
       if (req.status === 201) {
-        auth(req.data.token,true);
-        saveUser(req.data.info);
+        saveUser(req.data.token,req.data.info);
         navigate("/userDashboard");
       } else {
         //toast user already exist

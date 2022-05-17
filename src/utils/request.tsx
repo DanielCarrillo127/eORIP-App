@@ -1,5 +1,6 @@
+import axios from "axios";
 import Axios_withoutInstance from "axios";
-import { Axios as axios } from "./axios";
+// import { Axios as axios } from "./axios";
 
 const API = "https://pfusersapi.herokuapp.com/users";
 
@@ -47,7 +48,9 @@ export const createUser = async (
 export const consultActions = async (userId: string) => {
   console.log(localStorage.getItem('TOKEN'))
   try {
-    const req = await axios.get(`${API}/actions?cedula=${userId}`);
+    const req = await axios.get(`${API}/actions?cedula=${userId}`, {headers:{
+      'Authorization': `JWT ${localStorage.getItem('TOKEN')}`
+    }});
     return req;
   } catch (error) {
     return error;

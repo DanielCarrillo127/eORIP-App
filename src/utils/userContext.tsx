@@ -17,7 +17,7 @@ interface PropType {
 
 export type ContextActions = {
   user: UserContextInterface | null;
-  saveUser: (user: any) => void;
+  saveUser: (token: string,user: any) => void;
   updateUser: (id: number) => void;
   logOutUser: () => void;
 };
@@ -27,8 +27,10 @@ export const DataContext = React.createContext<ContextActions | null>(null);
 export const UserContext: FC<PropType> = ({ children }) => {
   const [user, setUser] = useState<UserContextInterface | null>(null);
 
-  const saveUser = async (userinfo: any) => {
-    
+  const saveUser = async (token: string, userinfo: any) => {
+
+    window.localStorage.setItem('TOKEN', token);
+
     const req = await consultActions(userinfo.cedula);
     setUser({
       name: userinfo.name,
