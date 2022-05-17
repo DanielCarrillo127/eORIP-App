@@ -28,6 +28,7 @@ export const UserContext: FC<PropType> = ({ children }) => {
   const [user, setUser] = useState<UserContextInterface | null>(null);
 
   const saveUser = async (userinfo: any) => {
+    
     const req = await consultActions(userinfo.cedula);
     setUser({
       name: userinfo.name,
