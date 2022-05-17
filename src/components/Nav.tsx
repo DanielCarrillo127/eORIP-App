@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-scroll";
 import { FaAlignJustify } from "react-icons/fa";
 // import { animateScroll as scroll } from "react-scroll";
-import Button from "./ reusables/Button";
+import Button from "./reusables/Button";
 import logo from "../assets/svgs/logo.svg";
 
 export const NavBar = styled.nav`

@@ -46,7 +46,7 @@ export const createUser = async (
 
 export const consultActions = async (userId: string) => {
   try {
-    const req = await axios.post(`${API}/actions?cedula=${userId}`);
+    const req = await axios.get(`${API}/actions?cedula=${userId}`);
     return req;
   } catch (error) {
     return error;

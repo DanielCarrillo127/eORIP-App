@@ -6,6 +6,7 @@ import logo from "../assets/svgs/logo.svg";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import validator from "validator";
+import { ContextActions, DataContext } from "../utils/userContext";
 
 const LoginPage = styled.div`
   width: 100%;
@@ -149,7 +150,8 @@ const Login = () => {
   const handleChangeEmail = (e: any) => setEmail(e.target.value);
   const handleChangeCedula = (e: any) => setCedula(e.target.value.toString());
 
- 
+  const { saveUser } = React.useContext(DataContext) as ContextActions;
+
   const validate = (value: string) => {
     if (
       validator.isStrongPassword(value, {
@@ -171,9 +173,9 @@ const Login = () => {
   const handleLogin = async (username: string, password: string) => {
     const req = await login(username, password);
     if (req.status === 200) {
-      auth(req.data.accesToken,req.data.info, true);
-      console.log("navigate to dash");
-      toast.success(`✅ Bienvenido, ${username}.`, {
+      auth(req.data.accesToken,true);
+      saveUser(req.data.info);
+      toast.success(`✅ Bienvenido,${req.data.info.name} ${req.data.info.surnames}.`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -206,7 +208,7 @@ const Login = () => {
   ) => {
     var emailValidation = false;
     var cedulaValidation = false;
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    if (/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       emailValidation = true;
     } else {
       //toast email incorrect
@@ -252,7 +254,8 @@ const Login = () => {
       );
       console.log(req);
       if (req.status === 201) {
-        auth(req.data.token,req.data.info,true);
+        auth(req.data.token,true);
+        saveUser(req.data.info);
         navigate("/userDashboard");
       } else {
         //toast user already exist
@@ -294,6 +297,7 @@ const Login = () => {
                 required
                 onChange={handleChangeNick}
               />
+              {/* box message to inform the password structure */}
               <StyledInputPassword
                 type="password"
                 placeholder="Contraseña"
@@ -301,7 +305,6 @@ const Login = () => {
                 onChange={handleChangePassword}
                 style={{ borderColor: passwordValidation ? 'forestgreen' : 'red'}}
               />
-              {/* change color and add border color  - replace this */} 
               <ValidateMessage style={{ color: passwordValidation ? 'forestgreen' : 'red' }}>{validateP}</ValidateMessage> 
               <StyledInput
                 type="email"

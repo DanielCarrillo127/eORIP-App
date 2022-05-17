@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
-import CardProfile from './ reusables/CardProfile';
+import CardProfile from './reusables/CardProfile';
 
 import DanielProfile from '../assets/pngs/DanielC.png';
 import JaimeProfile from '../assets/pngs/JaimeS.png';

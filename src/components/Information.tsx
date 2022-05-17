@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import SNR from "../assets/svgs/snr.svg";
-import Button from "./ reusables/Button";
+import Button from "./reusables/Button";
 
 const InformationC = styled.div`
   background: #fff;

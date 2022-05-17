@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
-import Card from './ reusables/Card';
+import Card from './reusables/Card';
 import { GrCertificate } from "react-icons/gr";
 import { GrDocumentPpt } from "react-icons/gr";
 

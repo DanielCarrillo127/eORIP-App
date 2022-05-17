@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
-import Button from './ reusables/Button';
+import Button from './reusables/Button';
 import BannerImg from '../assets/svgs/BitcoinP2P.svg';
 import BannnerStars from '../assets/svgs/Rectangle.svg';
 
