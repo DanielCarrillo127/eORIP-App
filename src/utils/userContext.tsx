@@ -1,4 +1,3 @@
-import { Console } from "console";
 import React, { useState, FC, useEffect } from "react";
 import { consultActions } from "./request";
 
@@ -31,26 +30,29 @@ export const UserContext: FC<PropType> = ({ children }) => {
   const [user, setUser] = useState<UserContextInterface | null>(null);
   const [Handleonclick, setHDL] = useState("");
 
-  // useEffect(() => {
-  //   if (window.sessionStorage.getItem("USER") !== "null") {
-  //     // const userData = JSON.parse(window.sessionStorage.getItem('USER'));
-  //     setUser({
-  //       name: "userinfo.name",
-  //       username: "userinfo.username",
-  //       surnames: "userinfo.surnames",
-  //       cedula: "userinfo.cedula",
-  //       email: "userinfo.email",
-  //       role: "userinfo.role",
-  //       actions: [],
-  //     });
-  //   }
-  // });
+  useEffect(() => {
+    const jsonSessionStorage = window.sessionStorage.getItem("USER")
+    if (jsonSessionStorage !== "null" && jsonSessionStorage !== undefined) {
+      const userData = JSON.parse(jsonSessionStorage || '{}');
+      setUser({
+        name: userData.name,
+        username: userData.username,
+        surnames: userData.surnames,
+        cedula: userData.cedula,
+        email: userData.email,
+        role: userData.role,
+        actions: userData.actions,
+      });
+    }
+    
+  },[]);
+
 
   const saveUser = async (token: string, userinfo: any) => {
     window.localStorage.setItem("TOKEN", token);
 
     const req = await consultActions(userinfo.cedula);
-    setUser({
+    const jsonUser = await InterFaceToJSON({
       name: userinfo.name,
       username: userinfo.username,
       surnames: userinfo.surnames,
@@ -59,18 +61,25 @@ export const UserContext: FC<PropType> = ({ children }) => {
       role: userinfo.role,
       actions: req.data.actions,
     });
-    const jsonUser = InterFaceToJSON(user);
-    console.log(jsonUser);
-    // await window.sessionStorage.setItem(
-    //     "USER",
-    //     JSON.stringify(jsonUser)
-    //   );
+     setUser({
+      name: userinfo.name,
+      username: userinfo.username,
+      surnames: userinfo.surnames,
+      cedula: userinfo.cedula,
+      email: userinfo.email,
+      role: userinfo.role,
+      actions: req.data.actions,
+    });
+    window.sessionStorage.setItem(
+        "USER",
+        JSON.stringify(jsonUser)
+      );
     
   };
 
   const InterFaceToJSON = (user: any) => {
     if (user === null) {
-      return "null";
+      return "error";
     } else {
       const json = {
         name: user.name,
@@ -83,6 +92,7 @@ export const UserContext: FC<PropType> = ({ children }) => {
       };
       return json;
     }
+    
   };
 
   const updateUser = (id: number) => {};

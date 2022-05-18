@@ -58,6 +58,7 @@ const ContainerWidget = styled.div`
   padding-right: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    justify-content: center;
 `;
 const ContainerService = styled.div`
   display: flex;
@@ -112,7 +113,3 @@ const Services = () => {
 
 export default Services;
 
-{
-  /* <Card title="Certificados de tradición y libertad" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue." icon={<GrCertificate size={30}/>} />
-   */
-}

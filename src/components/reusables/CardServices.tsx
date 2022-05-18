@@ -40,7 +40,6 @@ const Title = styled.h1`
 //   height: 32px;
 // }
 const Button = styled.button`
-
 background: linear-gradient(305.36deg, #226FE1 10.86%, rgba(34, 111, 225, 0.4) 93.49%);
 color: white;            
 border-radius: 10px;

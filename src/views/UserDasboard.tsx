@@ -224,7 +224,7 @@ const HeaderInformation = styled.div`
   justify-content: center;
   font-style: normal;
   font-weight: 500;
-  font-size: 22px;
+  font-size: inherit;
   line-height: 22px;
   color: #4d8ae5;
 `;
@@ -293,13 +293,8 @@ const UserDasboard = () => {
   const navigate = useNavigate();
 
   const [headerRoute, setHeaderRoute] = useState("Inicio");
-  const { logOutUser, user, Handleonclick, editHDL } = React.useContext(
-    DataContext
-  ) as ContextActions;
-
-  // export default function editHDL(section: string) {
-  //   setHDL(section);
-  // }
+  const { logOutUser, user, Handleonclick, editHDL } =
+    React.useContext(DataContext) as ContextActions;
 
   const HandleLogOut = () => {
     logOutUser();
@@ -379,9 +374,6 @@ const UserDasboard = () => {
   };
 
   return (
-    //add here the DashNav and the topBar
-    //{map cases by the opcion selected}
-    //{map action by the request of the backend}
     <>
       <Dasboard>
         <DashboardContainer>
@@ -442,9 +434,8 @@ const UserDasboard = () => {
                         actionName[1].substring(0, 3);
                       return (
                         <>
-                          <ListNavItemSection>
+                          <ListNavItemSection key={sectionComponent}>
                             <StyledMenuItem
-                              key={sectionComponent}
                               onClick={() => {
                                 editHDL(`${sectionComponent}Form`);
                                 setHeaderRoute(`Formulario para ${action}`);
@@ -528,7 +519,6 @@ const UserDasboard = () => {
           <Panel>
             <TopBarContainer>
               <HeaderInformation>{headerRoute}</HeaderInformation>
-              {/* {headerRoute} */}
               <ContainerName>
                 <StyledButtonName
                   type="button"

@@ -97,13 +97,13 @@ const HomeSection = () => {
           </div>
         </ContainerHeader>
         <ContainerVertical>
-        <ContainerWidget>Widget 1</ContainerWidget>
+        <ContainerWidget>Widget 1()</ContainerWidget>
 
-        <ContainerWidget>Widget 2</ContainerWidget>
+        <ContainerWidget>Widget 2(Noticias)</ContainerWidget>
         </ContainerVertical>
         <ContainerWidget>
         <StyledContact>
-            <StyledP>Transacciones Recientes</StyledP>
+            <StyledP>Enlaces De Interés</StyledP>
           </StyledContact>
 
         </ContainerWidget>
