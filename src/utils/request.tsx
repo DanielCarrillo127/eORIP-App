@@ -46,7 +46,6 @@ export const createUser = async (
 };
 
 export const consultActions = async (userId: string) => {
-  console.log(localStorage.getItem('TOKEN'))
   try {
     const req = await axios.get(`${API}/actions?cedula=${userId}`, {headers:{
       'Authorization': `JWT ${localStorage.getItem('TOKEN')}`

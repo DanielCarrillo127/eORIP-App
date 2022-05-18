@@ -1,27 +1,15 @@
 import styled from "styled-components";
-import Card from '../../components/reusables/Card';
+import Card from "../../components/reusables/CardServices";
 import { GrCertificate } from "react-icons/gr";
-import { GrDocumentPpt } from "react-icons/gr";
+import { ContextActions, DataContext } from "../../utils/userContext";
+import React from "react";
 
-const StyledMenuIcon = styled.a`
-  background-color: transparent;
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
-  color: inherit;
-  text-decoration: inherit;
-`;
-
-const StyledDiv_22 = styled.div`
+const ServiceContainer = styled.div`
   box-sizing: inherit;
   border: 0px solid rgb(226, 232, 240);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-`;
-
-const StyledDiv_23 = styled.div`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
   margin-left: auto;
   margin-right: auto;
   max-width: 56rem;
@@ -31,26 +19,19 @@ const StyledDiv_23 = styled.div`
   padding-right: 3rem;
 `;
 
-const StyledDiv_24 = styled.div`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
-`;
+// const ContainerVertical = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+// `;
 
-const StyledDiv_25 = styled.div`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
+const ContainerHeader = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-between;
 `;
 
-const StyledDiv_26 = styled.div`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
-`;
-
 const StyledH2 = styled.h2`
-  box-sizing: inherit;
   margin: 0px;
   border: 0px solid rgb(226, 232, 240);
   font-size: inherit;
@@ -58,91 +39,80 @@ const StyledH2 = styled.h2`
   font-size: 1.125rem;
 `;
 
-const StyledDiv_27 = styled.div`
-  box-sizing: inherit;
+const StyledSubH2 = styled.div`
   border: 0px solid rgb(226, 232, 240);
   margin-top: 0.5rem;
   color: rgb(74, 85, 104);
   font-size: 0.875rem;
 `;
 
-const StyledDiv_28 = styled.div`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
-  margin-top: 1rem;
-`;
-
-const StyledDiv_29 = styled.div`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
+const ContainerWidget = styled.div`
   background-color: rgb(255, 255, 255);
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-between;
   padding-top: 1rem;
+  margin-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 `;
-
-const StyledDiv_30 = styled.div`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
+const ContainerService = styled.div`
   display: flex;
-  justify-content: space-between;
-  font-weight: 500;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-`;
-
-const StyledP = styled.p`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
-`;
-
-const StyledDiv_31 = styled.div`
-  box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
-  font-weight: 600;
-  margin-left: 0.75rem;
-  color: rgb(113, 128, 150);
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
 `;
 
 const Services = () => {
+  const { user , editHDL } = React.useContext(DataContext) as ContextActions;
+  
+  const HandleEditHDL = (section: string) =>{
+    console.log(section)
+    editHDL(section)
+  }
+
   return (
     <>
-      <StyledDiv_22>
-        <StyledDiv_23>
-          <StyledDiv_24>
-            <StyledDiv_25>
-              <StyledDiv_26>
-                <StyledH2>
-                  Panel de servicios
-                </StyledH2>
-                
-              </StyledDiv_26>
+      <ServiceContainer>
+        <ContainerHeader>
+          <div>
+            <StyledH2>Panel de Servicios</StyledH2>
+            <StyledSubH2>
+              Aqui se encuentran listadas todas acciones-servicios que puedes
+              consumir como usuario en la oficina de instrumentos publicos.
+            </StyledSubH2>
+          </div>
+        </ContainerHeader>
 
-              {/**/}
-            </StyledDiv_25>
-
-            <StyledDiv_28>
-              <StyledDiv_29>
-                <Card title="Certificados de tradición y libertad" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue." icon={<GrCertificate size={30}/>} />
-                {/* <Card title="PQRSD" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue." icon={<GrDocumentPpt size={30}/>} /> */}
-              </StyledDiv_29>
-            </StyledDiv_28>
-            
-
-          </StyledDiv_24>
-        </StyledDiv_23>
-      </StyledDiv_22>
+        <ContainerWidget>
+          <ContainerService>
+            {user?.actions.map((action) => {
+              if (action === "Editar información") {
+                return <></>;
+              } else {
+                const actionName = action.split(" ");
+                const sectionComponent =
+                  actionName[0].substring(0, 3) +
+                  "-" +
+                  actionName[1].substring(0, 3) + "Form";
+                return <>
+                <Card key={sectionComponent} title={action} icon={<GrCertificate size={30}/>} onclick={() => HandleEditHDL(sectionComponent)}/>
+                </>;
+              }
+            })}
+          </ContainerService>
+        </ContainerWidget>
+      </ServiceContainer>
     </>
   );
 };
 
 export default Services;
+
+{
+  /* <Card title="Certificados de tradición y libertad" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue." icon={<GrCertificate size={30}/>} />
+   */
+}

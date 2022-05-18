@@ -16,7 +16,7 @@ const ButtonBlue = styled.button`
     line-height: 22px;
     cursor: pointer;
     &:hover {
-        background-position: right center;
+      transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
         color: #fff;
         text-decoration: none;
       }

@@ -7,6 +7,7 @@ import Services from "./dashViews/Services";
 import Profile from "./dashViews/Profile";
 import History from "./dashViews/History";
 import ConsultForm from "../components/forms/ConsultForm";
+import CreatePQRForm from "../components/forms/CreatePQRForm";
 import logo from "../assets/svgs/logo.svg";
 
 import {
@@ -48,7 +49,29 @@ const StyledMenuItem = styled.a`
   border: 0px solid rgb(226, 232, 240);
   color: inherit;
   text-decoration: inherit;
+  cursor: pointer;
+  &:hover {
+    color: #4d8ae5;
+  }
 `;
+const ListNavItemLogOut = styled.a`
+  background-color: transparent;
+  box-sizing: inherit;
+  border: 0px solid rgb(226, 232, 240);
+  color: inherit;
+  text-decoration: inherit;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 15px;
+  &:hover {
+    color: #4d8ae5;
+  }
+  &:active {
+    color: #4d8ae5;
+  }
+`;
+
 const HomeSection = styled.div`
   box-sizing: inherit;
   border: 0px solid rgb(226, 232, 240);
@@ -133,6 +156,12 @@ const StyledSvg = styled.svg`
   color: rgb(113, 128, 150);
   margin: 0 5px -3px 0;
   width: 1.5rem;
+  &:hover {
+    color: #4d8ae5;
+  }
+  &:active {
+    color: #4d8ae5;
+  }
 `;
 const StyledButtonName = styled.button`
   font-family: inherit;
@@ -184,6 +213,72 @@ const LogoName = styled.div`
   padding-top: 20px;
   padding-left: 10px;
 `;
+const HeaderInformation = styled.div`
+  box-sizing: inherit;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  position: absolute;
+  top: 35%;
+  margin-left: 0.75rem;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 22px;
+  color: #4d8ae5;
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  flex-direction: columnn;
+  justify-content: center;
+  align-items: center;
+  padding: 14px;
+  width: 12px;
+  height: 12px;
+  background: #d4d5d6;
+  border-radius: 40px;
+  margin: 0 10px 0 0;
+`;
+const StyledContact = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+`;
+const StyledP = styled.p``;
+
+const StyledContactCel = styled.div`
+  font-weight: 600;
+  margin-left: 0.75rem;
+  color: rgb(113, 128, 150);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+  }
+`;
+const StyledMenuIcon = styled.a`
+  background-color: transparent;
+  border: 0px solid rgb(226, 232, 240);
+  color: inherit;
+  text-decoration: inherit;
+  padding-left: 18px;
+`;
+
+const ContainerFooter = styled.div`
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+`;
 
 type HeaderProps = {
   children: React.ReactElement[] | JSX.Element[];
@@ -196,10 +291,13 @@ const Panel: React.FC<any> = (props: HeaderProps) => {
 const UserDasboard = () => {
   // const sampleLocation = useLocation();
   const navigate = useNavigate();
-  const [Handleonclick, setHDL] = useState("");
-  const { logOutUser, user } = React.useContext(DataContext) as ContextActions;
 
-  // const editHDL = (section: string) =>{
+  const [headerRoute, setHeaderRoute] = useState("Inicio");
+  const { logOutUser, user, Handleonclick, editHDL } = React.useContext(
+    DataContext
+  ) as ContextActions;
+
+  // export default function editHDL(section: string) {
   //   setHDL(section);
   // }
 
@@ -265,7 +363,7 @@ const UserDasboard = () => {
       case "Cre-PQRForm":
         return (
           <>
-            <Home />
+            <CreatePQRForm />
           </>
         );
 
@@ -289,17 +387,22 @@ const UserDasboard = () => {
         <DashboardContainer>
           <SideBarContainer>
             <StyledMenuItem href="#">
-            <ContainerNameLogo>
-              {/* <Link onClick={() => scroll.scrollToTop()}>
+              <ContainerNameLogo>
+                {/* <Link onClick={() => scroll.scrollToTop()}>
                     </Link> */}
-              <Img src={logo} />
-              <LogoName>
-                eORIP <br /> Online Panel
-              </LogoName>
-            </ContainerNameLogo>
+                <Img src={logo} />
+                <LogoName>
+                  eORIP <br /> Online Panel
+                </LogoName>
+              </ContainerNameLogo>
             </StyledMenuItem>
             <HomeSection>
-              <StyledMenuItem onClick={() => setHDL("home")}>
+              <StyledMenuItem
+                onClick={() => {
+                  editHDL("home");
+                  setHeaderRoute("Inicio");
+                }}
+              >
                 <StyledSvg>
                   <VscHome size={25} />
                 </StyledSvg>
@@ -311,7 +414,12 @@ const UserDasboard = () => {
 
               <ListItems>
                 <ListNavItem>
-                  <StyledMenuItem onClick={() => setHDL("services")}>
+                  <StyledMenuItem
+                    onClick={() => {
+                      editHDL("services");
+                      setHeaderRoute("Panel de Servicios");
+                    }}
+                  >
                     <StyledSvg>
                       <VscBriefcase size={24} />
                     </StyledSvg>
@@ -325,8 +433,7 @@ const UserDasboard = () => {
                       action === "Editar información" ||
                       action === "Hacer administradores a otros usuarios"
                     ) {
-                      return(<>
-                      </>)
+                      return <></>;
                     } else {
                       const actionName = action.split(" ");
                       const sectionComponent =
@@ -337,7 +444,11 @@ const UserDasboard = () => {
                         <>
                           <ListNavItemSection>
                             <StyledMenuItem
-                              onClick={() => setHDL(`${sectionComponent}Form`)}
+                              key={sectionComponent}
+                              onClick={() => {
+                                editHDL(`${sectionComponent}Form`);
+                                setHeaderRoute(`Formulario para ${action}`);
+                              }}
                             >
                               <StyledSvg>
                                 <VscDebugBreakpointLogUnverified size={25} />
@@ -355,7 +466,14 @@ const UserDasboard = () => {
                 ) ? (
                   <>
                     <ListNavItem>
-                      <StyledMenuItem onClick={() => setHDL("adminForm")}>
+                      <StyledMenuItem
+                        onClick={() => {
+                          editHDL("adminForm");
+                          setHeaderRoute(
+                            "Formulario de Solicitud Nuevos Adminintradores"
+                          );
+                        }}
+                      >
                         <StyledSvg>
                           <VscPersonAdd size={25} />
                         </StyledSvg>
@@ -368,7 +486,12 @@ const UserDasboard = () => {
                 )}
 
                 <ListNavItem>
-                  <StyledMenuItem onClick={() => setHDL("history")}>
+                  <StyledMenuItem
+                    onClick={() => {
+                      editHDL("history");
+                      setHeaderRoute("Historial de Transacciones");
+                    }}
+                  >
                     <StyledSvg>
                       <VscRepo size={22} />
                     </StyledSvg>
@@ -377,35 +500,55 @@ const UserDasboard = () => {
                 </ListNavItem>
 
                 <ListNavItem>
-                  <StyledMenuItem onClick={() => setHDL("profile")}>
+                  <StyledMenuItem
+                    onClick={() => {
+                      editHDL("profile");
+                      setHeaderRoute("Perfil de Usuario");
+                    }}
+                  >
                     <StyledSvg>
                       <VscPerson size={27} />
                     </StyledSvg>
                     Usuario
                   </StyledMenuItem>
                 </ListNavItem>
-                
-                  <ListNavItem>
-                    <StyledMenuItem onClick={() => HandleLogOut()}>
-                      <StyledSvg>
-                        <VscSignOut size={25} />
-                      </StyledSvg>
-                      Cerrar Sesión
-                    </StyledMenuItem>
-                  </ListNavItem>
-              
+
+                <ListNavItemLogOut>
+                  <StyledMenuItem onClick={() => HandleLogOut()}>
+                    <StyledSvg>
+                      <VscSignOut size={25} />
+                    </StyledSvg>
+                    Cerrar Sesión
+                  </StyledMenuItem>
+                </ListNavItemLogOut>
               </ListItems>
             </MenuContainer>
           </SideBarContainer>
 
           <Panel>
             <TopBarContainer>
-              ffee
+              <HeaderInformation>{headerRoute}</HeaderInformation>
+              {/* {headerRoute} */}
               <ContainerName>
-                {/* add action to display profile page */}
-                <StyledButtonName type="button">
+                <StyledButtonName
+                  type="button"
+                  onClick={() => {
+                    editHDL("profile");
+                    setHeaderRoute("Perfil de Usuario");
+                  }}
+                >
                   <StyledSpan>
                     {/* add circle with initial letter names */}
+                    <IconContainer>
+                      {user?.name
+                        ? `${user?.name
+                            .substring(0, 1)
+                            .toUpperCase()}${user?.surnames
+                            .substring(0, 1)
+                            .toUpperCase()}`
+                        : "JD"}
+                      {/* {user?.name.substring(0,1) + " " + user?.surnames.substring(0,1)} */}
+                    </IconContainer>
                     {user?.name + " " + user?.surnames}
                   </StyledSpan>
                 </StyledButtonName>
@@ -413,6 +556,16 @@ const UserDasboard = () => {
             </TopBarContainer>
 
             <Ifclause />
+            <ContainerFooter>
+              <StyledContact>
+                <StyledP>© 2022, copyright all rights reserved by JFD </StyledP>
+              </StyledContact>
+              <StyledContactCel>
+                <StyledMenuIcon href="#">About office </StyledMenuIcon>
+
+                <StyledMenuIcon href="#">License</StyledMenuIcon>
+              </StyledContactCel>
+            </ContainerFooter>
           </Panel>
         </DashboardContainer>
       </Dasboard>
