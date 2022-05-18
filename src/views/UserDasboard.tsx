@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ContextActions, DataContext } from "../utils/userContext";
@@ -268,7 +268,6 @@ const StyledMenuIcon = styled.a`
   text-decoration: inherit;
   padding-left: 18px;
 `;
-
 const ContainerFooter = styled.div`
   background-color: transparent;
   display: flex;
@@ -293,8 +292,12 @@ const UserDasboard = () => {
   const navigate = useNavigate();
 
   const [headerRoute, setHeaderRoute] = useState("Inicio");
-  const { logOutUser, user, Handleonclick, editHDL } =
+  const { logOutUser, user, Handleonclick, editHDL, handelSession } =
     React.useContext(DataContext) as ContextActions;
+
+    useEffect(() => {
+      handelSession()
+     },[]);
 
   const HandleLogOut = () => {
     logOutUser();
@@ -420,7 +423,7 @@ const UserDasboard = () => {
                 </ListNavItem>
 
                 <ListItems>
-                  {user?.actions.map((action) => {
+                 {user?.actions?.map((action) => {
                     if (
                       action === "Editar información" ||
                       action === "Hacer administradores a otros usuarios"
@@ -452,7 +455,7 @@ const UserDasboard = () => {
                     }
                   })}
                 </ListItems>
-                {user?.actions.includes(
+                {user?.actions?.includes(
                   "Hacer administradores a otros usuarios"
                 ) ? (
                   <>

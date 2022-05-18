@@ -22,15 +22,17 @@ export type ContextActions = {
   logOutUser: () => void;
   Handleonclick: string;
   editHDL: (section: string) => void;
+  handelSession: () => void;
 };
 
 export const DataContext = React.createContext<ContextActions | null>(null);
 
 export const UserContext: FC<PropType> = ({ children }) => {
+
   const [user, setUser] = useState<UserContextInterface | null>(null);
   const [Handleonclick, setHDL] = useState("");
 
-  useEffect(() => {
+  const handelSession = () => {
     const jsonSessionStorage = window.sessionStorage.getItem("USER")
     if (jsonSessionStorage !== "null" && jsonSessionStorage !== undefined) {
       const userData = JSON.parse(jsonSessionStorage || '{}');
@@ -44,24 +46,17 @@ export const UserContext: FC<PropType> = ({ children }) => {
         actions: userData.actions,
       });
     }
-    
-  },[]);
+  };
+
+  const updateUser = (id: number) => {};
+
 
 
   const saveUser = async (token: string, userinfo: any) => {
     window.localStorage.setItem("TOKEN", token);
 
     const req = await consultActions(userinfo.cedula);
-    const jsonUser = await InterFaceToJSON({
-      name: userinfo.name,
-      username: userinfo.username,
-      surnames: userinfo.surnames,
-      cedula: userinfo.cedula,
-      email: userinfo.email,
-      role: userinfo.role,
-      actions: req.data.actions,
-    });
-     setUser({
+    const jsonUser = InterFaceToJSON({
       name: userinfo.name,
       username: userinfo.username,
       surnames: userinfo.surnames,
@@ -71,9 +66,19 @@ export const UserContext: FC<PropType> = ({ children }) => {
       actions: req.data.actions,
     });
     window.sessionStorage.setItem(
-        "USER",
-        JSON.stringify(jsonUser)
-      );
+      "USER",
+      JSON.stringify(jsonUser)
+    );
+     setUser({
+      name: userinfo.name,
+      username: userinfo.username,
+      surnames: userinfo.surnames,
+      cedula: userinfo.cedula,
+      email: userinfo.email,
+      role: userinfo.role,
+      actions: req.data.actions,
+    });
+
     
   };
 
@@ -95,7 +100,6 @@ export const UserContext: FC<PropType> = ({ children }) => {
     
   };
 
-  const updateUser = (id: number) => {};
 
   const editHDL = (section: string) => {
     setHDL(section)
@@ -110,7 +114,7 @@ export const UserContext: FC<PropType> = ({ children }) => {
   // localStorage.clear();
 
   return (
-    <DataContext.Provider value={{ user, Handleonclick,updateUser, saveUser, logOutUser,editHDL }}>
+    <DataContext.Provider value={{ user, Handleonclick,updateUser, saveUser, logOutUser,editHDL,handelSession }}>
       {children}
     </DataContext.Provider>
   );
