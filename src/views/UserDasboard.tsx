@@ -316,10 +316,9 @@ const UserDasboard = () => {
     React.useContext(DataContext) as ContextActions;
 
     useEffect(() => {
-      handelSession()
-      // var anchoVentana = window.innerWidth;
-      // console.log(anchoVentana);
+      handelSession();
      },[]);
+     
 
   const HandleLogOut = () => {
     logOutUser();

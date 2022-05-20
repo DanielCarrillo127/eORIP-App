@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { VscFilePdf } from "react-icons/vsc";
 
+
 const FromContainer = styled.div`
   box-sizing: inherit;
   border: 0px solid rgb(226, 232, 240);
@@ -22,18 +23,17 @@ const FromContainer = styled.div`
     min-width: 0rem;
     padding-left: 0.3rem;
     padding-right: 0.3rem;
-    
   }
   @media (max-width: 900px) {
     min-width: 0rem;
     padding-left: 0.3rem;
-    padding-right: 0.3rem; 
+    padding-right: 0.3rem;
   }
   @media (max-width: 557px) {
     width: 70%;
     min-width: 0rem;
     margin-left: 1rem;
-    margin-right: 1rem; 
+    margin-right: 1rem;
   }
 `;
 
@@ -120,7 +120,6 @@ const TableContainer = styled.div`
   @media (max-width: 507px) {
     width: 100%;
   }
-
 `;
 
 const Table = styled.table`
@@ -230,6 +229,25 @@ const TableItem = styled.tr`
     &:nth-child(even) {
       background: transparent;
     }
+  }
+`;
+
+const PdfContainer = styled.div`
+  width: "100%";
+  height: "100%";
+  padding-top: 1rem;
+  box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
+  @media (max-width: 1200px) {
+    display: none;
+  }
+`;
+const DownloadATag = styled.a`
+font-size: 0.875rem;
+float: left;
+padding: 15px 0 0 0;
+  display: none;
+  @media (max-width: 1200px) {
+    display: contents;
   }
 `;
 
@@ -347,6 +365,22 @@ const ConsultForm = () => {
               </TBody>
             </Table>
           </TableContainer>
+
+          <PdfContainer>
+            <object
+              data={require("../../assets/salida.pdf")}
+              type="application/pdf"
+              width={800}
+              height={800}
+            ></object>
+          </PdfContainer>
+          <DownloadATag
+            href={require("../../assets/salida.pdf")}
+            download="archivo.pdf"
+          >
+            Tu dispositivo no puede visualizar los documentos, Click aqui para
+            descargar.
+          </DownloadATag>
         </ContainerWidget>
       </FromContainer>
     </>

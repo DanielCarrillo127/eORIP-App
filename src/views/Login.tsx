@@ -124,7 +124,7 @@ const Title = styled.h1`
 `;
 
 const ValidateMessage = styled.p`
-  margin: 0px 0px 10px 10px;
+  margin: 0px 0px 15px 10px;
   font-size: 12px;
   float: left;
 `;
@@ -162,10 +162,10 @@ const Login = () => {
       })
     ) {
       setpasswordValidation(true);
-      setValidateP("La Contraseña es Segura.");
+      setValidateP("La Contraseña es Segura. ✅");
     } else {
       setpasswordValidation(false);
-      setValidateP("La Contraseña es Insegura y Debil.");
+      setValidateP("🚫 Debe contener al menos 8 Caracteres [a-A],Por lo menos 1 Numero [0-9] y un Carácter especial.");
     }
   };
 
@@ -269,6 +269,7 @@ const Login = () => {
     }
   };
 
+
   return (
     <LoginPage>
       <LoginForm>
@@ -299,6 +300,8 @@ const Login = () => {
                 type="password"
                 placeholder="Contraseña"
                 required
+                id="password"
+                title="Username should only contain lowercase letters. e.g. john"
                 onChange={handleChangePassword}
                 style={{ borderColor: passwordValidation ? 'forestgreen' : 'red'}}
               />
