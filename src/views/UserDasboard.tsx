@@ -42,6 +42,9 @@ const SideBarContainer = styled.div`
   background-color: rgb(26, 32, 44);
   flex-shrink: 0;
   width: 16rem;
+  @media (max-width: 768px) {
+    width: 5rem;
+  }
 `;
 const StyledMenuItem = styled.a`
   background-color: transparent;
@@ -52,6 +55,9 @@ const StyledMenuItem = styled.a`
   cursor: pointer;
   &:hover {
     color: #4d8ae5;
+  }
+  @media (max-width: 768px) {
+    font-size: 0;
   }
 `;
 const ListNavItemLogOut = styled.a`
@@ -101,7 +107,10 @@ const StyledH4 = styled.h4`
   color: rgb(113, 128, 150);
   font-size: 0.875rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.2em; 
+  @media (max-width: 768px) {
+    font-size: 0;
+  }
 `;
 const ListItems = styled.ul`
   box-sizing: inherit;
@@ -122,6 +131,9 @@ const ListNavItemSection = styled.li`
   border: 0px solid rgb(226, 232, 240);
   margin-top: 0.75rem;
   margin-left: 0.95rem;
+  @media (max-width: 768px) {
+    display:none;
+  }
 `;
 const PanelContainer = styled.div`
   box-sizing: inherit;
@@ -162,6 +174,7 @@ const StyledSvg = styled.svg`
   &:active {
     color: #4d8ae5;
   }
+
 `;
 const StyledButtonName = styled.button`
   font-family: inherit;
@@ -197,6 +210,10 @@ const Img = styled.img`
   padding-top: 5px;
   width: 55px;
   height: 51px;
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 31px;
+  }
 `;
 const ContainerNameLogo = styled.div`
   font-style: normal;
@@ -212,6 +229,9 @@ const ContainerNameLogo = styled.div`
 const LogoName = styled.div`
   padding-top: 20px;
   padding-left: 10px;
+  @media (max-width: 768px) {
+    display:none;
+  }
 `;
 const HeaderInformation = styled.div`
   box-sizing: inherit;
@@ -297,6 +317,8 @@ const UserDasboard = () => {
 
     useEffect(() => {
       handelSession()
+      // var anchoVentana = window.innerWidth;
+      // console.log(anchoVentana);
      },[]);
 
   const HandleLogOut = () => {

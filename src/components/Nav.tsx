@@ -15,7 +15,6 @@ export const NavBar = styled.nav`
   z-index: 10;
   justify-content: flex-start;
 `;
-
 export const NavLink = styled(Link)`
   color: rgba(81, 81, 81, 0.7);
   display: flex;
@@ -39,7 +38,6 @@ export const NavLinkBtn = styled.div`
     color: #15cdfc;
   }
 `;
-
 export const NavLinkLogo = styled(Link)`
   color: #4d8ae5;
   display: flex;
@@ -52,7 +50,6 @@ export const NavLinkLogo = styled(Link)`
     color: #15cdfc;
   }
 `;
-
 export const Bars = styled(FaAlignJustify)`
   display: none;
   color: #fff;
@@ -66,11 +63,12 @@ export const Bars = styled(FaAlignJustify)`
     cursor: pointer;
   }
 `;
-
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
   margin-right: -24px;
+  width: 100vw;
+   white-space: nowrap;
   @media screen and (max-width: 768px) {
     display: none;
   }

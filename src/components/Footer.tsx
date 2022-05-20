@@ -102,7 +102,7 @@ const MediaContainer = styled.div`
   flex-direction: row;
   float: left;
 `;
-const MediaIcon = styled.div`
+const MediaIcon = styled.a`
   padding: 10px;
   width: 20px;
   height: 20px;
@@ -111,6 +111,7 @@ const MediaIcon = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
+  cursor: pointer;
   flex-direction: columnn;
   margin: 20px 0 20px 10px;
 `;
@@ -142,21 +143,19 @@ const Footer = () => {
               </LogoName>
             </ContainerName>
             <TextLeft>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              scelerisque tellus cursus egestas velit convallis mattis venenatis
-              nibh. Aliquam.
+            El Supernotariado es una entidad pública, reconocida como una unidad administrativa especial con personería jurídica y patrimonio autónomo, adscrita al Ministerio de Justicia.
             </TextLeft>
             <MediaContainer>
-              <MediaIcon>
+              <MediaIcon target="_blank" href="https://www.facebook.com/superintendenciadenotariadoyregistrodecolombia/?ref=stream">
                 <BsFacebook size={23} color="#515151" />
               </MediaIcon>
-              <MediaIcon>
+              <MediaIcon target="_blank" href="https://www.instagram.com/supernotariado/">
                 <BsInstagram size={23} color="#515151" />
               </MediaIcon>
-              <MediaIcon>
+              <MediaIcon target="_blank" href="https://twitter.com/Supernotariado"> 
                 <BsTwitter size={23} color="#515151" />
               </MediaIcon>
-              <MediaIcon>
+              <MediaIcon target="_blank" href="https://www.linkedin.com/company/superintendencia-de-notariado-y-registro/">
                 <BsLinkedin size={23} color="#515151" />
               </MediaIcon>
             </MediaContainer>

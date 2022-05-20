@@ -13,7 +13,7 @@ const Header = styled.header`
     overflow: hidden;
 `;
 const Container = styled.div`
-  width: 1200px;
+width: 1200px;
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
@@ -77,6 +77,7 @@ const Img = styled.img`
         width: 290px;
         height: 360px; 
       }
+      overflow:hidden;
 `;
 const Headerstars = styled.img`
 
@@ -86,7 +87,6 @@ const Headerstars = styled.img`
     left:90%;
     top:33%;
     max-width: 10%;
-    overflow: hidden;
     // @media (max-width: 1190px) {
     //     display: none; 
     //   }
@@ -141,7 +141,7 @@ const Banner = () => {
                     <HeaderContent>
                         <div>
                             <HeaderTitle>Confianza, Transparecia</HeaderTitle>
-                            <HeaderSubtitle>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus diam ultrices.</HeaderSubtitle>      
+                            <HeaderSubtitle>Modelo de oficina de instrumentos publicos, Tranpararencia para todos.</HeaderSubtitle>      
                             <Button name='Vamos' path='/login'></Button>
                         </div>
                     </HeaderContent>

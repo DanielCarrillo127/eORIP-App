@@ -49,10 +49,11 @@ const Row = styled.div`
     justify-content: center;
 `;
 
-const MediaContainer = styled.div`
+const MediaContainer = styled.a`
     flex-direction: row; 
     display: flex;
     padding: 0.5em;
+    text-decoration: none;
     
 `;
 const MediaName= styled.p`
@@ -76,6 +77,8 @@ const MediaIcon= styled.div`
     justify-content: center;
     display: flex;
     flex-direction: columnn;
+    cursor:pointer;
+
 `;
 
 const SocialMedia = () => {
@@ -85,36 +88,37 @@ const SocialMedia = () => {
             <div>
                 <Common>
                     <MainHeader>Redes Sociales</MainHeader>
-                    <MainContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue.</MainContent>
+                    <MainContent>Para más información, contáctate  con nosotros por nuestros canales informales.
+</MainContent>
                     <CommonBorder></CommonBorder>
                 </Common>
             </div>
             <Row>
-                <MediaContainer>
+                <MediaContainer target="_blank" href='https://www.facebook.com/superintendenciadenotariadoyregistrodecolombia/?ref=stream'>
                     <MediaIcon>
                     <BsFacebook color='#FFF' size={34}/>
                     </MediaIcon>
                     <MediaName>Superintendencia de notariado y registro de colombia</MediaName>
                 </MediaContainer>
-                <MediaContainer>
+                <MediaContainer target="_blank" href='https://twitter.com/Supernotariado'>
                     <MediaIcon>
                     <BsTwitter color='#FFF' size={34}/>
                     </MediaIcon>
                     <MediaName>@supernotariado</MediaName>
                 </MediaContainer>
-                <MediaContainer>
+                <MediaContainer target="_blank" href='https://www.instagram.com/supernotariado/'>
                     <MediaIcon>
                     <BsInstagram color='#FFF' size={34}/>
                     </MediaIcon>
                     <MediaName>@supernotariado</MediaName>
                 </MediaContainer>
-                <MediaContainer>
+                <MediaContainer target="_blank" href='https://www.youtube.com/user/Supernotariado'>
                     <MediaIcon>
                     <BsYoutube color='#FFF' size={34}/>
                     </MediaIcon>
                     <MediaName>Superintendencia de notariado y registro de colombia</MediaName>
                 </MediaContainer>
-                <MediaContainer>
+                <MediaContainer target="_blank" href='https://www.linkedin.com/company/superintendencia-de-notariado-y-registro/'>
                     <MediaIcon>
                     <BsLinkedin color='#FFF' size={34}/>
                     </MediaIcon>

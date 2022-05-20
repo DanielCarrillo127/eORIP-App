@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import SNR from "../assets/svgs/snr.svg";
-import Button from "./reusables/Button";
 
 const InformationC = styled.div`
   background: #fff;
@@ -70,6 +69,32 @@ const TextSeparator = styled.div`
     padding-top: 30px;
 `;
 
+const Button = styled.button`
+  background: linear-gradient(
+    305.36deg,
+    #226fe1 10.86%,
+    rgba(34, 111, 225, 0.4) 93.49%
+  );
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  height: 42px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 12px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  &:hover {
+    transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
+    color: #fff;
+    text-decoration: none;
+  }
+`;
+
 const Information = () => {
   return (
     <InformationC id="information">
@@ -118,7 +143,10 @@ const Information = () => {
             <Strong>Recibo de correspondencia horario de Atención: </Strong>
             <Text>08:00 a.m. a 05:00 p.m.</Text>
             <TextSeparator/>
-            <Button name='Contactar'></Button>
+            <a style={{textDecoration:'none',float:'left'}} href='https://www.supernotariado.gov.co/atencion-servicios-ciudadania/canales-de-atencion-y-pida-una-cita/'>
+            <Button>Contactar</Button>
+            </a>
+           
           </Col6>
         </Row>
       </Container>

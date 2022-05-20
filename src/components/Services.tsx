@@ -62,13 +62,13 @@ const Services = () => {
             <div>
                 <Common>
                     <MainHeader>Nuestros Servicios</MainHeader>
-                    <MainContent>La eORIP cuenta con varios servicios entre los cuales destacan los que se listan a co ntinuación.</MainContent>
+                    <MainContent>La eORIP cuenta con varios servicios entre los cuales destacan los que se listan acontinuación.</MainContent>
                     <CommonBorder></CommonBorder>
                 </Common>
             </div>
             <Row>
-                <Card title="Certificados de tradición y libertad" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue." icon={<GrCertificate size={30}/>} />
-                <Card title="PQRSD" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue." icon={<GrDocumentPpt size={30}/>} />
+                <Card title="Certificados de tradición y libertad" content="Adquiere el historial de un predio y realiza trámites relacionados con el inmueble." icon={<GrCertificate size={30}/>} />
+                <Card title="PQRSD" content="Aquí puedes presentar una Petición, Queja, Reclamo, Sugerencia ó Denuncia." icon={<GrDocumentPpt size={30}/>} />
             </Row>
         </Container>
     </ServicesC>
