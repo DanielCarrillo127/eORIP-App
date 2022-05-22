@@ -42,6 +42,9 @@ const StyledInput = styled.input`
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+  &:focus{
+    box-shadow: #4d8ae5 0px 2px 0px;
+  }
 `;
 const StyledInputPassword = styled.input`
   outline: 0px;

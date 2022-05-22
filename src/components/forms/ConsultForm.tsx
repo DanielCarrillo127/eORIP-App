@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import { VscFilePdf } from "react-icons/vsc";
 
-
 const FromContainer = styled.div`
   box-sizing: inherit;
   border: 0px solid rgb(226, 232, 240);
@@ -19,21 +18,10 @@ const FromContainer = styled.div`
   padding-bottom: 2rem;
   padding-left: 3rem;
   padding-right: 3rem;
-  @media (max-width: 768px) {
+  @media (max-width: 908px) {
     min-width: 0rem;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-  }
-  @media (max-width: 900px) {
-    min-width: 0rem;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-  }
-  @media (max-width: 557px) {
-    width: 70%;
-    min-width: 0rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
   }
 `;
 
@@ -79,6 +67,9 @@ const StyledInput = styled.input`
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+  &:focus{
+    box-shadow: #4d8ae5 0px 2px 0px;
+  }
 `;
 
 const Button = styled.button`
@@ -108,133 +99,93 @@ const Button = styled.button`
 `;
 
 const TableContainer = styled.div`
-  box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
-  @media (max-width: 767px) {
-    &:before {
-      content: "Scroll horizontally >";
-      text-align: right;
-      font-size: 12px;
-      padding: 5px 10px 5px;
-    }
-  }
-  @media (max-width: 507px) {
-    width: 100%;
+  @media (max-width: 600px) {
+    width: auto;
+    height: 500px;
+    overflow-y: scroll;
   }
 `;
 
 const Table = styled.table`
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: normal;
-  border: none;
+  border: 1px solid #ccc;
   border-collapse: collapse;
+  margin: 0;
+  padding: 0;
   width: 100%;
-  max-width: 100%;
-  white-space: nowrap;
-  background-color: white;
-  @media (max-width: 767px) {
-    display: block;
-    width: 100%;
-  }
-`;
-
-const TableHead = styled.th`
-  text-align: center;
-  padding: 8px;
-  color: #000;
-  background: #5992e5;
-
-  &:nth-child(odd) {
-    color: #000;
-    background: #ccdce6;
-  }
-  @media (max-width: 767px) {
-    display: block;
-    &:last-child {
-      border-bottom: none;
-    }
-    padding: 20px 0.625em 0.625em 0.625em;
-    height: 60px;
-    vertical-align: middle;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    width: 120px;
-    font-size: 13px;
-    text-overflow: ellipsis;
-    text-align: left;
-    border-bottom: 1px solid #f7f7f9;
+  table-layout: fixed;
+  @media (max-width: 600) {
+    border: 0;
   }
 `;
 
 const THead = styled.thead`
-  color: #ffffff;
-  background: #5992e5;
-
-  &:nth-child(odd) {
-    color: #ffffff;
-    background: #ccdce6;
-  }
-  @media (max-width: 767px) {
-    display: block;
-    float: left;
+  @media (max-width: 600px) {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
   }
 `;
+
 const TBody = styled.tbody`
-  @media (max-width: 767px) {
-    display: block;
-    width: auto;
-    position: relative;
-    overflow-x: auto;
+  @media (max-width: 600) {
+  }
+`;
+
+const TableHead = styled.th`
+  padding: 0.625em;
+  text-align: center;
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  text-transform: uppercase;
+  background-color: #4D8AE5;
+  @media (max-width: 800px) {
+    font-size: 0.60em;
   }
 `;
 
 const TableItemRow = styled.td`
+  padding: 0.625em;
   text-align: center;
-  padding: 8px;
-  border-right: 1px solid #f8f8f8;
-  font-size: 12px;
-  @media (max-width: 767px) {
-    padding: 20px 0.625em 0.625em 0.625em;
-    height: 60px;
-    vertical-align: middle;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    width: 120px;
-    font-size: 13px;
-    text-overflow: ellipsis;
-
-    &:nth-child(odd) {
-      background: #f8f8f8;
-      border-right: 1px solid #e6e4e4;
-    }
-    &:nth-child(even) {
-      border-right: 1px solid #e6e4e4;
-    }
+  @media (max-width: 600px) {
+    border-bottom: 1px solid #ddd;
     display: block;
-    text-align: center;
+    font-size: 0.8em;
+    text-align: right;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    &:before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 `;
 
 const TableItem = styled.tr`
-  &:nth-child(even) {
-    background: #f8f8f8;
-  }
-  @media (max-width: 767px) {
-    display: table-cell;
-    &:nth-child(odd) {
-      background: none;
-    }
-    &:nth-child(even) {
-      background: transparent;
-    }
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 0.35em;
+  @media (max-width: 600px) {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
   }
 `;
 
 const PdfContainer = styled.div`
-  width: "100%";
-  height: "100%";
+  width: 100%;
+  height: 100%;
   padding-top: 1rem;
   box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
   @media (max-width: 1200px) {
@@ -242,9 +193,9 @@ const PdfContainer = styled.div`
   }
 `;
 const DownloadATag = styled.a`
-font-size: 0.875rem;
-float: left;
-padding: 15px 0 0 0;
+  font-size: 0.875rem;
+  float: left;
+  padding: 15px 0 0 0;
   display: none;
   @media (max-width: 1200px) {
     display: contents;
@@ -304,61 +255,73 @@ const ConsultForm = () => {
             <Table>
               <THead>
                 <TableItem>
-                  <TableHead>Column 1</TableHead>
-                  <TableHead>Column 2</TableHead>
-                  <TableHead>Column 3</TableHead>
-                  <TableHead>Column 4</TableHead>
-                  <TableHead>Column 5</TableHead>
-                  <TableHead>Column 6</TableHead>
+                  <TableHead scope="col">Column 1</TableHead>
+                  <TableHead scope="col">Column 2</TableHead>
+                  <TableHead scope="col">Column 3</TableHead>
+                  <TableHead scope="col">Column 4</TableHead>
+                  <TableHead scope="col">Column 5</TableHead>
+                  <TableHead scope="col">Column 6</TableHead>
                 </TableItem>
               </THead>
 
               <TBody>
                 <TableItem>
-                  <TableItemRow onClick={() => console.log("click")}>
+                  <TableItemRow
+                    data-label="Column 1"
+                    onClick={() => console.log("click")}
+                  >
                     data1
                   </TableItemRow>
-                  <TableItemRow>data2</TableItemRow>
-                  <TableItemRow>data3</TableItemRow>
-                  <TableItemRow>data4</TableItemRow>
-                  <TableItemRow>data5</TableItemRow>
-                  <TableItemRow>
+                  <TableItemRow data-label="Column 2">data2</TableItemRow>
+                  <TableItemRow data-label="Column 3">data3</TableItemRow>
+                  <TableItemRow data-label="Column 4">data4</TableItemRow>
+                  <TableItemRow data-label="Column 5">data5</TableItemRow>
+                  <TableItemRow data-label="Column 6">
                     <VscFilePdf size={22} />
                   </TableItemRow>
                 </TableItem>
                 <TableItem>
-                  <TableItemRow onClick={() => console.log("click")}>
+                  <TableItemRow
+                    data-label="Column 1"
+                    onClick={() => console.log("click")}
+                  >
                     data1
                   </TableItemRow>
-                  <TableItemRow>data2</TableItemRow>
-                  <TableItemRow>data3</TableItemRow>
-                  <TableItemRow>data4</TableItemRow>
-                  <TableItemRow>data5</TableItemRow>
-                  <TableItemRow>
+                  <TableItemRow data-label="Column 2">data2</TableItemRow>
+                  <TableItemRow data-label="Column 3">data3</TableItemRow>
+                  <TableItemRow data-label="Column 4">data4</TableItemRow>
+                  <TableItemRow data-label="Column 5">data5</TableItemRow>
+                  <TableItemRow data-label="Column 6">
                     <VscFilePdf size={22} />
                   </TableItemRow>
                 </TableItem>
                 <TableItem>
-                  <TableItemRow onClick={() => console.log("click")}>
+                  <TableItemRow
+                    data-label="Column 1"
+                    onClick={() => console.log("click")}
+                  >
                     data1
                   </TableItemRow>
-                  <TableItemRow>data2</TableItemRow>
-                  <TableItemRow>data3</TableItemRow>
-                  <TableItemRow>data4</TableItemRow>
-                  <TableItemRow>data5</TableItemRow>
-                  <TableItemRow>
+                  <TableItemRow data-label="Column 2">data2</TableItemRow>
+                  <TableItemRow data-label="Column 3">data3</TableItemRow>
+                  <TableItemRow data-label="Column 4">data4</TableItemRow>
+                  <TableItemRow data-label="Column 5">data5</TableItemRow>
+                  <TableItemRow data-label="Column 6">
                     <VscFilePdf size={22} />
                   </TableItemRow>
                 </TableItem>
                 <TableItem>
-                  <TableItemRow onClick={() => console.log("click")}>
+                  <TableItemRow
+                    data-label="Column 1"
+                    onClick={() => console.log("click")}
+                  >
                     data1
                   </TableItemRow>
-                  <TableItemRow>data2</TableItemRow>
-                  <TableItemRow>data3</TableItemRow>
-                  <TableItemRow>data4</TableItemRow>
-                  <TableItemRow>data5</TableItemRow>
-                  <TableItemRow>
+                  <TableItemRow data-label="Column 2">data2</TableItemRow>
+                  <TableItemRow data-label="Column 3">data3</TableItemRow>
+                  <TableItemRow data-label="Column 4">data4</TableItemRow>
+                  <TableItemRow data-label="Column 5">data5</TableItemRow>
+                  <TableItemRow data-label="Column 6">
                     <VscFilePdf size={22} />
                   </TableItemRow>
                 </TableItem>
@@ -367,11 +330,11 @@ const ConsultForm = () => {
           </TableContainer>
 
           <PdfContainer>
-            <object
+            <object id="pdf" aria-labelledby="PdfObject"
               data={require("../../assets/salida.pdf")}
               type="application/pdf"
-              width={800}
-              height={800}
+              width={850}
+              height={850}
             ></object>
           </PdfContainer>
           <DownloadATag

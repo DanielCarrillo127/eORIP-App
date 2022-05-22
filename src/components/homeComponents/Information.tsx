@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import SNR from "../assets/svgs/snr.svg";
+import SNR from "../../assets/svgs/snr.svg";
 
 const InformationC = styled.div`
   background: #fff;

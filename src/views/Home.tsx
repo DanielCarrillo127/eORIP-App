@@ -1,12 +1,12 @@
 import React from 'react'
-import About from '../components/About'
-import Banner from '../components/Banner'
-import Coments from '../components/Coments'
-import Footer from '../components/Footer'
-import Information from '../components/Information'
-import Nav from '../components/Nav'
-import Services from '../components/Services'
-import SocialMedia from '../components/SocialMedia'
+import About from '../components/homeComponents/About'
+import Banner from '../components/homeComponents/Banner'
+import Coments from '../components/homeComponents/Coments'
+import Footer from '../components/homeComponents/Footer'
+import Information from '../components/homeComponents/Information'
+import Nav from '../components/homeComponents/Nav'
+import Services from '../components/homeComponents/Services'
+import SocialMedia from '../components/homeComponents/SocialMedia'
 
 function Home() {
   return (

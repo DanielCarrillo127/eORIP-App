@@ -1,5 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import logovur from "../../assets/pngs/gov_offices/logo-vur.png";
+import logoigac from "../../assets/pngs/gov_offices/logo-igac.jpeg";
+import logopro from "../../assets/pngs/gov_offices/logo-Pro.png";
+import logosisg from "../../assets/pngs/gov_offices/logo-sisg.png";
+import logoant from "../../assets/pngs/gov_offices/logo-ant.png";
+import { toast } from "react-toastify";
+import { consultNews } from "../../utils/request";
+import NewsCard from "../../components/reusables/NewsCard";
 
 const StyledMenuIcon = styled.a`
   background-color: transparent;
@@ -18,16 +26,25 @@ const HomeContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   max-width: 56rem;
+  min-width: 36rem;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-left: auto;
+  padding-right: auto;
+  @media (max-width: 1200px) {
+    min-width: 0rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
 `;
 
 const ContainerVertical = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
 `;
 
 const ContainerHeader = styled.div`
@@ -83,13 +100,63 @@ const StyledContactCel = styled.div`
   letter-spacing: 0.1em;
 `;
 
+const ScrollContainerH = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  overflow-x: auto;
+  white-space: nowrap;
+`;
+const ScrollItem = styled.div`
+  width: 145px;
+  height: 70px;
+  background: transparent;
+  display: inline-block;
+  padding: 10px;
+`;
+const ScrollItemImages = styled.img`
+  width: 145px;
+  height: 71px;
+`;
+
+const NewsContainer = styled.div``;
+
 const HomeSection = () => {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    // handleNews();
+  }, []);
+
+  const handleNews = async () => {
+    const req = await consultNews();
+    if (req.status === 200) {
+      setNews(req.data.data);
+      console.log(req.data.data);
+    } else {
+      toast.info(`No data for news.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
   return (
     <>
       <HomeContainer>
         <ContainerHeader>
           <div>
-            <StyledH2>¡Bienvenido al Panel de control de ORIP Online!</StyledH2>
+            <StyledH2>
+              ¡Bienvenido al Panel de control de ORIP Online!
+            </StyledH2>
             <StyledSubH2>
               Consulte los servicios disponibles para ti, tu historial de
               transacciones y nuestros canales de atención directa.
@@ -97,17 +164,56 @@ const HomeSection = () => {
           </div>
         </ContainerHeader>
         <ContainerVertical>
-        <ContainerWidget>Widget 1()</ContainerWidget>
+          <ContainerWidget>Widget 1()</ContainerWidget>
 
-        <ContainerWidget>Widget 2(Noticias)</ContainerWidget>
+          <ContainerWidget>
+            <div>
+              <StyledContact>
+                <StyledP>Noticias De Interés</StyledP>
+              </StyledContact>
+              {news.length !== 0 ? (
+                <>
+                  <NewsContainer>
+                    <NewsCard news={news[0]} />
+                  </NewsContainer>
+                </>
+              ) : (
+                <>
+                  <StyledContact>
+                    <StyledP>
+                      Por el momento no tenemos Noticias que mostrarte
+                    </StyledP>
+                  </StyledContact>
+                </>
+              )}
+            </div>
+          </ContainerWidget>
         </ContainerVertical>
         <ContainerWidget>
-        <StyledContact>
-            <StyledP>Enlaces De Interés</StyledP>
-          </StyledContact>
+          <div>
+            <StyledContact>
+              <StyledP>Enlaces De Interés</StyledP>
+            </StyledContact>
 
+            <ScrollContainerH>
+              <ScrollItem>
+                <ScrollItemImages src={logovur} />
+              </ScrollItem>
+              <ScrollItem>
+                <ScrollItemImages src={logopro} />
+              </ScrollItem>
+              <ScrollItem>
+                <ScrollItemImages src={logosisg} />
+              </ScrollItem>
+              <ScrollItem>
+                <ScrollItemImages src={logoant} />
+              </ScrollItem>
+              <ScrollItem>
+                <ScrollItemImages src={logoigac} />
+              </ScrollItem>
+            </ScrollContainerH>
+          </div>
         </ContainerWidget>
-       
 
         <ContainerWidget>
           <StyledContact>

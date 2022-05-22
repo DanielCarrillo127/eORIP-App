@@ -19,6 +19,9 @@ import {
   VscRepo,
   VscSignOut,
 } from "react-icons/vsc";
+import ModPQRForm from "../components/forms/ModPQRForm";
+import ModCertForm from "../components/forms/ModCertForm";
+import CreateCertForm from "../components/forms/CreateCertForm";
 
 const Dasboard = styled.div`
   box-sizing: inherit;
@@ -38,6 +41,7 @@ const DashboardContainer = styled.div`
 `;
 const SideBarContainer = styled.div`
   box-sizing: inherit;
+  // position: fixed;
   border: 0px solid rgb(226, 232, 240);
   background-color: rgb(26, 32, 44);
   flex-shrink: 0;
@@ -87,6 +91,7 @@ const HomeSection = styled.div`
   padding-right: 1.5rem;
   color: rgb(255, 255, 255);
 `;
+
 const MenuContainer = styled.div`
   box-sizing: inherit;
   border: 0px solid rgb(226, 232, 240);
@@ -107,7 +112,7 @@ const StyledH4 = styled.h4`
   color: rgb(113, 128, 150);
   font-size: 0.875rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em; 
+  letter-spacing: 0.2em;
   @media (max-width: 768px) {
     font-size: 0;
   }
@@ -132,7 +137,7 @@ const ListNavItemSection = styled.li`
   margin-top: 0.75rem;
   margin-left: 0.95rem;
   @media (max-width: 768px) {
-    display:none;
+    display: none;
   }
 `;
 const PanelContainer = styled.div`
@@ -174,7 +179,6 @@ const StyledSvg = styled.svg`
   &:active {
     color: #4d8ae5;
   }
-
 `;
 const StyledButtonName = styled.button`
   font-family: inherit;
@@ -230,7 +234,7 @@ const LogoName = styled.div`
   padding-top: 20px;
   padding-left: 10px;
   @media (max-width: 768px) {
-    display:none;
+    display: none;
   }
 `;
 const HeaderInformation = styled.div`
@@ -244,9 +248,13 @@ const HeaderInformation = styled.div`
   justify-content: center;
   font-style: normal;
   font-weight: 500;
-  font-size: inherit;
+
+  font-size: 1.3vw;
   line-height: 22px;
   color: #4d8ae5;
+  @media (max-width: 768px) {
+    
+  }
 `;
 
 const IconContainer = styled.div`
@@ -315,10 +323,9 @@ const UserDasboard = () => {
   const { logOutUser, user, Handleonclick, editHDL, handelSession } =
     React.useContext(DataContext) as ContextActions;
 
-    useEffect(() => {
-      handelSession();
-     },[]);
-     
+  useEffect(() => {
+    handelSession();
+  }, []);
 
   const HandleLogOut = () => {
     logOutUser();
@@ -368,14 +375,14 @@ const UserDasboard = () => {
       case "Cre-cerForm":
         return (
           <>
-            <Home />
+            <CreateCertForm />
           </>
         );
 
       case "Mod-cerForm":
         return (
           <>
-            <Home />
+            <ModCertForm />
           </>
         );
 
@@ -389,7 +396,7 @@ const UserDasboard = () => {
       case "Mod-PQRForm":
         return (
           <>
-            <Home />
+            <ModPQRForm />
           </>
         );
       default:
@@ -444,7 +451,7 @@ const UserDasboard = () => {
                 </ListNavItem>
 
                 <ListItems>
-                 {user?.actions?.map((action) => {
+                  {user?.actions?.map((action) => {
                     if (
                       action === "Editar información" ||
                       action === "Hacer administradores a otros usuarios"
@@ -527,7 +534,6 @@ const UserDasboard = () => {
                     Usuario
                   </StyledMenuItem>
                 </ListNavItem>
-
                 <ListNavItemLogOut>
                   <StyledMenuItem onClick={() => HandleLogOut()}>
                     <StyledSvg>

@@ -147,12 +147,12 @@ const StyledContact = styled.div`
 `;
 const StyledP = styled.p``;
 
-const CreatePQRForm = () => {
+const ModCertForm = () => {
   return (
     <>
       <FromContainer>
       <StyledContact>
-            <StyledP>Formulario para Crear PQRSD.</StyledP>
+            <StyledP>Formulario para Modificar Certificado de tradición.</StyledP>
           </StyledContact>
         <StyledForm action="">
           
@@ -206,4 +206,4 @@ const CreatePQRForm = () => {
   );
 };
 
-export default CreatePQRForm;
+export default ModCertForm;

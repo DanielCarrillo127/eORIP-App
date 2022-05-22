@@ -17,6 +17,13 @@ const ServiceContainer = styled.div`
   padding-bottom: 2rem;
   padding-left: 3rem;
   padding-right: 3rem;
+
+  @media (max-width: 768px) {
+    min-width: 0rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
+
 `;
 
 // const ContainerVertical = styled.div`

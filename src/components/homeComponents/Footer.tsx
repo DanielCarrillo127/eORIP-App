@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../assets/svgs/logo.svg";
+import logo from "../../assets/svgs/logo.svg";
 import { BsFacebook, BsTwitter, BsInstagram, BsLinkedin } from "react-icons/bs";
-import gov from "../assets/svgs/gov.svg";
+import gov from "../../assets/svgs/gov.svg";
 const FooterC = styled.div`
   background: #fff;
   padding: 10px 0;

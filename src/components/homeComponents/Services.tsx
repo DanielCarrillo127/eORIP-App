@@ -1,15 +1,12 @@
 import React from 'react'
 import styled from "styled-components";
-import CardProfile from './reusables/CardProfile';
+import Card from '../reusables/Card';
+import { GrCertificate } from "react-icons/gr";
+import { GrDocumentPpt } from "react-icons/gr";
 
-import DanielProfile from '../assets/pngs/DanielC.png';
-import JaimeProfile from '../assets/pngs/JaimeS.png';
-import FabricioProfile from '../assets/pngs/FabricioP.png';
-
-
-const AboutC = styled.div`
+const ServicesC = styled.div`
     background: #fff;
-    padding: 20px 0;
+    padding: 40px 0;
     color: #000;
 `;
 const Container = styled.div`
@@ -32,6 +29,14 @@ const MainHeader = styled.h1`
     margin-bottom: 20px;
     color: #000;
 `;
+const MainContent = styled.p`
+    color: #515151;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+
+`;
 const CommonBorder = styled.div`
     background: #4d8ae5;
     height: 3px;
@@ -46,28 +51,28 @@ const Row = styled.div`
     justify-content: center;
     @media (max-width: 768px) {
         flex-direction: column;
-    }
+      }
 `;
 
-const About = () => {
+const Services = () => {
 
   return (
-    <AboutC id='about'>
+    <ServicesC id='services'>
         <Container>
             <div>
                 <Common>
-                    <MainHeader>Acerca de nosotros</MainHeader>
+                    <MainHeader>Nuestros Servicios</MainHeader>
+                    <MainContent>La eORIP cuenta con varios servicios entre los cuales destacan los que se listan acontinuación.</MainContent>
                     <CommonBorder></CommonBorder>
                 </Common>
             </div>
             <Row>
-              <CardProfile Profilename="Jaime Sierra H." subtitle="Estudiante" git="https://github.com/jhadechni" profile={JaimeProfile}/>
-              <CardProfile Profilename="Fabricio Puche G." subtitle="Estudiante" git="https://github.com/fabrixiop26" profile={FabricioProfile}/>
-              <CardProfile Profilename="Daniel Carrillo G." subtitle="Estudiante" git="https://github.com/DanielCarrillo127" profile={DanielProfile}/>
+                <Card title="Certificados de tradición y libertad" content="Adquiere el historial de un predio y realiza trámites relacionados con el inmueble." icon={<GrCertificate size={30}/>} />
+                <Card title="PQRSD" content="Aquí puedes presentar una Petición, Queja, Reclamo, Sugerencia ó Denuncia." icon={<GrDocumentPpt size={30}/>} />
             </Row>
         </Container>
-    </AboutC>
+    </ServicesC>
   )
 }
 
-export default About
+export default Services
