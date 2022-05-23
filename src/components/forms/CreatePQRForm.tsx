@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ContextActions, DataContext } from "../../utils/userContext";
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -147,58 +148,104 @@ const StyledContact = styled.div`
 `;
 const StyledP = styled.p``;
 
+
+const StyledSelect = styled.select`
+  outline: 0px;
+  background: rgb(242, 242, 242);
+  width: 100%;
+  border: 1px;
+  border-radius: 14px;
+  margin: 0px 10px 15px 0px;
+  cursor: pointer;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-size: 16px;
+  &:focus {
+    box-shadow: #4d8ae5 0px 2px 0px;
+  }
+`;
+
+const StyledOption = styled.option`
+  
+`;
+
 const CreatePQRForm = () => {
+  const { user } = React.useContext(DataContext) as ContextActions;
+
   return (
     <>
       <FromContainer>
-      <StyledContact>
-            <StyledP>Formulario para Crear PQRSD.</StyledP>
-          </StyledContact>
+        <StyledContact>
+          <StyledP>Formulario para Crear PQRSD.</StyledP>
+        </StyledContact>
         <StyledForm action="">
-          
           <FormSection>
-            
             <InputContainerItem>
-              <InputTitle>Nombre</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
+              <InputTitle>Tipo*</InputTitle>
+              <StyledSelect
+                id="tipoSelect"
+                required
+              >
+                <StyledOption value="" selected disabled hidden>Selecciona un Tipo</StyledOption>
+                <StyledOption value="peticion">petición</StyledOption>
+                <StyledOption value="queja">Queja</StyledOption>
+                <StyledOption value="reclamo">Reclamo</StyledOption>
+                <StyledOption value="denuncia">Denuncia</StyledOption>
+                <StyledOption value="sugerencia">Sugerencia</StyledOption>
+                
+              </StyledSelect>
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Cedula</InputTitle>
+              <InputTitle>Nombre y apellido*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput
+                type="text"
+                placeholder="Ingresa Nombre & Apellido "
+                required
+              />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Telefono</InputTitle>
+              <InputTitle>Telefono (opcional)</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput type="tel" placeholder="Ingresa el Telefono" />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Email</InputTitle>
+              <InputTitle>Dirección*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput type="text" placeholder="Ingresa la Dirección" required/>
+            </InputContainerItem>
+
+            <InputContainerItem>
+              <InputTitle>Correo electronico*</InputTitle>
+
+              <StyledInput type="text" placeholder="Ingresa tu Email" required />
             </InputContainerItem>
           </FormSection>
           <FormSection>
             <InputContainerItem>
-              <InputTitle>Direccion</InputTitle>
-              <StyledInput type="text" placeholder="Ingresa " />
+              <InputTitle>Sitio de Aplicación*</InputTitle>
+              <StyledSelect
+                id="applicationSelect"
+                required
+              >
+                <StyledOption value="" selected disabled hidden>Selecciona el sitio de Aplicación</StyledOption>
+                <StyledOption value="oficina de instrumentos publicos">oficina de instrumentos públicos</StyledOption>
+                <StyledOption value="notaria">Notaria</StyledOption>
+                <StyledOption value="Curaduria">Curaduria</StyledOption>
+                <StyledOption value="gestor catastral">Gestor Catastral</StyledOption>
+              </StyledSelect>
+
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Direccion 2</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
+              <InputTitle>Descripción*</InputTitle>
+              <StyledTextarea name="descripción" id="" placeholder="Ingresa una descripción" />
             </InputContainerItem>
-
-            <InputContainerItem>
-              <InputTitle> Commentarios</InputTitle>
-              <StyledTextarea name="comments" id="" placeholder="Ingresa " />
-            </InputContainerItem>
-            <Button>Registrar</Button>
+            <Button>Registrar PQRSD</Button>
           </FormSection>
         </StyledForm>
       </FromContainer>

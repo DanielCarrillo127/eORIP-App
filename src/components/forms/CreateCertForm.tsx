@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ContextActions, DataContext } from "../../utils/userContext";
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -34,6 +35,23 @@ const FromContainer = styled.div`
 // `;
 
 const StyledInput = styled.input`
+  outline: 0px;
+  background: rgb(242, 242, 242);
+  width: 100%;
+  border: 1px;
+  border-radius: 14px;
+  margin: 0px 10px 15px 0px;
+  cursor: pointer;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-size: 16px;
+  &:focus {
+    box-shadow: #4d8ae5 0px 2px 0px;
+  }
+`;
+
+const StyledSelect = styled.select`
   outline: 0px;
   background: rgb(242, 242, 242);
   width: 100%;
@@ -148,57 +166,73 @@ const StyledContact = styled.div`
 const StyledP = styled.p``;
 
 const CreateCertForm = () => {
+  const { user } = React.useContext(DataContext) as ContextActions;
   return (
     <>
       <FromContainer>
-      <StyledContact>
-            <StyledP>Formulario para Crear Certificado de tradición.</StyledP>
-          </StyledContact>
+        <StyledContact>
+          <StyledP>Formulario para Crear Certificado de Transacciones.</StyledP>
+        </StyledContact>
         <StyledForm action="">
-          
           <FormSection>
-            
             <InputContainerItem>
-              <InputTitle>Nombre</InputTitle>
+              <InputTitle>Cedula del ciudadano*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput
+                type="text"
+                placeholder="Ingresa la cedula del Ciudadano"
+                required
+              />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Cedula</InputTitle>
+              <InputTitle>Cedula del administrador*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput
+                type="text"
+                placeholder="Ingresa la cedula del Administrador"
+                required
+              />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Telefono</InputTitle>
+              <InputTitle>Valor del acto*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput
+                type="number"
+                placeholder="Ingresa el valor de la Transacciones"
+                required
+              />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Email</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
+              <InputTitle>Departamento y Ciudad*</InputTitle>
+              <StyledSelect id="deparmentSelect" >
+                </StyledSelect>
+ 
+              <StyledSelect id="citySelect">
+                </StyledSelect> 
             </InputContainerItem>
           </FormSection>
           <FormSection>
             <InputContainerItem>
-              <InputTitle>Direccion</InputTitle>
-              <StyledInput type="text" placeholder="Ingresa " />
+              <InputTitle>Descripcion del inmueble</InputTitle>
+              <InputTitle>CABIDA Y LINDEROS*</InputTitle>
+              <StyledTextarea
+                name="DesInmueble"
+                id="desinmueble"
+                placeholder="Ingresa la descripción del inmueble"
+              />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Direccion 2</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
+              <InputTitle>AREA Y COEFICIENTE*</InputTitle>
+              <StyledInput type="number" placeholder="Area - Hectareas:" />
+              <StyledInput type="number" placeholder="Metros:" />
+              <StyledInput type="number" placeholder="Centimetros:" />
             </InputContainerItem>
 
-            <InputContainerItem>
-              <InputTitle> Commentarios</InputTitle>
-              <StyledTextarea name="comments" id="" placeholder="Ingresa " />
-            </InputContainerItem>
-            <Button>Registrar</Button>
+            <Button>Registrar Transacciones</Button>
           </FormSection>
         </StyledForm>
       </FromContainer>

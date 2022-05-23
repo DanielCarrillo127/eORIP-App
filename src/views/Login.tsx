@@ -187,7 +187,6 @@ const Login = () => {
         });
       navigate("/userDashboard");
     } else {
-      console.log(req.response.data.data);
       toast.warn(`${req.response.data.data} ,Revisa los datos ingresados.`, {
         position: "top-right",
         autoClose: 3000,

@@ -171,7 +171,7 @@ const Profile = () => {
                         : "JD"}
                     </IconContainer>
               <UserNameLeft>{user?.username?.toUpperCase()}</UserNameLeft>
-              <InformationData>{user?.role === "ADMIN" ? "Funcionario Publico" : "Ciudadano"}</InformationData>
+              <InformationData>{user?.role === "ADMIN" ? "Administrador" : "Ciudadano"}</InformationData>
             </LeftContainer>
 
             <InformationContainer>

@@ -154,7 +154,7 @@ const HomeSection = () => {
       <HomeContainer>
         <ContainerHeader>
           <div>
-            <StyledH2>
+            <StyledH2 onClick={() => handleNews()}>
               ¡Bienvenido al Panel de control de ORIP Online!
             </StyledH2>
             <StyledSubH2>
@@ -164,7 +164,6 @@ const HomeSection = () => {
           </div>
         </ContainerHeader>
         <ContainerVertical>
-          <ContainerWidget>Widget 1()</ContainerWidget>
 
           <ContainerWidget>
             <div>

@@ -151,54 +151,64 @@ const ModCertForm = () => {
   return (
     <>
       <FromContainer>
-      <StyledContact>
-            <StyledP>Formulario para Modificar Certificado de tradición.</StyledP>
-          </StyledContact>
+        <StyledContact>
+          <StyledP>
+            Formulario para Modificar Certificado de Transacciones.
+          </StyledP>
+        </StyledContact>
         <StyledForm action="">
-          
           <FormSection>
-            
             <InputContainerItem>
-              <InputTitle>Nombre</InputTitle>
+              <InputTitle>Consultar Matriculas de la Transacciones*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
-            </InputContainerItem>
-
-            <InputContainerItem>
-              <InputTitle>Cedula</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
-            </InputContainerItem>
-
-            <InputContainerItem>
-              <InputTitle>Telefono</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
-            </InputContainerItem>
-
-            <InputContainerItem>
-              <InputTitle>Email</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput
+                type="text"
+                placeholder="Ingresa la cedula del ciudadano"
+              />
+              <Button>Consultar</Button>
             </InputContainerItem>
           </FormSection>
           <FormSection>
             <InputContainerItem>
-              <InputTitle>Direccion</InputTitle>
-              <StyledInput type="text" placeholder="Ingresa " />
+              <InputTitle>Cedula del ciudadano nuevo*</InputTitle>
+              <StyledInput
+                type="text"
+                placeholder="Ingresa la Cedula del ciudadano "
+              />
+            </InputContainerItem>
+            <InputContainerItem>
+              <InputTitle>Cedula del ciudadano actual*</InputTitle>
+              <StyledInput
+                type="text"
+                placeholder="Ingresa la Cedula del ciudadano "
+              />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Direccion 2</InputTitle>
+              <InputTitle>Costo*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput type="text" placeholder="Ingresa el costo " />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle> Commentarios</InputTitle>
-              <StyledTextarea name="comments" id="" placeholder="Ingresa " />
+              <InputTitle>Descripción*</InputTitle>
+              <StyledTextarea
+                name="comments"
+                id=""
+                placeholder="Ingresa la Descripción"
+              />
             </InputContainerItem>
-            <Button>Registrar</Button>
+
+            <InputContainerItem>
+              <InputTitle>Enrolled number*</InputTitle>
+
+              <StyledInput
+                type="text"
+                value={"rf4po4j54p54opfo4fpofj3f4fp44"}
+              />
+            </InputContainerItem>
+
+            <Button>Registrar Modificación</Button>
           </FormSection>
         </StyledForm>
       </FromContainer>

@@ -147,6 +147,28 @@ const StyledContact = styled.div`
 `;
 const StyledP = styled.p``;
 
+const StyledSelect = styled.select`
+  outline: 0px;
+  background: rgb(242, 242, 242);
+  width: 100%;
+  border: 1px;
+  border-radius: 14px;
+  margin: 0px 10px 15px 0px;
+  cursor: pointer;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-size: 16px;
+  &:focus {
+    box-shadow: #4d8ae5 0px 2px 0px;
+  }
+`;
+
+const StyledOption = styled.option`
+  
+`;
+
+
 const ModPQRForm = () => {
   return (
     <>
@@ -158,47 +180,39 @@ const ModPQRForm = () => {
           
           <FormSection>
             
-            <InputContainerItem>
-              <InputTitle>Nombre</InputTitle>
+          <InputContainerItem>
+              <InputTitle>Consultar PQRSD Registrada*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput
+                type="text"
+                placeholder="Ingresa la cedula del cliente"
+                
+              />
+              <Button>Consultar</Button>
             </InputContainerItem>
 
-            <InputContainerItem>
-              <InputTitle>Cedula</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
-            </InputContainerItem>
-
-            <InputContainerItem>
-              <InputTitle>Telefono</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
-            </InputContainerItem>
-
-            <InputContainerItem>
-              <InputTitle>Email</InputTitle>
-
-              <StyledInput type="text" placeholder="Ingresa " />
-            </InputContainerItem>
           </FormSection>
           <FormSection>
-            <InputContainerItem>
-              <InputTitle>Direccion</InputTitle>
-              <StyledInput type="text" placeholder="Ingresa " />
+          <InputContainerItem>
+              <InputTitle>Status*</InputTitle>
+              <StyledSelect
+                id="statusSelect"
+              >
+                <StyledOption value="" selected disabled hidden>Selecciona el Nuevo Status</StyledOption>
+                <StyledOption value="creado">Creado</StyledOption>
+                <StyledOption value="en proceso">En proceso</StyledOption>
+                <StyledOption value="resuelto">Resuelto</StyledOption>
+              </StyledSelect>
+              
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Direccion 2</InputTitle>
+              <InputTitle>Enrolled number*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa " />
+              <StyledInput type="text" value={'rf4po4j54p54opfo4fpofj3f4fp44'} />
             </InputContainerItem>
 
-            <InputContainerItem>
-              <InputTitle> Commentarios</InputTitle>
-              <StyledTextarea name="comments" id="" placeholder="Ingresa " />
-            </InputContainerItem>
-            <Button>Registrar</Button>
+            <Button>Registrar Modificación</Button>
           </FormSection>
         </StyledForm>
       </FromContainer>
