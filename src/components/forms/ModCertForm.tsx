@@ -200,7 +200,7 @@ const ModCertForm = () => {
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Enrolled number*</InputTitle>
+              <InputTitle>Enrollment Number*</InputTitle>
 
               <StyledInput
                 type="text"

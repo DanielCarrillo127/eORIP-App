@@ -78,7 +78,6 @@ const Services = () => {
   const { user , editHDL } = React.useContext(DataContext) as ContextActions;
   
   const HandleEditHDL = (section: string) =>{
-    console.log(section)
     editHDL(section)
   }
 

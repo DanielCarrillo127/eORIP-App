@@ -147,8 +147,6 @@ const StyledContact = styled.div`
   padding-bottom: 1em;
 `;
 const StyledP = styled.p``;
-
-
 const StyledSelect = styled.select`
   outline: 0px;
   background: rgb(242, 242, 242);
@@ -165,10 +163,7 @@ const StyledSelect = styled.select`
     box-shadow: #4d8ae5 0px 2px 0px;
   }
 `;
-
-const StyledOption = styled.option`
-  
-`;
+const StyledOption = styled.option``;
 
 const CreatePQRForm = () => {
   const { user } = React.useContext(DataContext) as ContextActions;
@@ -183,17 +178,15 @@ const CreatePQRForm = () => {
           <FormSection>
             <InputContainerItem>
               <InputTitle>Tipo*</InputTitle>
-              <StyledSelect
-                id="tipoSelect"
-                required
-              >
-                <StyledOption value="" selected disabled hidden>Selecciona un Tipo</StyledOption>
-                <StyledOption value="peticion">petición</StyledOption>
+              <StyledSelect id="tipoSelect" required>
+                <StyledOption value="" selected disabled hidden>
+                  Selecciona un Tipo
+                </StyledOption>
+                <StyledOption value="peticion">Petición</StyledOption>
                 <StyledOption value="queja">Queja</StyledOption>
                 <StyledOption value="reclamo">Reclamo</StyledOption>
                 <StyledOption value="denuncia">Denuncia</StyledOption>
                 <StyledOption value="sugerencia">Sugerencia</StyledOption>
-                
               </StyledSelect>
             </InputContainerItem>
 
@@ -216,34 +209,48 @@ const CreatePQRForm = () => {
             <InputContainerItem>
               <InputTitle>Dirección*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa la Dirección" required/>
+              <StyledInput
+                type="text"
+                placeholder="Ingresa la Dirección"
+                required
+              />
             </InputContainerItem>
 
             <InputContainerItem>
               <InputTitle>Correo electronico*</InputTitle>
 
-              <StyledInput type="text" placeholder="Ingresa tu Email" required />
+              <StyledInput
+                type="text"
+                placeholder="Ingresa tu Email"
+                required
+              />
             </InputContainerItem>
           </FormSection>
           <FormSection>
             <InputContainerItem>
               <InputTitle>Sitio de Aplicación*</InputTitle>
-              <StyledSelect
-                id="applicationSelect"
-                required
-              >
-                <StyledOption value="" selected disabled hidden>Selecciona el sitio de Aplicación</StyledOption>
-                <StyledOption value="oficina de instrumentos publicos">oficina de instrumentos públicos</StyledOption>
+              <StyledSelect id="applicationSelect" required>
+                <StyledOption value="" selected disabled hidden>
+                  Selecciona el sitio de Aplicación
+                </StyledOption>
+                <StyledOption value="oficina de instrumentos publicos">
+                  Oficina de instrumentos públicos
+                </StyledOption>
                 <StyledOption value="notaria">Notaria</StyledOption>
                 <StyledOption value="Curaduria">Curaduria</StyledOption>
-                <StyledOption value="gestor catastral">Gestor Catastral</StyledOption>
+                <StyledOption value="gestor catastral">
+                  Gestor Catastral
+                </StyledOption>
               </StyledSelect>
-
             </InputContainerItem>
 
             <InputContainerItem>
               <InputTitle>Descripción*</InputTitle>
-              <StyledTextarea name="descripción" id="" placeholder="Ingresa una descripción" />
+              <StyledTextarea
+                name="descripción"
+                id=""
+                placeholder="Ingresa una descripción"
+              />
             </InputContainerItem>
             <Button>Registrar PQRSD</Button>
           </FormSection>

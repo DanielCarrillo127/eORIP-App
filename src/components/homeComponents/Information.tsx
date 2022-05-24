@@ -7,7 +7,6 @@ const InformationC = styled.div`
   color: #000;
 `;
 const Container = styled.div`
-  width: 1200px;
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
@@ -19,7 +18,7 @@ const Row = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  @media (max-width: 768px) {
+  @media (max-width: 868px) {
     flex-direction: column;
     height: auto;
   }

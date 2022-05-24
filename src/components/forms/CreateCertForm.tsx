@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
+import { createCertificateTIL } from "../../utils/request";
 import { ContextActions, DataContext } from "../../utils/userContext";
 
 const FromContainer = styled.div`
@@ -68,7 +70,7 @@ const StyledSelect = styled.select`
   }
 `;
 
-const StyledForm = styled.form`
+const StyledForm = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -121,7 +123,7 @@ const StyledTextarea = styled.textarea`
   font-family: Quicksand, sans-serif;
   font-size: 16px;
   outline: none;
-  height: 122px;
+  height: 202px;
   padding: 15px 10px;
   resize: none;
   &:focus {
@@ -165,23 +167,94 @@ const StyledContact = styled.div`
 `;
 const StyledP = styled.p``;
 
+const StyledOption = styled.option``;
+
 const CreateCertForm = () => {
   const { user } = React.useContext(DataContext) as ContextActions;
+
+  const [cedulaOwner, setCedulaOwner] = useState("");
+  const [cedulaAdmin, setCedulaAdmin] = useState(`${user?.cedula}`);
+  const [valor, setValor] = useState("");
+  const [city, setCity] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleChangeCedulaOwner = (e: any) => setCedulaOwner(e.target.value);
+  const handleChangeCedulaAdmin = (e: any) => setCedulaAdmin(e.target.value);
+  const handleChangeValor = (e: any) => setValor(e.target.value);
+  const handleChangeCity = (e: any) => setCity(e.target.value);
+  const handleChangeDescription = (e: any) => setDescription(e.target.value);
+
+  const handleRequest = async () => {
+    if (
+      cedulaOwner !== "" &&
+      cedulaAdmin !== "" &&
+      valor !== "" &&
+      city !== "" &&
+      description !== ""
+    ) {
+      const req = await createCertificateTIL(
+        cedulaOwner,
+        cedulaAdmin,
+        description,
+        valor,
+        city
+      );
+      if (req.status === 201) {
+        toast.success(`✅ Certificado creado de forma exitoso.`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      }else{
+        console.log(req.response.data.data)
+        toast.error(
+          `${req.response.data.message}, error.`,
+          {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+    } else {
+      toast.error(
+        `Debes completar todos los campos marcados con (*) para crear un Certificado.`,
+        {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    }
+  };
+
   return (
     <>
       <FromContainer>
         <StyledContact>
           <StyledP>Formulario para Crear Certificado de Transacciones.</StyledP>
         </StyledContact>
-        <StyledForm action="">
+        <StyledForm>
           <FormSection>
             <InputContainerItem>
               <InputTitle>Cedula del ciudadano*</InputTitle>
 
               <StyledInput
-                type="text"
+                type="number"
                 placeholder="Ingresa la cedula del Ciudadano"
-                required
+                onChange={handleChangeCedulaOwner}
               />
             </InputContainerItem>
 
@@ -189,9 +262,10 @@ const CreateCertForm = () => {
               <InputTitle>Cedula del administrador*</InputTitle>
 
               <StyledInput
-                type="text"
+                type="number"
                 placeholder="Ingresa la cedula del Administrador"
-                required
+                onChange={handleChangeCedulaAdmin}
+                value={cedulaAdmin}
               />
             </InputContainerItem>
 
@@ -201,38 +275,65 @@ const CreateCertForm = () => {
               <StyledInput
                 type="number"
                 placeholder="Ingresa el valor de la Transacciones"
-                required
+                onChange={handleChangeValor}
               />
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Departamento y Ciudad*</InputTitle>
-              <StyledSelect id="deparmentSelect" >
-                </StyledSelect>
- 
-              <StyledSelect id="citySelect">
-                </StyledSelect> 
+              <InputTitle>Ciudad*</InputTitle>
+              <StyledSelect id="citySelect" onChange={handleChangeCity}>
+                <StyledOption value="" selected disabled hidden>Selecciona un Ciudad</StyledOption>
+                <StyledOption value="Arauca">Arauca</StyledOption>
+                <StyledOption value="Armenia">Armenia</StyledOption>
+                <StyledOption value="Barranquilla">Barranquilla</StyledOption>
+                <StyledOption value="Bogotá">Bogotá</StyledOption>
+                <StyledOption value="Bucaramanga">Bucaramanga</StyledOption>
+                <StyledOption value="Cali">Cali</StyledOption>
+                <StyledOption value="Cartagena">Cartagena</StyledOption>
+                <StyledOption value="Cúcuta">Cúcuta</StyledOption>
+                <StyledOption value="Florencia">Florencia</StyledOption>
+                <StyledOption value="Ibagué">Ibagué</StyledOption>
+                <StyledOption value="Leticia">Leticia</StyledOption>
+                <StyledOption value="Manizales">Manizales</StyledOption>
+                <StyledOption value="Medellín">Medellín</StyledOption>
+                <StyledOption value="Mitú">Mitú</StyledOption>
+                <StyledOption value="Mocoa">Mocoa</StyledOption>
+                <StyledOption value="Montería">Montería</StyledOption>
+                <StyledOption value="Neiva">Neiva</StyledOption>
+                <StyledOption value="Pasto">Pasto</StyledOption>
+                <StyledOption value="Pereira">Pereira</StyledOption>
+                <StyledOption value="Popayán">Popayán</StyledOption>
+                <StyledOption value="Puerto Carreño">Puerto Carreño</StyledOption>
+                <StyledOption value="Puerto Inírida">Puerto Inírida</StyledOption>
+                <StyledOption value="Quibdó">Quibdó</StyledOption>
+                <StyledOption value="Riohacha">Riohacha</StyledOption>
+                <StyledOption value="San Andrés">San Andrés</StyledOption>
+                <StyledOption value="San José del Guaviare">
+                  San José del Guaviare
+                </StyledOption>
+                <StyledOption value="Santa Marta">Santa Marta</StyledOption>
+                <StyledOption value="Sincelejo">Sincelejo</StyledOption>
+                <StyledOption value="Tunja">Tunja</StyledOption>
+                <StyledOption value="Valledupar">Valledupar</StyledOption>
+                <StyledOption value="Villavicencio">Villavicencio</StyledOption>
+                <StyledOption value="Yopal">Yopal</StyledOption>
+              </StyledSelect>
             </InputContainerItem>
           </FormSection>
           <FormSection>
             <InputContainerItem>
-              <InputTitle>Descripcion del inmueble</InputTitle>
-              <InputTitle>CABIDA Y LINDEROS*</InputTitle>
+              <InputTitle>Descripcion de la Transacción*</InputTitle>
               <StyledTextarea
-                name="DesInmueble"
-                id="desinmueble"
-                placeholder="Ingresa la descripción del inmueble"
+                name="DesTran"
+                id="destran"
+                placeholder="Ingresa la descripción de la Transacción "
+                onChange={handleChangeDescription}
               />
             </InputContainerItem>
 
-            <InputContainerItem>
-              <InputTitle>AREA Y COEFICIENTE*</InputTitle>
-              <StyledInput type="number" placeholder="Area - Hectareas:" />
-              <StyledInput type="number" placeholder="Metros:" />
-              <StyledInput type="number" placeholder="Centimetros:" />
-            </InputContainerItem>
-
-            <Button>Registrar Transacciones</Button>
+            <Button onClick={() => handleRequest()}>
+              Registrar Transacciones
+            </Button>
           </FormSection>
         </StyledForm>
       </FromContainer>

@@ -8,7 +8,6 @@ const ButtonBlue = styled.button`
     border-radius: 10px;
     outline: none;
     border: none;
-    position: absolute;
     height: 42px;
     font-style: normal;
     font-weight: 500;
@@ -21,7 +20,6 @@ const ButtonBlue = styled.button`
         text-decoration: none;
       }
 `;
-
 
 
 const Button = (props: any) => {

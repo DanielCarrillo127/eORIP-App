@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { VscFilePdf } from "react-icons/vsc";
+import { toast } from "react-toastify";
+import { consultDocumentsEnrollmentNumber, consultDocumentsOwnerId } from "../../utils/request";
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -204,33 +206,62 @@ const DownloadATag = styled.a`
 
 const ConsultForm = () => {
   const [cedula, setCedula] = useState("");
+  const [EnrollmentNumber, setEnrollmentNumber] = useState("");
 
   const handleChangeUser = (e: any) => setCedula(e.target.value);
 
+  const handleRequestEnrollmentNumber = async (EnrollmentNumber: string) => {
+    const req = await consultDocumentsEnrollmentNumber(EnrollmentNumber);
+    if (req.status === 200) {
+      console.log(req);
+      toast.success(`✅ exitoso.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        });
+    } else {
+      console.log(req.response.data);
+      toast.error(`${''} ,error.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        });
+    }
+  };
+
   const handleRequest = async (username: string) => {
-    // const req = await login(username, password);
-    // if (req.status === 200) {
-    //   toast.success(`✅ exitoso.`, {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: false,
-    //     draggable: true,
-    //     progress: undefined,
-    //     });
-    // } else {
-    //   console.log();
-    //   toast.error(`${''} ,error.`, {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: false,
-    //     draggable: true,
-    //     progress: undefined,
-    //     });
-    // }
+    const req = await consultDocumentsOwnerId(username);
+    if (req.status === 200) {
+      console.log(req.data.certificados);
+      toast.success(`✅ exitoso.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        });
+    } else {
+      console.log(req.response.data);
+      toast.error(`${''} ,error.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        });
+    }
   };
 
   return (

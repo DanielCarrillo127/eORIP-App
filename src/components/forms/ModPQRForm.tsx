@@ -93,24 +93,6 @@ const InputContainerItem = styled.div`
   padding: 5px;
 `;
 
-const StyledTextarea = styled.textarea`
-  box-sizing: border-box;
-  width: 100%;
-  padding: 5px 10px;
-  border-radius: 0.5rem;
-  border: none;
-  background: rgb(242, 242, 242);
-  font-family: Quicksand, sans-serif;
-  font-size: 16px;
-  outline: none;
-  height: 122px;
-  padding: 15px 10px;
-  resize: none;
-  &:focus {
-    box-shadow: #4d8ae5 0px 2px 0px;
-  }
-`;
-
 const Button = styled.button`
   background: linear-gradient(
     305.36deg,
@@ -207,7 +189,7 @@ const ModPQRForm = () => {
             </InputContainerItem>
 
             <InputContainerItem>
-              <InputTitle>Enrolled number*</InputTitle>
+              <InputTitle>Enrollment Number*</InputTitle>
 
               <StyledInput type="text" value={'rf4po4j54p54opfo4fpofj3f4fp44'} />
             </InputContainerItem>

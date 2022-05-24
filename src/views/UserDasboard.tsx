@@ -41,7 +41,6 @@ const DashboardContainer = styled.div`
 `;
 const SideBarContainer = styled.div`
   box-sizing: inherit;
-  // position: fixed;
   border: 0px solid rgb(226, 232, 240);
   background-color: rgb(26, 32, 44);
   flex-shrink: 0;
@@ -72,7 +71,7 @@ const ListNavItemLogOut = styled.a`
   text-decoration: inherit;
   cursor: pointer;
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   margin-bottom: 15px;
   &:hover {
     color: #4d8ae5;
@@ -249,12 +248,16 @@ const HeaderInformation = styled.div`
   font-style: normal;
   font-weight: 500;
 
-  font-size: 1.3vw;
+  // font-size: 1.3vw;
   line-height: 22px;
   color: #4d8ae5;
   @media (max-width: 768px) {
-    
   }
+`;
+const ContainerHeader = styled.div`
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 `;
 
 const IconContainer = styled.div`
@@ -409,146 +412,150 @@ const UserDasboard = () => {
       <Dasboard>
         <DashboardContainer>
           <SideBarContainer>
-            <StyledMenuItem href="#">
-              <ContainerNameLogo>
-                {/* <Link onClick={() => scroll.scrollToTop()}>
+            
+              <StyledMenuItem href="#">
+                <ContainerNameLogo>
+                  {/* <Link onClick={() => scroll.scrollToTop()}>
                     </Link> */}
-                <Img src={logo} />
-                <LogoName>
-                  eORIP <br /> Online Panel
-                </LogoName>
-              </ContainerNameLogo>
-            </StyledMenuItem>
-            <HomeSection>
-              <StyledMenuItem
-                onClick={() => {
-                  editHDL("home");
-                  setHeaderRoute("Inicio");
-                }}
-              >
-                <StyledSvg>
-                  <VscHome size={25} />
-                </StyledSvg>
-                Inicio
+                  <Img src={logo} />
+                  <LogoName>
+                    eORIP <br /> Online Panel
+                  </LogoName>
+                </ContainerNameLogo>
               </StyledMenuItem>
-            </HomeSection>
-            <MenuContainer>
-              <StyledH4>Recursos</StyledH4>
-
-              <ListItems>
-                <ListNavItem>
-                  <StyledMenuItem
-                    onClick={() => {
-                      editHDL("services");
-                      setHeaderRoute("Panel de Servicios");
-                    }}
-                  >
-                    <StyledSvg>
-                      <VscBriefcase size={24} />
-                    </StyledSvg>
-                    Servicios
-                  </StyledMenuItem>
-                </ListNavItem>
+              <HomeSection>
+                <StyledMenuItem
+                  onClick={() => {
+                    editHDL("home");
+                    setHeaderRoute("Inicio");
+                  }}
+                >
+                  <StyledSvg>
+                    <VscHome size={25} />
+                  </StyledSvg>
+                  Inicio
+                </StyledMenuItem>
+              </HomeSection>
+              <MenuContainer>
+                <StyledH4>Recursos</StyledH4>
 
                 <ListItems>
-                  {user?.actions?.map((action) => {
-                    if (
-                      action === "Editar información" ||
-                      action === "Hacer administradores a otros usuarios"
-                    ) {
-                      return <></>;
-                    } else {
-                      const actionName = action.split(" ");
-                      const sectionComponent =
-                        actionName[0].substring(0, 3) +
-                        "-" +
-                        actionName[1].substring(0, 3);
-                      return (
-                        <>
-                          <ListNavItemSection key={sectionComponent}>
-                            <StyledMenuItem
-                              onClick={() => {
-                                editHDL(`${sectionComponent}Form`);
-                                setHeaderRoute(`Formulario para ${action}`);
-                              }}
-                            >
-                              <StyledSvg>
-                                <VscDebugBreakpointLogUnverified size={25} />
-                              </StyledSvg>
-                              {action}
-                            </StyledMenuItem>
-                          </ListNavItemSection>
-                        </>
-                      );
-                    }
-                  })}
+                  <ListNavItem>
+                    <StyledMenuItem
+                      onClick={() => {
+                        editHDL("services");
+                        setHeaderRoute("Panel de Servicios");
+                      }}
+                    >
+                      <StyledSvg>
+                        <VscBriefcase size={24} />
+                      </StyledSvg>
+                      Servicios
+                    </StyledMenuItem>
+                  </ListNavItem>
+
+                  <ListItems>
+                    {user?.actions?.map((action) => {
+                      if (
+                        action === "Editar información" ||
+                        action === "Hacer administradores a otros usuarios"
+                      ) {
+                        return <></>;
+                      } else {
+                        const actionName = action.split(" ");
+                        const sectionComponent =
+                          actionName[0].substring(0, 3) +
+                          "-" +
+                          actionName[1].substring(0, 3);
+                        return (
+                          <>
+                            <ListNavItemSection key={sectionComponent}>
+                              <StyledMenuItem
+                                onClick={() => {
+                                  editHDL(`${sectionComponent}Form`);
+                                  setHeaderRoute(`Formulario para ${action}`);
+                                }}
+                              >
+                                <StyledSvg>
+                                  <VscDebugBreakpointLogUnverified size={25} />
+                                </StyledSvg>
+                                {action}
+                              </StyledMenuItem>
+                            </ListNavItemSection>
+                          </>
+                        );
+                      }
+                    })}
+                  </ListItems>
+                  {user?.actions?.includes(
+                    "Hacer administradores a otros usuarios"
+                  ) ? (
+                    <>
+                      <ListNavItem>
+                        <StyledMenuItem
+                          onClick={() => {
+                            editHDL("adminForm");
+                            setHeaderRoute(
+                              "Formulario de Solicitud Nuevos Adminintradores"
+                            );
+                          }}
+                        >
+                          <StyledSvg>
+                            <VscPersonAdd size={25} />
+                          </StyledSvg>
+                          Solicitar Adminintrador
+                        </StyledMenuItem>
+                      </ListNavItem>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  <ListNavItem>
+                    <StyledMenuItem
+                      onClick={() => {
+                        editHDL("history");
+                        setHeaderRoute("Historial de Transacciones");
+                      }}
+                    >
+                      <StyledSvg>
+                        <VscRepo size={22} />
+                      </StyledSvg>
+                      Historial Transacciones
+                    </StyledMenuItem>
+                  </ListNavItem>
+
+                  <ListNavItem>
+                    <StyledMenuItem
+                      onClick={() => {
+                        editHDL("profile");
+                        setHeaderRoute("Perfil de Usuario");
+                      }}
+                    >
+                      <StyledSvg>
+                        <VscPerson size={27} />
+                      </StyledSvg>
+                      Usuario
+                    </StyledMenuItem>
+                  </ListNavItem>
+                  <ListNavItemLogOut>
+                    <StyledMenuItem onClick={() => HandleLogOut()}>
+                      <StyledSvg>
+                        <VscSignOut size={25} />
+                      </StyledSvg>
+                      Cerrar Sesión
+                    </StyledMenuItem>
+                  </ListNavItemLogOut>
                 </ListItems>
-                {user?.actions?.includes(
-                  "Hacer administradores a otros usuarios"
-                ) ? (
-                  <>
-                    <ListNavItem>
-                      <StyledMenuItem
-                        onClick={() => {
-                          editHDL("adminForm");
-                          setHeaderRoute(
-                            "Formulario de Solicitud Nuevos Adminintradores"
-                          );
-                        }}
-                      >
-                        <StyledSvg>
-                          <VscPersonAdd size={25} />
-                        </StyledSvg>
-                        Solicitar Adminintrador
-                      </StyledMenuItem>
-                    </ListNavItem>
-                  </>
-                ) : (
-                  <></>
-                )}
-
-                <ListNavItem>
-                  <StyledMenuItem
-                    onClick={() => {
-                      editHDL("history");
-                      setHeaderRoute("Historial de Transacciones");
-                    }}
-                  >
-                    <StyledSvg>
-                      <VscRepo size={22} />
-                    </StyledSvg>
-                    Historial Transacciones
-                  </StyledMenuItem>
-                </ListNavItem>
-
-                <ListNavItem>
-                  <StyledMenuItem
-                    onClick={() => {
-                      editHDL("profile");
-                      setHeaderRoute("Perfil de Usuario");
-                    }}
-                  >
-                    <StyledSvg>
-                      <VscPerson size={27} />
-                    </StyledSvg>
-                    Usuario
-                  </StyledMenuItem>
-                </ListNavItem>
-                <ListNavItemLogOut>
-                  <StyledMenuItem onClick={() => HandleLogOut()}>
-                    <StyledSvg>
-                      <VscSignOut size={25} />
-                    </StyledSvg>
-                    Cerrar Sesión
-                  </StyledMenuItem>
-                </ListNavItemLogOut>
-              </ListItems>
-            </MenuContainer>
+              </MenuContainer>
+            
           </SideBarContainer>
 
           <Panel>
             <TopBarContainer>
-              <HeaderInformation>{headerRoute}</HeaderInformation>
+              <ContainerHeader>
+                <HeaderInformation>{headerRoute}</HeaderInformation>
+              </ContainerHeader>
               <ContainerName>
                 <StyledButtonName
                   type="button"

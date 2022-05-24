@@ -4,21 +4,21 @@ import Banner from '../components/homeComponents/Banner'
 import Coments from '../components/homeComponents/Coments'
 import Footer from '../components/homeComponents/Footer'
 import Information from '../components/homeComponents/Information'
-import Nav from '../components/homeComponents/Nav'
 import Services from '../components/homeComponents/Services'
 import SocialMedia from '../components/homeComponents/SocialMedia'
+import NavBar from '../components/homeComponents/NavBar'
 
 function Home() {
   return (
     <div>
-        <Nav/>
+        <NavBar/>
         <Banner/>
         <Services/>
         <About/>
         <Information/> 
         <SocialMedia/>
         <Coments/>
-        <Footer/>
+        <Footer/> 
     </div>
   )
 }

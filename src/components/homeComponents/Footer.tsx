@@ -38,19 +38,25 @@ const RowLast = styled.div`
   width: 100%;
   flex-direction: row;
   align-items: center;
+
 `;
 
 const Col3 = styled.div`
   width: 40%;
   margin: 10px 0;
+  @media (max-width: 968px) {
+    width: 30%; 
+  }
   @media (max-width: 768px) {
     width: 50%;
     margin: 10px 0;
+
   }
 `;
 const Col7 = styled.div`
   width: 60%;
   margin: 10px 0;
+
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -66,6 +72,9 @@ const Text = styled.p`
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
+  @media (max-width: 968px) {
+    font-size: 12px;
+  }
 `;
 const ContainerName = styled.div`
   font-style: normal;
@@ -96,6 +105,9 @@ const TextLeft = styled.p`
   color: #515151;
   width: 289px;
   height: 72px;
+  @media (max-width: 968px) {
+    font-size: 12px;
+  }
 `;
 const MediaContainer = styled.div`
   display: flex;
@@ -117,8 +129,9 @@ const MediaIcon = styled.a`
 `;
 const ImgGov = styled.img`
   float: left;
+  @media (max-width: 408px) {
+  }
 `;
-
 const CopyRight = styled.p`
   font-style: normal;
   font-weight: 400;
@@ -126,6 +139,23 @@ const CopyRight = styled.p`
   line-height: 18px;
   color: #515151;
   padding: 0 90px 0 50px;
+  @media (max-width: 1000px) {
+    padding: 0 20px 0 20px;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+const Privacy= styled.p`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #515151;
+  padding: 0 90px 0 50px;
+  @media (max-width: 1050px) {
+    display: none;
+  }
 `;
 
 const Footer = () => {
@@ -179,12 +209,13 @@ const Footer = () => {
             </InformationContainer>
           </Col7>
         </Row>
-      </Container>
-      <RowLast>
+        <RowLast>
         <ImgGov src={gov} />
         <CopyRight>© Copyright.all right reserved.</CopyRight>
-        <CopyRight>Privacy Policy Term & Conditions</CopyRight>
+        <Privacy>Privacy Policy Term & Conditions</Privacy>
       </RowLast>
+      </Container>
+     
     </FooterC>
   );
 };

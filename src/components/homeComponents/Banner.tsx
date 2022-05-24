@@ -13,7 +13,6 @@ const Header = styled.header`
     overflow: hidden;
 `;
 const Container = styled.div`
-width: 1200px;
   margin: 0 auto;
   @media (max-width: 768px) {
     width: 100%;
@@ -103,7 +102,7 @@ const HeaderElement = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     @media (max-width: 768px) {
-        // display: none; 
+         display: none; 
       }
 `;
 const HeaderElement2 = styled.div`
