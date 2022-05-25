@@ -122,7 +122,12 @@ const ScrollItemImages = styled.img`
   height: 71px;
 `;
 
-const NewsContainer = styled.div``;
+const NewsContainer = styled.div`
+display: grid; 
+grid-template-columns: 25% 25% 25% 25%; 
+grid-gap: 1em 1em;
+grid-auto-flow: row dense;
+`;
 
 const HomeSection = () => {
   const [news, setNews] = useState([]);
@@ -154,7 +159,7 @@ const HomeSection = () => {
       <HomeContainer>
         <ContainerHeader>
           <div>
-            <StyledH2 onClick={() => handleNews()}>
+            <StyledH2> 
               ¡Bienvenido al Panel de control de ORIP Online!
             </StyledH2>
             <StyledSubH2>
@@ -173,7 +178,11 @@ const HomeSection = () => {
               {news.length !== 0 ? (
                 <>
                   <NewsContainer>
-                    <NewsCard news={news[0]} />
+                  {news.map((value, index) => {
+                    return(<>
+                    <NewsCard key={index} news={value} />
+                    </>)
+                  })}
                   </NewsContainer>
                 </>
               ) : (

@@ -125,10 +125,9 @@ const NavBar = () => {
           <MenuLink to="about" smooth={true} duration={1000} onClick={() => setIsOpen(!isOpen)}>Nosotros</MenuLink>
           <MenuLink to="information" smooth={true} duration={1000} onClick={() => setIsOpen(!isOpen)}>Contactanos</MenuLink>
           <NavLinkBtn>
-            <Button name="Iniciar Sesión" path="/login"></Button>
+            <Button name={window.sessionStorage.getItem("USER") ? "Ir al Panel" : "Iniciar Sesión"} path={window.sessionStorage.getItem("USER") ? "/userDashboard" : "/login"}></Button>
           </NavLinkBtn>
           
-          {/* <Button name="Iniciar Sesión" path="/login"></Button> */}
 
         </Menu>
       </Nav>

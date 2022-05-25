@@ -2,9 +2,14 @@ import React, { useState } from "react";
 // import { toast } from "react-toastify";
 import styled from "styled-components";
 
+
 import { VscFilePdf } from "react-icons/vsc";
 import { toast } from "react-toastify";
-import { consultDocumentsEnrollmentNumber, consultDocumentsOwnerId } from "../../utils/request";
+import {
+  consultDocumentsEnrollmentNumber,
+  consultDocumentsOwnerId,
+} from "../../utils/request";
+
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -69,7 +74,7 @@ const StyledInput = styled.input`
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
-  &:focus{
+  &:focus {
     box-shadow: #4d8ae5 0px 2px 0px;
   }
 `;
@@ -144,24 +149,31 @@ const TableHead = styled.th`
   font-size: 0.85em;
   letter-spacing: 0.1em;
   text-overflow: ellipsis;
-  overflow: hidden; 
-  text-transform: uppercase;
-  background-color: #4D8AE5;
+  overflow: hidden;
+  background-color: #4d8ae5;
   @media (max-width: 800px) {
-    font-size: 0.60em;
+    font-size: 0.6em;
   }
 `;
-
 const TableItemRow = styled.td`
   padding: 0.625em;
   text-align: center;
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: initial;
+  font-size: 0.8em;
+  &:hover {
+    white-space: initial;
+    overflow: scroll;
+    // background-color:#fff;
+  }
   @media (max-width: 600px) {
     border-bottom: 1px solid #ddd;
     display: block;
     font-size: 0.8em;
     text-align: right;
     text-overflow: ellipsis;
-    overflow: hidden; 
+    overflow: hidden;
     &:before {
       content: attr(data-label);
       float: left;
@@ -173,7 +185,6 @@ const TableItemRow = styled.td`
     }
   }
 `;
-
 const TableItem = styled.tr`
   background-color: #f8f8f8;
   border: 1px solid #ddd;
@@ -184,7 +195,6 @@ const TableItem = styled.tr`
     margin-bottom: 0.625em;
   }
 `;
-
 const PdfContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -204,17 +214,74 @@ const DownloadATag = styled.a`
   }
 `;
 
+const ButtonDownload = styled.button`
+  background: linear-gradient(
+    305.36deg,
+    #226fe1 10.86%,
+    rgba(34, 111, 225, 0.4) 93.49%
+  );
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  height: 32px;
+  width: 62px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  &:hover {
+    transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
+    color: #fff;
+    text-decoration: none;
+  }
+  @media (max-width: 600px) {
+     float: right;
+     width: auto;
+  }
+
+`;
+
+
+type HeaderProps = {
+  children: React.ReactElement[] | JSX.Element[];
+};
+
+const Container: React.FC<any> = (props: HeaderProps) => {
+  return <ContainerWidget>{props.children}</ContainerWidget>;
+};
+
 const ConsultForm = () => {
   const [cedula, setCedula] = useState("");
-  const [EnrollmentNumber, setEnrollmentNumber] = useState("");
+  const [data, setData] = useState([]);
+  const [isOpenPdf, setOpenPdf] = useState(false);
+  const [fileURL, setFileURL] = useState<string | undefined>();
+  
 
   const handleChangeUser = (e: any) => setCedula(e.target.value);
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "COP",
+  });
 
   const handleRequestEnrollmentNumber = async (EnrollmentNumber: string) => {
     const req = await consultDocumentsEnrollmentNumber(EnrollmentNumber);
     if (req.status === 200) {
-      console.log(req);
-      toast.success(`✅ exitoso.`, {
+      
+      setOpenPdf(true);
+      console.log(req)
+
+       var file = new Blob([req.data], { type: "application/pdf"});
+      console.log(file)
+      //  fileURL = URL.createObjectURL(file);
+      setFileURL(URL.createObjectURL(file))
+
+
+
+      
+
+      toast.success(`Documento Obtenido de Forma Exitosa.`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -222,10 +289,10 @@ const ConsultForm = () => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        });
+      });
     } else {
       console.log(req.response.data);
-      toast.error(`${''} ,error.`, {
+      toast.error(`Error, No Hemos Obtenido El Documento.`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -233,15 +300,16 @@ const ConsultForm = () => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        });
+      });
     }
   };
 
   const handleRequest = async (username: string) => {
     const req = await consultDocumentsOwnerId(username);
     if (req.status === 200) {
-      console.log(req.data.certificados);
-      toast.success(`✅ exitoso.`, {
+      setData(req.data.certificados);
+
+      toast.success(`Petición exitosa.`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -249,10 +317,10 @@ const ConsultForm = () => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        });
+      });
     } else {
       console.log(req.response.data);
-      toast.error(`${''} ,error.`, {
+      toast.error(`${""} ,error.`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -260,14 +328,102 @@ const ConsultForm = () => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        });
+      });
+    }
+  };
+
+  const handleTable = () => {
+    if (data.length > 0) {
+      return (
+        <>
+          <TableContainer>
+            <Table>
+              <THead>
+                <TableItem>
+                  <TableHead scope="col">No. Matricula</TableHead>
+                  <TableHead scope="col">Valor del acto</TableHead>
+                  <TableHead scope="col">Id Administrador</TableHead>
+                  <TableHead scope="col">Status</TableHead>
+                  <TableHead scope="col">Fecha</TableHead>
+                  <TableHead scope="col">Documento</TableHead>
+                </TableItem>
+              </THead>
+
+              <TBody>
+                {data.map((value, index) => {
+                if(value[`type`] === "CTRA"){
+                  return (
+                    <TableItem key={index}>
+                      <TableItemRow data-label="No. Matricula">
+                        {value[`enrollmentNumber`]}
+                      </TableItemRow>
+                      <TableItemRow data-label="Valor del acto">
+                        {formatter.format(value[`actValue`])}
+                      </TableItemRow>
+                      <TableItemRow data-label="Id Administrador">
+                        {value[`adminId`]}
+                      </TableItemRow>
+                      <TableItemRow data-label="Status">
+                        {value[`status`]}
+                      </TableItemRow>
+                      <TableItemRow data-label="Fecha">
+                        {value[`timeStamp`]}
+                      </TableItemRow>
+                      <TableItemRow
+                        data-label="Documento"
+                        
+                      >
+                        <ButtonDownload onClick={() =>
+                          handleRequestEnrollmentNumber(
+                            value[`enrollmentNumber`]
+                          )}>
+                        <VscFilePdf size={20} color={'#fff'} />
+                        </ButtonDownload>
+                       
+                      </TableItemRow>
+                    </TableItem>
+                  );
+                }
+                })}
+              </TBody>
+            </Table>
+          </TableContainer>
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  };
+
+  const handlePdfvisualizer = () => {
+    if (isOpenPdf) {
+      return (
+        <>
+          <PdfContainer>
+            <object
+              id="pdf"
+              aria-labelledby="PdfObject"
+              data={fileURL}
+              type="application/pdf"
+              width={850}
+              height={850}
+            ></object>
+          </PdfContainer>
+          <DownloadATag href={fileURL} download="Certificado.pdf">
+            Tu dispositivo no puede visualizar los documentos, Click aqui para
+            descargar.
+          </DownloadATag>
+        </>
+      );
+    } else {
+      return <></>;
     }
   };
 
   return (
     <>
       <FromContainer>
-        <ContainerWidget>
+        <Container>
           <StyledContact>
             <StyledP>Formulario para Consultar de certificados.</StyledP>
           </StyledContact>
@@ -282,117 +438,12 @@ const ConsultForm = () => {
             {/* </StyledForm> */}
             <Button onClick={() => handleRequest(cedula)}>Consultar</Button>
           </FromContainerWidget>
-          <TableContainer>
-            <Table>
-              <THead>
-                <TableItem>
-                  <TableHead scope="col">Column 1</TableHead>
-                  <TableHead scope="col">Column 2</TableHead>
-                  <TableHead scope="col">Column 3</TableHead>
-                  <TableHead scope="col">Column 4</TableHead>
-                  <TableHead scope="col">Column 5</TableHead>
-                  <TableHead scope="col">Column 6</TableHead>
-                </TableItem>
-              </THead>
-
-              <TBody>
-                <TableItem>
-                  <TableItemRow
-                    data-label="Column 1"
-                    onClick={() => console.log("click")}
-                  >
-                    data1
-                  </TableItemRow>
-                  <TableItemRow data-label="Column 2">data2</TableItemRow>
-                  <TableItemRow data-label="Column 3">data3</TableItemRow>
-                  <TableItemRow data-label="Column 4">data4</TableItemRow>
-                  <TableItemRow data-label="Column 5">data5</TableItemRow>
-                  <TableItemRow data-label="Column 6">
-                    <VscFilePdf size={22} />
-                  </TableItemRow>
-                </TableItem>
-                <TableItem>
-                  <TableItemRow
-                    data-label="Column 1"
-                    onClick={() => console.log("click")}
-                  >
-                    data1
-                  </TableItemRow>
-                  <TableItemRow data-label="Column 2">data2</TableItemRow>
-                  <TableItemRow data-label="Column 3">data3</TableItemRow>
-                  <TableItemRow data-label="Column 4">data4</TableItemRow>
-                  <TableItemRow data-label="Column 5">data5</TableItemRow>
-                  <TableItemRow data-label="Column 6">
-                    <VscFilePdf size={22} />
-                  </TableItemRow>
-                </TableItem>
-                <TableItem>
-                  <TableItemRow
-                    data-label="Column 1"
-                    onClick={() => console.log("click")}
-                  >
-                    data1
-                  </TableItemRow>
-                  <TableItemRow data-label="Column 2">data2</TableItemRow>
-                  <TableItemRow data-label="Column 3">data3</TableItemRow>
-                  <TableItemRow data-label="Column 4">data4</TableItemRow>
-                  <TableItemRow data-label="Column 5">data5</TableItemRow>
-                  <TableItemRow data-label="Column 6">
-                    <VscFilePdf size={22} />
-                  </TableItemRow>
-                </TableItem>
-                <TableItem>
-                  <TableItemRow
-                    data-label="Column 1"
-                    onClick={() => console.log("click")}
-                  >
-                    data1
-                  </TableItemRow>
-                  <TableItemRow data-label="Column 2">data2</TableItemRow>
-                  <TableItemRow data-label="Column 3">data3</TableItemRow>
-                  <TableItemRow data-label="Column 4">data4</TableItemRow>
-                  <TableItemRow data-label="Column 5">data5</TableItemRow>
-                  <TableItemRow data-label="Column 6">
-                    <VscFilePdf size={22} />
-                  </TableItemRow>
-                </TableItem>
-              </TBody>
-            </Table>
-          </TableContainer>
-
-          <PdfContainer>
-            <object id="pdf" aria-labelledby="PdfObject"
-              data={require("../../assets/salida.pdf")}
-              type="application/pdf"
-              width={850}
-              height={850}
-            ></object>
-          </PdfContainer>
-          <DownloadATag
-            href={require("../../assets/salida.pdf")}
-            download="archivo.pdf"
-          >
-            Tu dispositivo no puede visualizar los documentos, Click aqui para
-            descargar.
-          </DownloadATag>
-        </ContainerWidget>
+          {handleTable()}
+          {handlePdfvisualizer()}
+        </Container>
       </FromContainer>
     </>
   );
 };
 
 export default ConsultForm;
-
-{
-  /* {data.map((value, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{value}</td>
-                    <td>{value}</td>
-                    <td>{value}</td>
-                    <td>{value}</td>
-                    <td></td>
-                  </tr>
-                );
-              })}  */
-}

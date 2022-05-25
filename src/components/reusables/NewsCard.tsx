@@ -2,26 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import gray from "../../assets/pngs/gray.png";
 
-const NewsContainer = styled.div`
-  width: 90%;
-  max-width: 1240px;
-  margin: 0px auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  gap: 20px;
-  @media (min-width: 30em) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (min-width: 60em) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-`;
 
 const Container = styled.div`
-  @media (min-width: 60em) {
-    grid-column: 1 / span 2;
-  }
+
 `;
 
 const StyledLink = styled.a`
@@ -39,10 +22,17 @@ const StyledLink = styled.a`
   box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 5px;
 `;
 
-const ImageBackground = styled.div`
+interface ImgProps {
+  readonly img: string;
+}
+
+
+
+const ImageBackground = styled.div<ImgProps>`
   padding-bottom: 60%;
   background-size: cover;
   background-position: center center;
+  background-Image: url(${(props) => props.img});
 `;
 
 const StyledArticle = styled.article`
@@ -74,18 +64,20 @@ const Content = styled.span`
 const NewsCard = (props: any) => {
   return (
     <>
-      <NewsContainer>
       <Container>
-        <StyledLink href={props.news.source}>
-          <ImageBackground style={{backgroundImage: `${props.news.image !== null ? `${props.news.image}` : `${gray}`}` }} />
+        <StyledLink href={props.news.url}>
+          <ImageBackground img={props.news.image !== null ? `${props.news.image}` : `${gray}`}  style={{backgroundImage: `${props.news.image !== null ? `${props.news.image}` : `${gray}`}` }} />
           <StyledArticle>
+          <Content>{props.news.author !== null ? props.news.author : "Anonimo"}</Content><Content>{props.news.published_at?.substring(0,10)}</Content>
             <Title>{props.news.title}</Title>
 
-            <Content>We’ll be putting things together so that as you scroll down from the top of the page you’ll see an “Alien Lander” making its way to touch down.</Content>
+            <Content>{props.news.description?.substring(0,150)}...</Content>
+          
+            <Content>{props.news.source}</Content>
           </StyledArticle>
         </StyledLink>
       </Container>
-    </NewsContainer>
+   
     </>
   );
 };
