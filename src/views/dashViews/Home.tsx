@@ -82,6 +82,22 @@ const ContainerWidget = styled.div`
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 `;
 
+const ContainerWidgetNews = styled.div`
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  overflow-y: scroll;
+  max-height: 26rem;
+`;
+
 const StyledContact = styled.div`
   display: flex;
   justify-content: space-between;
@@ -123,17 +139,26 @@ const ScrollItemImages = styled.img`
 `;
 
 const NewsContainer = styled.div`
-display: grid; 
-grid-template-columns: 25% 25% 25% 25%; 
-grid-gap: 1em 1em;
-grid-auto-flow: row dense;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em 1em;
+  grid-auto-flow: row dense;
+  @media (max-width: 1050px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
+
 
 const HomeSection = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    // handleNews();
+    //  handleNews();
   }, []);
 
   const handleNews = async () => {
@@ -159,9 +184,7 @@ const HomeSection = () => {
       <HomeContainer>
         <ContainerHeader>
           <div>
-            <StyledH2> 
-              ¡Bienvenido al Panel de control de ORIP Online!
-            </StyledH2>
+            <StyledH2>¡Bienvenido al Panel de control de ORIP Online!</StyledH2>
             <StyledSubH2>
               Consulte los servicios disponibles para ti, tu historial de
               transacciones y nuestros canales de atención directa.
@@ -169,8 +192,7 @@ const HomeSection = () => {
           </div>
         </ContainerHeader>
         <ContainerVertical>
-
-          <ContainerWidget>
+          <ContainerWidgetNews>
             <div>
               <StyledContact>
                 <StyledP>Noticias De Interés</StyledP>
@@ -178,24 +200,26 @@ const HomeSection = () => {
               {news.length !== 0 ? (
                 <>
                   <NewsContainer>
-                  {news.map((value, index) => {
-                    return(<>
-                    <NewsCard key={index} news={value} />
-                    </>)
-                  })}
+                    {news.map((value, index) => {
+                      return (
+                        <>
+                          <NewsCard key={index} news={value} />
+                        </>
+                      );
+                    })}
                   </NewsContainer>
                 </>
               ) : (
                 <>
                   <StyledContact>
                     <StyledP>
-                      Por el momento no tenemos Noticias que mostrarte
+                      Por el momento no tenemos Noticias que mostrarte.
                     </StyledP>
                   </StyledContact>
                 </>
               )}
             </div>
-          </ContainerWidget>
+          </ContainerWidgetNews>
         </ContainerVertical>
         <ContainerWidget>
           <div>

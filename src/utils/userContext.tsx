@@ -30,7 +30,7 @@ export const DataContext = React.createContext<ContextActions | null>(null);
 export const UserContext: FC<PropType> = ({ children }) => {
 
   const [user, setUser] = useState<UserContextInterface | null>(null);
-  const [Handleonclick, setHDL] = useState("");
+  const [Handleonclick, setHDL] = useState("home");
 
   const handelSession = () => {
     const jsonSessionStorage = window.sessionStorage.getItem("USER")

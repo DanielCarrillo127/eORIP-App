@@ -2,8 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import gray from "../../assets/pngs/gray.png";
 
-
 const Container = styled.div`
+  &:first-child {
+      grid-row-start: 1;
+       grid-column: 1 / span 2;
+       @media (max-width: 768px) {
+        grid-column: 1 / span 1;
+      }
+  }
+  &:nth-child(2) {
+    grid-row-start: 2;
+    grid-column: 2 / span 2;
+    @media (max-width: 768px) {
+      grid-column: 1 / span 1;
+    }
+  }
+  
 
 `;
 
@@ -26,13 +40,11 @@ interface ImgProps {
   readonly img: string;
 }
 
-
-
 const ImageBackground = styled.div<ImgProps>`
   padding-bottom: 60%;
   background-size: cover;
   background-position: center center;
-  background-Image: url(${(props) => props.img});
+  background-image: url(${(props) => props.img});
 `;
 
 const StyledArticle = styled.article`
@@ -44,21 +56,33 @@ const StyledArticle = styled.article`
 `;
 
 const Title = styled.h1`
-  font-size: 20px;
+  font-size: 15px;
   margin: 0px;
   color: rgb(51, 51, 51);
   @media (min-width: 60em) {
-    font-size: 24px;
+    font-size: 20px;
   }
 `;
 
 const Content = styled.span`
-  font-size: 12px;
+  font-size: 9px;
   font-weight: bold;
   color: rgb(153, 153, 153);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin: 2em 0px 0px;
+`;
+const ContentSource = styled.span`
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+`;
+const ContentDate = styled.span`
+  font-size: 12px;
+  color: rgb(153, 153, 153);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 `;
 
 const NewsCard = (props: any) => {
@@ -66,18 +90,31 @@ const NewsCard = (props: any) => {
     <>
       <Container>
         <StyledLink href={props.news.url}>
-          <ImageBackground img={props.news.image !== null ? `${props.news.image}` : `${gray}`}  style={{backgroundImage: `${props.news.image !== null ? `${props.news.image}` : `${gray}`}` }} />
+          <ImageBackground
+            img={props.news.image !== null ? `${props.news.image}` : `${gray}`}
+            style={{
+              backgroundImage: `${
+                props.news.image !== null ? `${props.news.image}` : `${gray}`
+              }`,
+            }}
+          />
           <StyledArticle>
-          <Content>{props.news.author !== null ? props.news.author : "Anonimo"}</Content><Content>{props.news.published_at?.substring(0,10)}</Content>
+            <div>
+              <Content>
+                {props.news.author !== null ? props.news.author : "Anonimo"}
+              </Content>{" "}
+              <ContentDate>
+                {props.news.published_at?.substring(0, 10)}
+              </ContentDate>
+            </div>
             <Title>{props.news.title}</Title>
 
-            <Content>{props.news.description?.substring(0,150)}...</Content>
-          
-            <Content>{props.news.source}</Content>
+            <Content>{props.news.description?.substring(0, 150)}...</Content>
+
+            <ContentSource>{props.news.source}</ContentSource>
           </StyledArticle>
         </StyledLink>
       </Container>
-   
     </>
   );
 };

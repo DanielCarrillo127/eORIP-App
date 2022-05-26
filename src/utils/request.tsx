@@ -92,6 +92,73 @@ export const createCertificateTIL = async (
   }
 };
 
+export const NewAnotationCertificateTIL = async (
+  enrollmentNumber: string,
+  cedula: string,
+  adminCedula:string,
+  description: string,
+  valorActo: string,
+  city: string
+) => {
+  const data = {
+    enrollmentNumber,
+    cedula,
+    description,
+    adminCedula,
+    valorActo,
+    city,
+  };
+  try {
+    const req = await axios.put(
+      `${process.env.REACT_APP_USERS_API}certificate/updateCertificate/TIL`,
+      data,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const NewBuySellCertificateTIL = async (
+  enrollmentNumber: string,
+  cedula: string,
+  cedulaNewOwner: string,
+  adminCedula:string,
+  description: string,
+  valorActo: string,
+  city: string
+) => {
+  const data = {
+    enrollmentNumber,
+    cedula,
+    cedulaNewOwner,
+    description,
+    adminCedula,
+    valorActo,
+    city,
+  };
+  try {
+    const req = await axios.post(
+      `${process.env.REACT_APP_USERS_API}certificate/createCertificate/TIL`,
+      data,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
+
 export const consultDocumentsOwnerId = async (cedula: String) => {
   try {
     const req = await axios.get(

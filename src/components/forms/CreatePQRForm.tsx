@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import { ContextActions, DataContext } from "../../utils/userContext";
 
@@ -51,7 +52,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledForm = styled.form`
+const StyledForm = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -112,32 +113,6 @@ const StyledTextarea = styled.textarea`
   }
 `;
 
-const Button = styled.button`
-  background: linear-gradient(
-    305.36deg,
-    #226fe1 10.86%,
-    rgba(34, 111, 225, 0.4) 93.49%
-  );
-  color: white;
-  border-radius: 10px;
-  outline: none;
-  border: none;
-  height: 42px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 12px;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  &:hover {
-    transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
-    color: #fff;
-    text-decoration: none;
-  }
-`;
-
 const StyledContact = styled.div`
   display: flex;
   justify-content: space-between;
@@ -165,20 +140,131 @@ const StyledSelect = styled.select`
 `;
 const StyledOption = styled.option``;
 
+interface loading {
+  readonly loading: boolean;
+}
+
+const Spinner = styled.div<loading>`
+  ${(props) =>
+    props.loading
+      ? `
+border-width: 4px; 
+border-style: solid; 
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 153, 255);
+ border-image: initial; 
+ width: 26px; 
+ height: 26px;
+  border-radius: 50%; 
+  animation: spin 1s ease infinite;  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }`
+      : ``}
+`;
+
+const ButtonSpinner = styled.button<loading>`
+  background: ${(props) =>
+    props.loading
+      ? `#d4d5d6`
+      : `linear-gradient(
+    305.36deg,
+    #226fe1 10.86%,
+    rgba(34, 111, 225, 0.4) 93.49%
+  )`};
+  color: ${(props) => (props.loading ? `#000` : `#fff`)};
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  height: 42px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 12px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  ${(props) =>
+    props.loading
+      ? ``
+      : `&:hover {
+    transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
+    color: #fff;
+    text-decoration: none;
+  }`};
+`;
+
 const CreatePQRForm = () => {
   const { user } = React.useContext(DataContext) as ContextActions;
+
+  const [onLoading, setOnLoading] = useState(false);
+
+  const [type, setType] = useState("");
+  const [name, setName] = useState("");
+  const [cedula, setCedula] = useState("");
+  const [tel, setTel] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [applicationSite, setApplicationSite] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleChangeCedula = (e: any) => setCedula(e.target.value);
+  const handleChangeName = (e: any) => setName(e.target.value);
+  const handleChangeTel = (e: any) => setTel(e.target.value);
+  const handleChangeDescription = (e: any) => setDescription(e.target.value);
+  const handleChangeType = (e: any) => setType(e.target.value);
+  const handleChangeASite = (e: any) => setApplicationSite(e.target.value);
+  const handleChangeEmail = (e: any) => setEmail(e.target.value);
+  const handleChangeAddress = (e: any) => setAddress(e.target.value);
+
+  const handleRequest = async () => {
+    // setOnLoading(true)
+    // const req = await consultDocumentsOwnerId(username);
+    // if (req.status === 200) {
+      // setOnLoading(false)
+    //   toast.success(`Petición exitosa.`, {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: false,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    // } else {
+      // setOnLoading(false)
+    //   console.log(req.response.data);
+    //   toast.error(`${""} ,error.`, {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: false,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    // }
+  };
 
   return (
     <>
       <FromContainer>
-        <StyledContact>
-          <StyledP>Formulario para Crear PQRSD.</StyledP>
-        </StyledContact>
-        <StyledForm action="">
+        <StyledForm>
           <FormSection>
+            <StyledContact>
+              <StyledP>
+                Formulario para Solicitud y Petición de Informes PQRSD.
+              </StyledP>
+            </StyledContact>
             <InputContainerItem>
               <InputTitle>Tipo*</InputTitle>
-              <StyledSelect id="tipoSelect" required>
+              <StyledSelect id="tipoSelect" onChange={handleChangeType}>
                 <StyledOption value="" selected disabled hidden>
                   Selecciona un Tipo
                 </StyledOption>
@@ -196,40 +282,52 @@ const CreatePQRForm = () => {
               <StyledInput
                 type="text"
                 placeholder="Ingresa Nombre & Apellido "
-                required
+                onChange={handleChangeName}
+              />
+            </InputContainerItem>
+
+            <InputContainerItem>
+              <InputTitle>Cedula*</InputTitle>
+
+              <StyledInput
+                type="text"
+                placeholder="Ingresa la Cedula del Ciudadano "
+                onChange={handleChangeCedula}
               />
             </InputContainerItem>
 
             <InputContainerItem>
               <InputTitle>Telefono (opcional)</InputTitle>
 
-              <StyledInput type="tel" placeholder="Ingresa el Telefono" />
+              <StyledInput
+                type="tel"
+                placeholder="Ingresa el Telefono"
+                onChange={handleChangeTel}
+              />
             </InputContainerItem>
-
             <InputContainerItem>
               <InputTitle>Dirección*</InputTitle>
 
               <StyledInput
                 type="text"
                 placeholder="Ingresa la Dirección"
-                required
+                onChange={handleChangeAddress}
               />
             </InputContainerItem>
-
+          </FormSection>
+          <FormSection>
             <InputContainerItem>
               <InputTitle>Correo electronico*</InputTitle>
 
               <StyledInput
                 type="text"
                 placeholder="Ingresa tu Email"
-                required
+                onChange={handleChangeEmail}
               />
             </InputContainerItem>
-          </FormSection>
-          <FormSection>
             <InputContainerItem>
               <InputTitle>Sitio de Aplicación*</InputTitle>
-              <StyledSelect id="applicationSelect" required>
+              <StyledSelect id="applicationSelect" onChange={handleChangeASite}>
                 <StyledOption value="" selected disabled hidden>
                   Selecciona el sitio de Aplicación
                 </StyledOption>
@@ -250,9 +348,17 @@ const CreatePQRForm = () => {
                 name="descripción"
                 id=""
                 placeholder="Ingresa una descripción"
+                onChange={handleChangeDescription}
               />
             </InputContainerItem>
-            <Button>Registrar PQRSD</Button>
+            <ButtonSpinner
+              onClick={() => handleRequest()}
+              loading={onLoading}
+              disabled={onLoading}
+            >
+              {onLoading?'':'Registrar PQRSD'}
+              <Spinner loading={onLoading}/>
+            </ButtonSpinner>
           </FormSection>
         </StyledForm>
       </FromContainer>

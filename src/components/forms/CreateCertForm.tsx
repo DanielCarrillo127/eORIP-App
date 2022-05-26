@@ -131,13 +131,44 @@ const StyledTextarea = styled.textarea`
   }
 `;
 
-const Button = styled.button`
-  background: linear-gradient(
+interface loading {
+  readonly loading: boolean;
+}
+
+const Spinner = styled.div<loading>`
+  ${(props) =>
+    props.loading
+      ? `
+border-width: 4px; 
+border-style: solid; 
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 153, 255);
+ border-image: initial; 
+ width: 26px; 
+ height: 26px;
+  border-radius: 50%; 
+  animation: spin 1s ease infinite;  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }`
+      : ``}
+`;
+
+const ButtonSpinner = styled.button<loading>`
+  background: ${(props) =>
+    props.loading
+      ? `#d4d5d6`
+      : `linear-gradient(
     305.36deg,
     #226fe1 10.86%,
     rgba(34, 111, 225, 0.4) 93.49%
-  );
-  color: white;
+  )`};
+  color: ${(props) => (props.loading ? `#000` : `#fff`)};
   border-radius: 10px;
   outline: none;
   border: none;
@@ -150,11 +181,14 @@ const Button = styled.button`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  &:hover {
+  ${(props) =>
+    props.loading
+      ? ``
+      : `&:hover {
     transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
     color: #fff;
     text-decoration: none;
-  }
+  }`};
 `;
 
 const StyledContact = styled.div`
@@ -171,6 +205,7 @@ const StyledOption = styled.option``;
 
 const CreateCertForm = () => {
   const { user } = React.useContext(DataContext) as ContextActions;
+  const [onLoading, setOnLoading] = useState(false);
 
   const [cedulaOwner, setCedulaOwner] = useState("");
   const [cedulaAdmin, setCedulaAdmin] = useState(`${user?.cedula}`);
@@ -192,6 +227,7 @@ const CreateCertForm = () => {
       city !== "" &&
       description !== ""
     ) {
+       setOnLoading(true)
       const req = await createCertificateTIL(
         cedulaOwner,
         cedulaAdmin,
@@ -200,6 +236,7 @@ const CreateCertForm = () => {
         city
       );
       if (req.status === 201) {
+        setOnLoading(false);
         toast.success(`✅ Certificado creado de forma exitoso.`, {
           position: "top-right",
           autoClose: 3000,
@@ -209,20 +246,17 @@ const CreateCertForm = () => {
           draggable: true,
           progress: undefined,
         });
-      }else{
-        console.log(req.response.data.data)
-        toast.error(
-          `${req.response.data.message}, error.`,
-          {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-          }
-        );
+      } else {
+        setOnLoading(false);
+        toast.error(`${req.response.data.message}, error.`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } else {
       toast.error(
@@ -243,11 +277,13 @@ const CreateCertForm = () => {
   return (
     <>
       <FromContainer>
-        <StyledContact>
-          <StyledP>Formulario para Crear Certificado de Transacciones.</StyledP>
-        </StyledContact>
         <StyledForm>
           <FormSection>
+            <StyledContact>
+              <StyledP>
+                Formulario para Crear Certificado de Transacciones.
+              </StyledP>
+            </StyledContact>
             <InputContainerItem>
               <InputTitle>Cedula del ciudadano*</InputTitle>
 
@@ -282,7 +318,9 @@ const CreateCertForm = () => {
             <InputContainerItem>
               <InputTitle>Ciudad*</InputTitle>
               <StyledSelect id="citySelect" onChange={handleChangeCity}>
-                <StyledOption value="" selected disabled hidden>Selecciona un Ciudad</StyledOption>
+                <StyledOption value="" selected disabled hidden>
+                  Selecciona un Ciudad
+                </StyledOption>
                 <StyledOption value="Arauca">Arauca</StyledOption>
                 <StyledOption value="Armenia">Armenia</StyledOption>
                 <StyledOption value="Barranquilla">Barranquilla</StyledOption>
@@ -303,8 +341,12 @@ const CreateCertForm = () => {
                 <StyledOption value="Pasto">Pasto</StyledOption>
                 <StyledOption value="Pereira">Pereira</StyledOption>
                 <StyledOption value="Popayán">Popayán</StyledOption>
-                <StyledOption value="Puerto Carreño">Puerto Carreño</StyledOption>
-                <StyledOption value="Puerto Inírida">Puerto Inírida</StyledOption>
+                <StyledOption value="Puerto Carreño">
+                  Puerto Carreño
+                </StyledOption>
+                <StyledOption value="Puerto Inírida">
+                  Puerto Inírida
+                </StyledOption>
                 <StyledOption value="Quibdó">Quibdó</StyledOption>
                 <StyledOption value="Riohacha">Riohacha</StyledOption>
                 <StyledOption value="San Andrés">San Andrés</StyledOption>
@@ -331,9 +373,14 @@ const CreateCertForm = () => {
               />
             </InputContainerItem>
 
-            <Button onClick={() => handleRequest()}>
-              Registrar Transacciones
-            </Button>
+            <ButtonSpinner
+              onClick={() => handleRequest()}
+              loading={onLoading}
+              disabled={onLoading}
+            >
+              {onLoading ? "" : "Registrar Transacción"}
+              <Spinner loading={onLoading} />
+            </ButtonSpinner>
           </FormSection>
         </StyledForm>
       </FromContainer>

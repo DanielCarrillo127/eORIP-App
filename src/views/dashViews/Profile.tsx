@@ -30,7 +30,6 @@ const ContainerWidget = styled.div`
   padding-top: 1rem;
   margin-top: 1rem;
   padding-bottom: 1rem;
-
 `;
 const ProfileBox = styled.div`
   box-sizing: border-box;
@@ -46,12 +45,12 @@ const LeftContainer = styled.div`
   width: 35%;
   background: rgb(26, 32, 44);
   padding: 30px 25px;
-  border-top-left-radius:  0.5rem;
-  border-bottom-left-radius:  0.5rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
   text-align: center;
   color: rgb(255, 255, 255);
   @media (max-width: 908px) {
-    display: none; 
+    display: none;
   }
 `;
 const IconContainer = styled.div`
@@ -64,7 +63,7 @@ const IconContainer = styled.div`
   height: 62px;
   background: #d4d5d6;
   border-radius: 50px;
-  font-size:34px;
+  font-size: 34px;
   margin: 0 auto;
 `;
 
@@ -85,9 +84,9 @@ const InformationData = styled.p`
   margin-bottom: 10px;
   color: rgb(145, 154, 163);
   text-overflow: clip;
-  overflow: hidden; 
+  overflow: hidden;
   white-space: initial;
-  &:hover{
+  &:hover {
     white-space: initial;
     overflow: scroll;
   }
@@ -100,12 +99,12 @@ const InformationContainer = styled.div`
   width: 65%;
   background: rgb(255, 255, 255);
   padding: 30px 25px;
-  border-top-right-radius:  0.5rem;
-  border-bottom-right-radius:  0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
   @media (max-width: 908px) {
     width: 100%;
-    border-top-left-radius:  0.5rem;
-    border-bottom-left-radius:  0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
   }
 `;
 const Section = styled.div`
@@ -152,26 +151,25 @@ const TitleInformation = styled.h4`
   margin-bottom: 5px;
 `;
 
-
 const Profile = () => {
-  const {user} = React.useContext(DataContext) as ContextActions;
+  const { user } = React.useContext(DataContext) as ContextActions;
   return (
     <>
       <ProfileContainer>
         <ContainerWidget>
           <ProfileBox>
             <LeftContainer>
-            <IconContainer>
-                      {user?.name
-                        ? `${user?.name
-                            .substring(0, 1)
-                            .toUpperCase()}${user?.surnames
-                            .substring(0, 1)
-                            .toUpperCase()}`
-                        : "JD"}
-                    </IconContainer>
+              <IconContainer>
+                {user?.name
+                  ? `${user?.name.substring(0, 1).toUpperCase()}${user?.surnames
+                      .substring(0, 1)
+                      .toUpperCase()}`
+                  : "JD"}
+              </IconContainer>
               <UserNameLeft>{user?.username?.toUpperCase()}</UserNameLeft>
-              <InformationData>{user?.role === "ADMIN" ? "Administrador" : "Ciudadano"}</InformationData>
+              <InformationData>
+                {user?.role === "ADMIN" ? "Administrador" : "Ciudadano"}
+              </InformationData>
             </LeftContainer>
 
             <InformationContainer>
@@ -210,31 +208,27 @@ const Profile = () => {
                 <Header>Información Complementaria</Header>
 
                 <ContainerColumns>
-                <ContainerInformation>
-                    <TitleInformation>InfoExtra</TitleInformation>
-                    <InformationData>Data</InformationData>
-                  </ContainerInformation>
-
                   <ContainerInformation>
-                    <TitleInformation>BlockchainID</TitleInformation>
-                    <InformationData>1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</InformationData>
+                    <TitleInformation>Peticiones activas</TitleInformation>
+                    <InformationData>4</InformationData>
+                  </ContainerInformation>
+                  <ContainerInformation>
+                    <TitleInformation>
+                      Certificados en posesión{" "}
+                    </TitleInformation>
+                    <InformationData></InformationData>
                   </ContainerInformation>
                 </ContainerColumns>
                 <ContainerColumns>
                   <ContainerInformation>
-                    <TitleInformation>InfoExtra</TitleInformation>
-                    <InformationData>Data</InformationData>
-                  </ContainerInformation>
-
-                  <ContainerInformation>
-                    <TitleInformation>InfoExtra</TitleInformation>
-
-                    <InformationData>Data</InformationData>
+                    <TitleInformation>WalletID</TitleInformation>
+                    <InformationData>
+                      1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+                    </InformationData>
                   </ContainerInformation>
                 </ContainerColumns>
               </Section>
             </InformationContainer>
-
           </ProfileBox>
         </ContainerWidget>
       </ProfileContainer>

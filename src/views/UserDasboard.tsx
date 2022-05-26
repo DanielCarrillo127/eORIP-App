@@ -66,12 +66,12 @@ const StyledMenuItem = styled.a`
 const ListNavItemLogOut = styled.a`
   background-color: transparent;
   box-sizing: inherit;
-  border: 0px solid rgb(226, 232, 240);
+
   color: inherit;
   text-decoration: inherit;
   cursor: pointer;
   position: absolute;
-  bottom: 0px;
+  bottom: -25px;
   margin-bottom: 15px;
   &:hover {
     color: #4d8ae5;
@@ -80,7 +80,6 @@ const ListNavItemLogOut = styled.a`
     color: #4d8ae5;
   }
 `;
-
 const HomeSection = styled.div`
   box-sizing: inherit;
   border: 0px solid rgb(226, 232, 240);
@@ -241,17 +240,19 @@ const HeaderInformation = styled.div`
   display: flex;
   align-items: center;
   margin: 0;
+  width: 50%;
   position: absolute;
   top: 35%;
   margin-left: 0.75rem;
-  justify-content: center;
+  justify-content: start;
   font-style: normal;
   font-weight: 500;
-
-  // font-size: 1.3vw;
-  line-height: 22px;
+  font-size: 1.6vw;
+  line-height: 18px;
   color: #4d8ae5;
   @media (max-width: 768px) {
+    font-size: 3vw;
+    line-height: 16px;
   }
 `;
 const ContainerHeader = styled.div`
@@ -310,6 +311,11 @@ const ContainerFooter = styled.div`
   padding-right: 1.5rem;
 `;
 
+const StickyContainer = styled.div`
+  position: sticky;
+  top: 1px;
+`;
+
 type HeaderProps = {
   children: React.ReactElement[] | JSX.Element[];
 };
@@ -328,6 +334,7 @@ const UserDasboard = () => {
 
   useEffect(() => {
     handelSession();
+    editHDL("home");
   }, []);
 
   const HandleLogOut = () => {
@@ -412,7 +419,7 @@ const UserDasboard = () => {
       <Dasboard>
         <DashboardContainer>
           <SideBarContainer>
-            
+            <StickyContainer>
               <StyledMenuItem href="#">
                 <ContainerNameLogo>
                   {/* <Link onClick={() => scroll.scrollToTop()}>
@@ -444,7 +451,7 @@ const UserDasboard = () => {
                     <StyledMenuItem
                       onClick={() => {
                         editHDL("services");
-                        setHeaderRoute("Panel de Servicios");
+                        setHeaderRoute("Portafolio de Servicios");
                       }}
                     >
                       <StyledSvg>
@@ -473,7 +480,7 @@ const UserDasboard = () => {
                               <StyledMenuItem
                                 onClick={() => {
                                   editHDL(`${sectionComponent}Form`);
-                                  setHeaderRoute(`Formulario para ${action}`);
+                                  setHeaderRoute(`Portafolio de Servicios`);
                                 }}
                               >
                                 <StyledSvg>
@@ -548,7 +555,7 @@ const UserDasboard = () => {
                   </ListNavItemLogOut>
                 </ListItems>
               </MenuContainer>
-            
+            </StickyContainer>
           </SideBarContainer>
 
           <Panel>
