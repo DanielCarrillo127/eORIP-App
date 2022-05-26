@@ -268,12 +268,8 @@ const ConsultForm = () => {
   const handleRequestEnrollmentNumber = async (EnrollmentNumber: string) => {
     const req = await consultDocumentsEnrollmentNumber(EnrollmentNumber);
     if (req.status === 200) {
-      
       setOpenPdf(true);
-      console.log(req)
-
-       var file = new Blob([req.data], { type: "application/pdf"});
-      console.log(file)
+       const file = new Blob([req.data], { type: "application/pdf"});
       //  fileURL = URL.createObjectURL(file);
       setFileURL(URL.createObjectURL(file))
 

@@ -37,7 +37,7 @@ export const createUser = async (
 
   try {
     const req = await Axios_withoutInstance.post(
-      `${process.env.UsersAPI}users/register`,
+      `${process.env.REACT_APP_USERS_API}users/register`,
       data
     );
     return req;
@@ -185,7 +185,8 @@ export const consultDocumentsEnrollmentNumber = async (
         headers: {
           Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
         },
-        responseType: 'arraybuffer',
+        // responseType: 'blob',
+        // content-type: 'application/pdf',
       },
     );
     return req;
