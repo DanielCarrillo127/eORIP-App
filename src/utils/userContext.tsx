@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 import { consultActions, getUser } from "./request";
 
 interface UserContextInterface {
@@ -26,6 +26,7 @@ export type ContextActions = {
   Handleonclick: string;
   editHDL: (section: string) => void;
   handelSession: () => void;
+
 };
 
 export const DataContext = React.createContext<ContextActions | null>(null);
@@ -34,46 +35,43 @@ export const UserContext: FC<PropType> = ({ children }) => {
   const [user, setUser] = useState<UserContextInterface | null>(null);
   const [Handleonclick, setHDL] = useState("home");
 
-  const handelSession = () => {
+  const handelSession = async () => {
     const jsonSessionStorage = window.sessionStorage.getItem("USER");
     if (jsonSessionStorage !== "null" && jsonSessionStorage !== undefined) {
       const userData = JSON.parse(jsonSessionStorage || "{}");
-      setUser({
-        name: userData.name,
-        username: userData.username,
-        surnames: userData.surnames,
-        cedula: userData.cedula,
-        email: userData.email,
-        role: userData.role,
+      const reqUser = await getUser(userData.cedula);
+
+      const jsonUser = InterFaceToJSON({
+        name: reqUser.data.name,
+        username: reqUser.data.username,
+        surnames: reqUser.data.surnames,
+        cedula: reqUser.data.cedula,
+        email: reqUser.data.email,
+        role: reqUser.data.role,
         actions: userData.actions,
-        walletPublicAddress: userData.walletPublicAddress,
-        numOfPQRSD: userData.numOfPQRSD,
-        numOfCertificates: userData.numOfCertificates,
+        walletPublicAddress: reqUser.data.walletPublicAddress,
+        numOfPQRSD: reqUser.data.numOfPQRSD,
+        numOfCertificates: reqUser.data.numOfCertificates,
+      });
+      window.sessionStorage.setItem("USER", JSON.stringify(jsonUser));
+      setUser({
+        name: reqUser.data.name,
+        username: reqUser.data.username,
+        surnames: reqUser.data.surnames,
+        cedula: reqUser.data.cedula,
+        email: reqUser.data.email,
+        role: reqUser.data.role,
+        actions: userData.actions,
+        walletPublicAddress: reqUser.data.walletPublicAddress,
+        numOfPQRSD: reqUser.data.numOfPQRSD,
+        numOfCertificates: reqUser.data.numOfCertificates,
       });
     }
   };
 
   const updateUser = (id: number) => {};
 
-  // setInterval(()=>{
-  //   duration--;
-  //   if(duration < 1){
-  //     logOutUser();
-  //     console.log('logOut')
-  //     // navigate("/login");
-  //   }else{
-  //     var date = new Date();
-  //      date.setSeconds(duration);
-  //     // setTimer(date.toISOString().substr(11, 8));
-  //     console.log(date.toISOString().substr(11, 8))
-  //   }
-  // }, 1000)
-
-  // const handelTimer = () => {
-  //   duration = 300;
-  // };
-
-  const saveUser = async (token: string, userCedula: any) => {
+  const saveUser = async (token: string, userCedula: string) => {
     window.localStorage.setItem("TOKEN", token);
 
     const req = await consultActions(userCedula);

@@ -158,7 +158,7 @@ const HomeSection = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    //  handleNews();
+    handleNews();
   }, []);
 
   const handleNews = async () => {

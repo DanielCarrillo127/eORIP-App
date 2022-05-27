@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ContextActions, DataContext } from "../../utils/userContext";
 
@@ -152,7 +152,10 @@ const TitleInformation = styled.h4`
 `;
 
 const Profile = () => {
-  const { user } = React.useContext(DataContext) as ContextActions;
+  const { user,saveUser } = React.useContext(DataContext) as ContextActions;
+
+
+  
   return (
     <>
       <ProfileContainer>
@@ -214,7 +217,7 @@ const Profile = () => {
                   </ContainerInformation>
                   <ContainerInformation>
                     <TitleInformation>
-                      Certificados en posesión{" "}
+                    Numero de transacciones{" "}
                     </TitleInformation>
                     <InformationData>{user?.numOfCertificates}</InformationData>
                   </ContainerInformation>

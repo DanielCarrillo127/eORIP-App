@@ -23,6 +23,7 @@ import ModPQRForm from "../components/forms/ModPQRForm";
 import ModCertForm from "../components/forms/ModCertForm";
 import CreateCertForm from "../components/forms/CreateCertForm";
 import ConsultPQRForm from "../components/forms/ConsultPQRForm";
+import AdminForm from "../components/forms/AdminForm";
 
 const Dasboard = styled.div`
   box-sizing: inherit;
@@ -372,7 +373,7 @@ const UserDasboard = () => {
       case "adminForm":
         return (
           <>
-            <Profile />
+            <AdminForm />
           </>
         );
 
@@ -571,6 +572,7 @@ const UserDasboard = () => {
               <ContainerHeader>
                 <HeaderInformation>{headerRoute}</HeaderInformation>
               </ContainerHeader>
+  
               <ContainerName>
                 <StyledButtonName
                   type="button"

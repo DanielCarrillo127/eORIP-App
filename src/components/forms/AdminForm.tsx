@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import styled from "styled-components";
-import CardHistory from "../../components/reusables/CardHistory";
-import { consultDocumentsHistory } from "../../utils/request";
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -47,15 +44,6 @@ const StyledContact = styled.div`
   float: left;
   padding-bottom: 1em;
 `;
-const StyledP = styled.p``;
-
-// const StyledForm = styled.form``;
-
-const FromContainerWidget = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
 
 const StyledInput = styled.input`
   outline: 0px;
@@ -98,73 +86,55 @@ const Button = styled.button`
   }
 `;
 
-type HeaderProps = {
-  children: React.ReactElement[] | JSX.Element[];
-};
+const StyledP = styled.p``;
 
-const Container: React.FC<any> = (props: HeaderProps) => {
-  return <ContainerWidget>{props.children}</ContainerWidget>;
-};
+const Answer = styled.p`
+margin: 0px;
+padding: 0px;
+letter-spacing: 1px;
+text-align: justify;
+text-justify: inter-word;
+`;
 
-const History = () => {
+const AdminForm = () => {
   const [cedula, setCedula] = useState("");
-  const [data, setData] = useState([]);
-
+  const [success, setSuccess] = useState(false);
   const handleChangeUser = (e: any) => setCedula(e.target.value);
 
   const handleRequest = async (username: string) => {
-    const req = await consultDocumentsHistory(username);
-    if (req.status === 200) {
-      setData(req.data.certificados);
-      toast.success(`Historial Obtenido de Forma Exitosa.`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-      });
-    } else {
-      toast.error(`Error, Verifica el Documento Ingresado`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-      });
-    }
+    // const req = await consultDocumentsOwnerId(username);
+    // if (req.status === 200) {
+    //   setSuccess(true);
+    // }
   };
 
   return (
     <>
       <FromContainer>
-        <Container>
+        <ContainerWidget>
           <StyledContact>
-            <StyledP>Historial de Transacciones</StyledP>
+            <StyledP>
+              Formulario para Solicitud de Nuevos Administradores.
+            </StyledP>
           </StyledContact>
-          <FromContainerWidget>
-            <StyledInput
-              type="text"
-              placeholder="Ingresa la Cédula del Ciudadano"
-              onChange={handleChangeUser}
-            />
-            <Button onClick={() => handleRequest(cedula)}>Consultar</Button>
-          </FromContainerWidget>
-        </Container>
-        {/* Map the data */}
-        {data.map((data) => {
-          return (
-            <>
-              <CardHistory data={data}/>
-            </>
-          );
-        })}
+          <StyledInput
+            type="text"
+            placeholder="Ingresa la Cédula del Ciudadano"
+            onChange={handleChangeUser}
+            required
+          />
+          {/* </StyledForm> */}
+          <Button onClick={() => handleRequest(cedula)}>Consultar</Button>
+          <br></br>
+          <Answer>
+            {success
+              ? "Su solicitud ha sido procesada satisfactoriamente, Estamos validando su información para aceptar/Denegar su solicutd. De ser procesada satisfactoriamente su cuenta recibirá los permisos necesarios para acceder a recursos de administrador y enviaremos una notificación oficial via correo electrónico."
+              : ""}
+          </Answer>
+        </ContainerWidget>
       </FromContainer>
     </>
   );
 };
 
-export default History;
+export default AdminForm;

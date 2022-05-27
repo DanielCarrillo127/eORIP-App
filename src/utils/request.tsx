@@ -192,6 +192,22 @@ export const consultDocumentsOwnerId = async (cedula: String) => {
   }
 };
 
+export const consultDocumentsHistory = async (cedula: String) => {
+  try {
+    const req = await axios.get(
+      `${process.env.REACT_APP_USERS_API}certificate/verInfo/TIL/All?cedula=${cedula}`,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const consultDocumentsEnrollmentNumber = async (
   EnrollmentNumber: string
 ) => {
