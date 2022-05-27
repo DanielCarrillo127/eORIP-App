@@ -262,6 +262,7 @@ const CreatePQRForm = () => {
                 Formulario para Solicitud y Petición de Informes PQRSD.
               </StyledP>
             </StyledContact>
+            <br/><br/>
             <InputContainerItem>
               <InputTitle>Tipo*</InputTitle>
               <StyledSelect id="tipoSelect" onChange={handleChangeType}>

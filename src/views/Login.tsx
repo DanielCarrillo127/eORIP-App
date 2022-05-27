@@ -175,7 +175,7 @@ const Login = () => {
   const handleLogin = async (username: string, password: string) => {
     const req = await login(username, password);
     if (req.status === 200) {
-      saveUser(req.data.accesToken,req.data.info);
+      saveUser(req.data.accesToken,req.data.info.cedula);
       toast.success(`✅ Bienvenido,${req.data.info.name} ${req.data.info.surnames}.`, {
         position: "top-right",
         autoClose: 3000,
@@ -222,7 +222,7 @@ const Login = () => {
         progress: undefined,
         });
     }
-    if (4 < cedula.length && cedula.length < 10) {
+    if (4 < cedula.length && cedula.length <= 10) {
       cedulaValidation = true;
     } else {
       toast.error(`🪪 Cédula incorrecta,Verifica tu identificación`, {
@@ -254,7 +254,7 @@ const Login = () => {
       );
       console.log(req);
       if (req.status === 201) {
-        saveUser(req.data.token,req.data.info);
+        saveUser(req.data.token,cedula);
         navigate("/userDashboard");
       } else {
         //toast user already exist

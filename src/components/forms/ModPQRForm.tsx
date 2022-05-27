@@ -88,6 +88,7 @@ const InputTitle = styled.label`
   margin-bottom: 4px;
   font-size: 16px;
   color: rgb(53, 60, 78);
+  float:left;
 `;
 
 const InputContainerItem = styled.div`
@@ -432,6 +433,7 @@ const ModPQRForm = () => {
             <StyledContact>
               <StyledP>Formulario para Modificar Informes PQRSD.</StyledP>
             </StyledContact>
+            <br/><br/>
             <InputContainerItem>
               <InputTitle>Consultar PQRSD Registrada*</InputTitle>
 

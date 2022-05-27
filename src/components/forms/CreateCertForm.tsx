@@ -284,6 +284,7 @@ const CreateCertForm = () => {
                 Formulario para Crear Certificado de Transacciones.
               </StyledP>
             </StyledContact>
+            <br/><br/>
             <InputContainerItem>
               <InputTitle>Cedula del ciudadano*</InputTitle>
 

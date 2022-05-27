@@ -18,6 +18,23 @@ export const login = async (username: string, password: string) => {
   }
 };
 
+export const getUser = async (cedula: string) => {
+
+  try {
+    const req = await Axios_withoutInstance.get(
+      `${process.env.REACT_APP_USERS_API}users?cedula=${cedula}`,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const createUser = async (
   name: string,
   surnames: string,

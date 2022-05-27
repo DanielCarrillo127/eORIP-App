@@ -210,20 +210,20 @@ const Profile = () => {
                 <ContainerColumns>
                   <ContainerInformation>
                     <TitleInformation>Peticiones activas</TitleInformation>
-                    <InformationData>4</InformationData>
+                    <InformationData>{user?.numOfPQRSD}</InformationData>
                   </ContainerInformation>
                   <ContainerInformation>
                     <TitleInformation>
                       Certificados en posesión{" "}
                     </TitleInformation>
-                    <InformationData></InformationData>
+                    <InformationData>{user?.numOfCertificates}</InformationData>
                   </ContainerInformation>
                 </ContainerColumns>
                 <ContainerColumns>
                   <ContainerInformation>
                     <TitleInformation>WalletID</TitleInformation>
                     <InformationData>
-                      1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+                    {user?.walletPublicAddress}
                     </InformationData>
                   </ContainerInformation>
                 </ContainerColumns>

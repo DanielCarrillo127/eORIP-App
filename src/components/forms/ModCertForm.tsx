@@ -598,6 +598,7 @@ const ModCertForm = () => {
                 Formulario para Modificar Certificado de Transacciones.
               </StyledP>
             </StyledContact>
+            <br/><br/>
             <InputContainerItem>
               <InputTitle>Consultar Matriculas de la Transacciones*</InputTitle>
               <StyledInput

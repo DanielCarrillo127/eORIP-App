@@ -1,5 +1,5 @@
 import React, { useState, FC } from "react";
-import { consultActions } from "./request";
+import { consultActions, getUser } from "./request";
 
 interface UserContextInterface {
   name: string;
@@ -8,6 +8,9 @@ interface UserContextInterface {
   cedula: string;
   email: string;
   role: string;
+  walletPublicAddress: string;
+  numOfPQRSD: string;
+  numOfCertificates: string;
   actions: string[];
 }
 
@@ -28,14 +31,13 @@ export type ContextActions = {
 export const DataContext = React.createContext<ContextActions | null>(null);
 
 export const UserContext: FC<PropType> = ({ children }) => {
-
   const [user, setUser] = useState<UserContextInterface | null>(null);
   const [Handleonclick, setHDL] = useState("home");
 
   const handelSession = () => {
-    const jsonSessionStorage = window.sessionStorage.getItem("USER")
+    const jsonSessionStorage = window.sessionStorage.getItem("USER");
     if (jsonSessionStorage !== "null" && jsonSessionStorage !== undefined) {
-      const userData = JSON.parse(jsonSessionStorage || '{}');
+      const userData = JSON.parse(jsonSessionStorage || "{}");
       setUser({
         name: userData.name,
         username: userData.username,
@@ -44,42 +46,64 @@ export const UserContext: FC<PropType> = ({ children }) => {
         email: userData.email,
         role: userData.role,
         actions: userData.actions,
+        walletPublicAddress: userData.walletPublicAddress,
+        numOfPQRSD: userData.numOfPQRSD,
+        numOfCertificates: userData.numOfCertificates,
       });
     }
   };
 
   const updateUser = (id: number) => {};
 
+  // setInterval(()=>{
+  //   duration--;
+  //   if(duration < 1){
+  //     logOutUser();
+  //     console.log('logOut')
+  //     // navigate("/login");
+  //   }else{
+  //     var date = new Date();
+  //      date.setSeconds(duration);
+  //     // setTimer(date.toISOString().substr(11, 8));
+  //     console.log(date.toISOString().substr(11, 8))
+  //   }
+  // }, 1000)
 
+  // const handelTimer = () => {
+  //   duration = 300;
+  // };
 
-  const saveUser = async (token: string, userinfo: any) => {
+  const saveUser = async (token: string, userCedula: any) => {
     window.localStorage.setItem("TOKEN", token);
 
-    const req = await consultActions(userinfo.cedula);
-    const jsonUser = InterFaceToJSON({
-      name: userinfo.name,
-      username: userinfo.username,
-      surnames: userinfo.surnames,
-      cedula: userinfo.cedula,
-      email: userinfo.email,
-      role: userinfo.role,
-      actions: req.data.actions,
-    });
-    window.sessionStorage.setItem(
-      "USER",
-      JSON.stringify(jsonUser)
-    );
-     setUser({
-      name: userinfo.name,
-      username: userinfo.username,
-      surnames: userinfo.surnames,
-      cedula: userinfo.cedula,
-      email: userinfo.email,
-      role: userinfo.role,
-      actions: req.data.actions,
-    });
+    const req = await consultActions(userCedula);
+    const reqUser = await getUser(userCedula);
 
-    
+    const jsonUser = InterFaceToJSON({
+      name: reqUser.data.name,
+      username: reqUser.data.username,
+      surnames: reqUser.data.surnames,
+      cedula: reqUser.data.cedula,
+      email: reqUser.data.email,
+      role: reqUser.data.role,
+      actions: req.data.actions,
+      walletPublicAddress: reqUser.data.walletPublicAddress,
+      numOfPQRSD: reqUser.data.numOfPQRSD,
+      numOfCertificates: reqUser.data.numOfCertificates,
+    });
+    window.sessionStorage.setItem("USER", JSON.stringify(jsonUser));
+    setUser({
+      name: reqUser.data.name,
+      username: reqUser.data.username,
+      surnames: reqUser.data.surnames,
+      cedula: reqUser.data.cedula,
+      email: reqUser.data.email,
+      role: reqUser.data.role,
+      actions: req.data.actions,
+      walletPublicAddress: reqUser.data.walletPublicAddress,
+      numOfPQRSD: reqUser.data.numOfPQRSD,
+      numOfCertificates: reqUser.data.numOfCertificates,
+    });
   };
 
   const InterFaceToJSON = (user: any) => {
@@ -94,15 +118,16 @@ export const UserContext: FC<PropType> = ({ children }) => {
         email: user.email,
         role: user.role,
         actions: user.actions,
+        walletPublicAddress: user.walletPublicAddress,
+        numOfPQRSD: user.numOfPQRSD,
+        numOfCertificates: user.numOfCertificates,
       };
       return json;
     }
-    
   };
 
-
   const editHDL = (section: string) => {
-    setHDL(section)
+    setHDL(section);
   };
 
   const logOutUser = async () => {
@@ -114,7 +139,17 @@ export const UserContext: FC<PropType> = ({ children }) => {
   // localStorage.clear();
 
   return (
-    <DataContext.Provider value={{ user, Handleonclick,updateUser, saveUser, logOutUser,editHDL,handelSession }}>
+    <DataContext.Provider
+      value={{
+        user,
+        Handleonclick,
+        updateUser,
+        saveUser,
+        logOutUser,
+        editHDL,
+        handelSession,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );
