@@ -112,11 +112,6 @@ const History = () => {
 
   const handleChangeUser = (e: any) => setCedula(e.target.value);
 
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "COP",
-  });
-
   const handleRequest = async (username: string) => {
     const req = await consultDocumentsOwnerId(username);
     if (req.status === 200) {

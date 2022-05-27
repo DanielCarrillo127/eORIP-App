@@ -553,6 +553,7 @@ const ModCertForm = () => {
               <TBody>
                 {data.map((value, index) => {
                   if (value[`type`] === "CTRA") {
+                    const dt:any = new Date(value[`timeStamp`])
                     return (
                       <TableItem key={index}>
                         <TableItemRow data-label="No. Matricula">
@@ -562,7 +563,7 @@ const ModCertForm = () => {
                           {value[`status`]}
                         </TableItemRow>
                         <TableItemRow data-label="Fecha">
-                          {value[`timeStamp`]}
+                          {dt.toLocaleString()}
                         </TableItemRow>
                         <TableItemRow data-label="Acciones">
                           <ButtonDownload

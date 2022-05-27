@@ -329,7 +329,7 @@ const ConsultForm = () => {
               <THead>
                 <TableItem>
                   <TableHead scope="col">No. Matricula</TableHead>
-                  <TableHead scope="col">Valor del acto Inicial</TableHead>
+                  <TableHead scope="col">Valor del Acto</TableHead>
                   <TableHead scope="col">Id Administrador</TableHead>
                   <TableHead scope="col">Status</TableHead>
                   <TableHead scope="col">Fecha</TableHead>
@@ -340,6 +340,7 @@ const ConsultForm = () => {
               <TBody>
                 {data.map((value, index) => {
                   if (value[`type`] === "CTRA") {
+                   const dt:any = new Date(value[`timeStamp`])
                     return (
                       <TableItem key={index}>
                         <TableItemRow data-label="No. Matricula">
@@ -355,7 +356,7 @@ const ConsultForm = () => {
                           {value[`status`]}
                         </TableItemRow>
                         <TableItemRow data-label="Fecha">
-                          {value[`timeStamp`]}
+                          {dt.toLocaleString()}
                         </TableItemRow>
                         <TableItemRow data-label="Documento">
                           <ButtonDownload

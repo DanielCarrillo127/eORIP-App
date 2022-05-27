@@ -386,6 +386,7 @@ const ModPQRForm = () => {
               <TBody>
                 {data.map((value, index) => {
                   if (value[`type`] === "PQRSD") {
+                    const dt:any = new Date(value[`timeStamp`])
                     return (
                       <TableItem key={index}>
                         <TableItemRow data-label="No. Matricula">
@@ -395,7 +396,7 @@ const ModPQRForm = () => {
                           {value[`status`]}
                         </TableItemRow>
                         <TableItemRow data-label="Fecha">
-                          {value[`timeStamp`]}
+                          {dt.toLocaleString}
                         </TableItemRow>
                         <TableItemRow data-label="Acciones">
                           <ButtonDownload
