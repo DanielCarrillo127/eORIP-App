@@ -22,6 +22,7 @@ import {
 import ModPQRForm from "../components/forms/ModPQRForm";
 import ModCertForm from "../components/forms/ModCertForm";
 import CreateCertForm from "../components/forms/CreateCertForm";
+import ConsultPQRForm from "../components/forms/ConsultPQRForm";
 
 const Dasboard = styled.div`
   box-sizing: inherit;
@@ -407,6 +408,13 @@ const UserDasboard = () => {
         return (
           <>
             <ModPQRForm />
+          </>
+        );
+
+      case "Con-PQRForm":
+        return (
+          <>
+            <ConsultPQRForm />
           </>
         );
       default:

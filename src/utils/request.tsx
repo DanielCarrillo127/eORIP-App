@@ -185,7 +185,7 @@ export const consultDocumentsEnrollmentNumber = async (
         headers: {
           Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
         },
-        // responseType: 'blob',
+        responseType: 'blob',
         // content-type: 'application/pdf',
       },
     );

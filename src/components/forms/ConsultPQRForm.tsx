@@ -249,7 +249,7 @@ const Container: React.FC<any> = (props: HeaderProps) => {
   return <ContainerWidget>{props.children}</ContainerWidget>;
 };
 
-const ConsultForm = () => {
+const ConsultPQRForm = () => {
   const [cedula, setCedula] = useState("");
   const [data, setData] = useState([]);
   const [isOpenPdf, setOpenPdf] = useState(false);
@@ -280,7 +280,6 @@ const ConsultForm = () => {
         progress: undefined,
       });
     } else {
-
       toast.error(`Error, No Hemos Obtenido El Documento.`, {
         position: "top-right",
         autoClose: 3000,
@@ -322,6 +321,11 @@ const ConsultForm = () => {
 
   const handleTable = () => {
     if (data.length > 0) {
+      const uniqueItems = [...new Set(data.map((value) => value[`enrollmentNumber`]))];
+      const dataFilter: any[] = [];
+      uniqueItems.forEach((unique) => {
+        dataFilter.push(data.find(element => element[`enrollmentNumber`] === unique));
+      });
       return (
         <>
           <TableContainer>
@@ -338,8 +342,8 @@ const ConsultForm = () => {
               </THead>
 
               <TBody>
-                {data.map((value, index) => {
-                  if (value[`type`] === "CTRA") {
+                {dataFilter.map((value, index) => {
+                  if (value[`type`] === "PQRSD") {
                     return (
                       <TableItem key={index}>
                         <TableItemRow data-label="No. Matricula">
@@ -396,7 +400,7 @@ const ConsultForm = () => {
               height={850}
             ></object>
           </PdfContainer>
-          <DownloadATag href={fileURL} download="Certificado.pdf">
+          <DownloadATag href={fileURL} download="PQRSD.pdf">
             Tu dispositivo no puede visualizar los documentos, Click aqui para
             descargar.
           </DownloadATag>
@@ -412,7 +416,7 @@ const ConsultForm = () => {
       <FromContainer>
         <Container>
           <StyledContact>
-            <StyledP>Formulario para Consultar de certificados.</StyledP>
+            <StyledP>Formulario para Consultar de PQRSD.</StyledP>
           </StyledContact>
           <FromContainerWidget>
             {/* <StyledForm id="FormConsult"> */}
@@ -433,4 +437,4 @@ const ConsultForm = () => {
   );
 };
 
-export default ConsultForm;
+export default ConsultPQRForm;

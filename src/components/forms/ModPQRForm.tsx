@@ -385,7 +385,7 @@ const ModPQRForm = () => {
 
               <TBody>
                 {data.map((value, index) => {
-                  if (value[`type`] === "CTRA") {
+                  if (value[`type`] === "PQRSD") {
                     return (
                       <TableItem key={index}>
                         <TableItemRow data-label="No. Matricula">

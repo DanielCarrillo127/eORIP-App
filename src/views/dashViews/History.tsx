@@ -1,5 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import CardHistory from "../../components/reusables/CardHistory";
+import { consultDocumentsOwnerId } from "../../utils/request";
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -95,124 +98,6 @@ const Button = styled.button`
   }
 `;
 
-const TableContainer = styled.div`
-  @media (max-width: 600px) {
-    width: auto;
-    height: 500px;
-    overflow-y: scroll;
-  }
-`;
-
-const Table = styled.table`
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  table-layout: fixed;
-  @media (max-width: 600) {
-    border: 0;
-  }
-`;
-
-const THead = styled.thead`
-  @media (max-width: 600px) {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-`;
-
-const TBody = styled.tbody`
-  @media (max-width: 600) {
-  }
-`;
-
-const TableHead = styled.th`
-  padding: 0.625em;
-  text-align: center;
-  font-size: 0.85em;
-  letter-spacing: 0.1em;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  background-color: #4d8ae5;
-  @media (max-width: 800px) {
-    font-size: 0.6em;
-  }
-`;
-const TableItemRow = styled.td`
-  padding: 0.625em;
-  text-align: center;
-  text-overflow: clip;
-  overflow: hidden;
-  white-space: initial;
-  font-size: 0.8em;
-  &:hover {
-    white-space: initial;
-    overflow: scroll;
-    // background-color:#fff;
-  }
-  @media (max-width: 600px) {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    font-size: 0.8em;
-    text-align: right;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    &:before {
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-`;
-const TableItem = styled.tr`
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: 0.35em;
-  @media (max-width: 600px) {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: 0.625em;
-  }
-`;
-const ButtonDownload = styled.button`
-  background: linear-gradient(
-    305.36deg,
-    #226fe1 10.86%,
-    rgba(34, 111, 225, 0.4) 93.49%
-  );
-  color: white;
-  border-radius: 10px;
-  outline: none;
-  border: none;
-  height: 32px;
-  width: 62px;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  &:hover {
-    transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
-    color: #fff;
-    text-decoration: none;
-  }
-  @media (max-width: 600px) {
-     float: right;
-     width: auto;
-  }
-
-`;
-
 type HeaderProps = {
   children: React.ReactElement[] | JSX.Element[];
 };
@@ -221,31 +106,70 @@ const Container: React.FC<any> = (props: HeaderProps) => {
   return <ContainerWidget>{props.children}</ContainerWidget>;
 };
 
-
 const History = () => {
+  const [cedula, setCedula] = useState("");
+  const [data, setData] = useState([]);
+
+  const handleChangeUser = (e: any) => setCedula(e.target.value);
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "COP",
+  });
+
+  const handleRequest = async (username: string) => {
+    const req = await consultDocumentsOwnerId(username);
+    if (req.status === 200) {
+      setData(req.data.certificados);
+      toast.success(`Historial Obtenido de Forma Exitosa.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error(`Error, Verifica el Documento Ingresado`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
   return (
     <>
-    <FromContainer>
+      <FromContainer>
         <Container>
           <StyledContact>
             <StyledP>Historial de Transacciones</StyledP>
           </StyledContact>
           <FromContainerWidget>
-            {/* <StyledForm id="FormConsult"> */}
-            {/* <StyledInput
+            <StyledInput
               type="text"
               placeholder="Ingresa la Cédula del Ciudadano"
               onChange={handleChangeUser}
-            /> */}
-            {/* </StyledForm> */}
-            {/* <Button onClick={() => handleRequest(cedula)}>Consultar</Button> */}
+            />
+            <Button onClick={() => handleRequest(cedula)}>Consultar</Button>
           </FromContainerWidget>
-          {/* {handleTable()} */}
-
         </Container>
+        {/* Map the data */}
+        {data.map((data) => {
+          return (
+            <>
+              <CardHistory data={data}/>
+            </>
+          );
+        })}
       </FromContainer>
     </>
-  )
-}
+  );
+};
 
-export default History
+export default History;

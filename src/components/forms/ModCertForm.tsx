@@ -426,9 +426,9 @@ const ModCertForm = () => {
           valor,
           city
         );
-        if (req.status === 201) {
+        if (req.status === 200) {
           setOnLoading(false);
-          toast.success(`Anotacion Agregada Exitosamente .`, {
+          toast.success(`Anotacion Agregada Exitosamente.`, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -536,6 +536,7 @@ const ModCertForm = () => {
 
   const handleTable = () => {
     if (data.length > 0) {
+      
       return (
         <>
           <TableContainer>
