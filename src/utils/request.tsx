@@ -231,7 +231,13 @@ export const consultDocumentsEnrollmentNumber = async (
 export const consultNews = async () => {
   try {
     const req = await axios.get(
-      `http://api.mediastack.com/v1/news?access_key=${process.env.REACT_APP_NEWSAPI_KEY}&countries=co&languages=es&keywords=predios ley&limit=10`
+      `https://free-news.p.rapidapi.com/v1/search?q=gobierno&lang=es&page=1&page_size=10`,
+      {
+        headers:{
+          'X-RapidAPI-Key': `${process.env.REACT_APP_NEWSAPI_KEY}`
+        }
+      }
+
     );
     return req;
   } catch (error) {

@@ -89,14 +89,10 @@ const NewsCard = (props: any) => {
   return (
     <>
       <Container>
-        <StyledLink href={props.news.url}>
+        <StyledLink href={props.news.link} target='_blank'>
           <ImageBackground
-            img={props.news.image !== null ? `${props.news.image}` : `${gray}`}
-            style={{
-              backgroundImage: `${
-                props.news.image !== null ? `${props.news.image}` : `${gray}`
-              }`,
-            }}
+            img={props.news.media !== null ? `${props.news.media}` : `${gray}`}
+         
           />
           <StyledArticle>
             <div>
@@ -104,14 +100,14 @@ const NewsCard = (props: any) => {
                 {props.news.author !== null ? props.news.author : "Anonimo"}
               </Content>{" "}
               <ContentDate>
-                {props.news.published_at?.substring(0, 10)}
+                {props.news.published_date?.substring(0, 10)}
               </ContentDate>
             </div>
             <Title>{props.news.title}</Title>
 
-            <Content>{props.news.description?.substring(0, 150)}...</Content>
+            <Content>{props.news.summary?.substring(0, 150)}...</Content>
 
-            <ContentSource>{props.news.source}</ContentSource>
+            <ContentSource>{props.news.clean_url}</ContentSource>
           </StyledArticle>
         </StyledLink>
       </Container>

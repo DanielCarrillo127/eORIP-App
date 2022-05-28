@@ -156,16 +156,18 @@ const NewsContainer = styled.div`
 
 const HomeSection = () => {
   const [news, setNews] = useState([]);
+  
 
   useEffect(() => {
-    handleNews();
+   if(news.length === 0){
+    handleNews()
+   }
   }, []);
 
   const handleNews = async () => {
     const req = await consultNews();
     if (req.status === 200) {
-      setNews(req.data.data);
-      console.log(req.data.data);
+      setNews(req.data.articles);
     } else {
       toast.info(`No data for news.`, {
         position: "top-right",
@@ -194,10 +196,10 @@ const HomeSection = () => {
         <ContainerVertical>
           <ContainerWidgetNews>
             <div>
-              <StyledContact>
+              <StyledContact onClick={() => handleNews()}>
                 <StyledP>Noticias De Interés</StyledP>
               </StyledContact>
-              {news.length !== 0 ? (
+              {news?.length !== 0 ? (
                 <>
                   <NewsContainer>
                     {news.map((value, index) => {
