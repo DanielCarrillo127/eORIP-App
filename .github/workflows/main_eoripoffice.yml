@@ -25,7 +25,7 @@ jobs:
       - name: npm install, build, and test
         env:
           CI: false
-          
+
         run: |
           npm install
           npm run build --if-present
@@ -33,7 +33,7 @@ jobs:
       # Zip artifacts to speed things up
       - name: Zip artifact for deployment
         #Zip everuthing including node_modules
-        run: zip release.zip ./* -qr
+        run: zip release.zip ./* -qr -x "node_modules/*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -53,7 +53,14 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
-
+      - name: Unzip artifact for deployment
+        # unzip file
+        run: |
+          unzip -q release.zip
+          rm release.zip
+      - name: add process.json
+        run: |
+          echo '{ script: "serve", env: { PM2_SERVE_SPA: "true", PM2_SERVE_HOMEPAGE: "/index.html" } }' >> build/process.json
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -61,4 +68,4 @@ jobs:
           app-name: "eoripoffice"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C09A03284B4B4E37A813DC497AC37F5C }}
-          package: release.zip
+          package: build
