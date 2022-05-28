@@ -24,6 +24,8 @@ import ModCertForm from "../components/forms/ModCertForm";
 import CreateCertForm from "../components/forms/CreateCertForm";
 import ConsultPQRForm from "../components/forms/ConsultPQRForm";
 import AdminForm from "../components/forms/AdminForm";
+import { consultNews } from "../utils/request";
+import { toast } from "react-toastify";
 
 const Dasboard = styled.div`
   box-sizing: inherit;
@@ -337,7 +339,18 @@ const UserDasboard = () => {
   useEffect(() => {
     handelSession();
     editHDL("home");
+    handleNews();
   }, []);
+
+  const [news, setNews] = useState([]);
+
+
+  const handleNews = async () => {
+    const req = await consultNews();
+    if (req.status === 200) {
+      setNews(req.data.articles);
+    } 
+  };
 
   const HandleLogOut = () => {
     logOutUser();
@@ -347,7 +360,7 @@ const UserDasboard = () => {
   const Ifclause = () => {
     switch (Handleonclick) {
       case "home":
-        return <Home />;
+        return <Home news={news}/>;
 
       case "services":
         return (
@@ -419,7 +432,7 @@ const UserDasboard = () => {
           </>
         );
       default:
-        return <Home />;
+        return <Home news={news}/>;
     }
   };
 

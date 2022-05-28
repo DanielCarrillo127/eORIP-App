@@ -126,7 +126,7 @@ const ScrollContainerH = styled.div`
   overflow-x: auto;
   white-space: nowrap;
 `;
-const ScrollItem = styled.div`
+const ScrollItem = styled.a`
   width: 145px;
   height: 70px;
   background: transparent;
@@ -154,32 +154,9 @@ const NewsContainer = styled.div`
 `;
 
 
-const HomeSection = () => {
-  const [news, setNews] = useState([]);
-  
+const HomeSection = (props:any) => {
 
-  useEffect(() => {
-   if(news.length === 0){
-    handleNews()
-   }
-  }, []);
 
-  const handleNews = async () => {
-    const req = await consultNews();
-    if (req.status === 200) {
-      setNews(req.data.articles);
-    } else {
-      toast.info(`No data for news.`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  };
 
   return (
     <>
@@ -196,13 +173,13 @@ const HomeSection = () => {
         <ContainerVertical>
           <ContainerWidgetNews>
             <div>
-              <StyledContact onClick={() => handleNews()}>
+              <StyledContact>
                 <StyledP>Noticias De Interés</StyledP>
               </StyledContact>
-              {news?.length !== 0 ? (
+              {props.news?.length !== 0 ? (
                 <>
                   <NewsContainer>
-                    {news.map((value, index) => {
+                    {props.news.map((value: string, index: number) => {
                       return (
                         <>
                           <NewsCard key={index} news={value} />
@@ -230,19 +207,19 @@ const HomeSection = () => {
             </StyledContact>
 
             <ScrollContainerH>
-              <ScrollItem>
+              <ScrollItem href="https://www.vur.gov.co/" target="_blank">
                 <ScrollItemImages src={logovur} />
               </ScrollItem>
-              <ScrollItem>
+              <ScrollItem href="https://www.procuraduria.gov.co/portal/" target="_blank">
                 <ScrollItemImages src={logopro} />
               </ScrollItem>
-              <ScrollItem>
+              <ScrollItem href="https://www.superservicios.gov.co/Nuestra-entidad/Sistema-integrado-de-gestion" target="_blank">
                 <ScrollItemImages src={logosisg} />
               </ScrollItem>
-              <ScrollItem>
+              <ScrollItem href="https://www.ant.gov.co/" target="_blank">
                 <ScrollItemImages src={logoant} />
               </ScrollItem>
-              <ScrollItem>
+              <ScrollItem href="https://www.igac.gov.co/" target="_blank" >
                 <ScrollItemImages src={logoigac} />
               </ScrollItem>
             </ScrollContainerH>
