@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import SNR from "../../assets/svgs/snr.svg";
+import info from "../../assets/svgs/information.svg";
 
 const InformationC = styled.div`
   background: #fff;
@@ -101,7 +101,7 @@ const Information = () => {
         <Row>
           <Col6>
             <ImgContainer>
-              <Img src={SNR} />
+              <Img src={info} />
             </ImgContainer>
           </Col6>
           <Col6>

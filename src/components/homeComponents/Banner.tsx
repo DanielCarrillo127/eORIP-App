@@ -6,11 +6,15 @@ import BannnerStars from '../../assets/svgs/Rectangle.svg';
 
 const Header = styled.header`
     width: 100%;
-    height: 75vh;
+    height: 99vh;
     background-color: #E5EAFF;
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
+    @media (max-width: 768px) {
+        height: 70vh;
+      }
+
 `;
 const Container = styled.div`
   margin: 0 auto;
@@ -23,9 +27,11 @@ const Row = styled.div`
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 90px 0 0 0 ;
     @media (max-width: 768px) {
         flex-wrap: nowrap;
         height: auto;
+        margin: 30px 0 0 0 ;
       }
 
 `;
@@ -39,6 +45,8 @@ const HeaderContent = styled.div`
     height: 50vh;
     width: 100%;
     color: #150C01;
+    
+    
 `;
 const HeaderTitle = styled.h1`
     margin-top: 150px;
