@@ -305,6 +305,26 @@ export const consultDocumentsEnrollmentNumber = async (
   }
 };
 
+export const consultDocumentsEnrollmentNumberPQRSD = async (
+  EnrollmentNumber: string
+) => {
+  try {
+    const req = await axios.get(
+      `${process.env.REACT_APP_USERS_API}certificate/verInfo/PQRSD?enrollmentNumber=${EnrollmentNumber}`,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+        responseType: "blob",
+        // content-type: 'application/pdf',
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const consultNews = async () => {
   try {
     const req = await axios.get(

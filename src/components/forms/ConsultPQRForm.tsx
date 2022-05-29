@@ -5,7 +5,8 @@ import styled from "styled-components";
 import { VscFilePdf } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import {
-  consultDocumentsEnrollmentNumber,
+
+  consultDocumentsEnrollmentNumberPQRSD,
   consultDocumentsPQRSDOwnerId,
 } from "../../utils/request";
 
@@ -263,7 +264,7 @@ const ConsultPQRForm = () => {
   });
 
   const handleRequestEnrollmentNumber = async (EnrollmentNumber: string) => {
-    const req = await consultDocumentsEnrollmentNumber(EnrollmentNumber);
+    const req = await consultDocumentsEnrollmentNumberPQRSD(EnrollmentNumber);
     if (req.status === 200) {
       setOpenPdf(true);
       var file = new Blob([req.data], { type: "application/pdf" });
