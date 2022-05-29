@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import styled, { StyledInterface } from "styled-components";
+import styled from "styled-components";
 import {
   consultDocumentsOwnerId,
   NewAnotationCertificateTIL,
@@ -385,6 +385,7 @@ const ModCertForm = () => {
   const handleRequest = async (username: string) => {
     const req = await consultDocumentsOwnerId(username);
     if (req.status === 200) {
+      setCedulaSearch("");
       setData(req.data.certificados);
       toast.success(`Petición exitosa.`, {
         position: "top-right",
@@ -427,6 +428,14 @@ const ModCertForm = () => {
           city
         );
         if (req.status === 200) {
+          setType("");
+          setCedulaOwner("");
+          setcedulaNewOwner("");
+          setValor("");
+          setEnrollmentNumber("");
+          setCity("");
+          setDescription("");
+          setData([]);
           setOnLoading(false);
           toast.success(`Anotacion Agregada Exitosamente.`, {
             position: "top-right",
@@ -483,6 +492,14 @@ const ModCertForm = () => {
           city
         );
         if (req.status === 200) {
+          setType("");
+          setCedulaOwner("");
+          setcedulaNewOwner("");
+          setValor("");
+          setEnrollmentNumber("");
+          setCity("");
+          setDescription("");
+          setData([]);
           setOnLoading(false);
           toast.success(`Transferencia de certificado exitosa.`, {
             position: "top-right",
@@ -634,7 +651,7 @@ const ModCertForm = () => {
             {type !== "Anotacion" ? (
               <>
                 <InputContainerItem>
-                  <InputTitle>Cedula del ciudadano nuevo*</InputTitle>
+                  <InputTitle>Cedula del Nuevo Dueño*</InputTitle>
                   <StyledInput
                     type="text"
                     placeholder="Ingresa la Cedula del ciudadano "
@@ -646,10 +663,10 @@ const ModCertForm = () => {
               <></>
             )}
             <InputContainerItem>
-              <InputTitle>Cedula del ciudadano actual*</InputTitle>
+              <InputTitle>Cedula del Dueño actual*</InputTitle>
               <StyledInput
                 type="text"
-                placeholder="Ingresa la Cedula del ciudadano "
+                placeholder="Ingresa la Cedula del Dueño actual  "
                 onChange={handleChangeCedulaOwner}
               />
             </InputContainerItem>

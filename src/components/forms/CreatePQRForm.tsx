@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { ContextActions, DataContext } from "../../utils/userContext";
+import { createPQRSD } from "../../utils/request";
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -201,55 +201,59 @@ const ButtonSpinner = styled.button<loading>`
 `;
 
 const CreatePQRForm = () => {
-  const { user } = React.useContext(DataContext) as ContextActions;
 
   const [onLoading, setOnLoading] = useState(false);
 
   const [type, setType] = useState("");
-  const [name, setName] = useState("");
+  const [city, setCity] = useState("");
   const [cedula, setCedula] = useState("");
   const [tel, setTel] = useState("");
   const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
+
   const [applicationSite, setApplicationSite] = useState("");
   const [description, setDescription] = useState("");
 
   const handleChangeCedula = (e: any) => setCedula(e.target.value);
-  const handleChangeName = (e: any) => setName(e.target.value);
+  const handleChangeCity = (e: any) => setCity(e.target.value);
   const handleChangeTel = (e: any) => setTel(e.target.value);
   const handleChangeDescription = (e: any) => setDescription(e.target.value);
   const handleChangeType = (e: any) => setType(e.target.value);
   const handleChangeASite = (e: any) => setApplicationSite(e.target.value);
-  const handleChangeEmail = (e: any) => setEmail(e.target.value);
   const handleChangeAddress = (e: any) => setAddress(e.target.value);
 
   const handleRequest = async () => {
-    // setOnLoading(true)
-    // const req = await consultDocumentsOwnerId(username);
-    // if (req.status === 200) {
-      // setOnLoading(false)
-    //   toast.success(`Petición exitosa.`, {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: false,
-    //     draggable: true,
-    //     progress: undefined,
-    //   });
-    // } else {
-      // setOnLoading(false)
-    //   console.log(req.response.data);
-    //   toast.error(`${""} ,error.`, {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: false,
-    //     draggable: true,
-    //     progress: undefined,
-    //   });
-    // }
+    setOnLoading(true)
+    const req = await createPQRSD(cedula,description,type,tel,address,applicationSite,city);
+    if (req.status === 201) {
+      setType("");
+      setCity("");
+      setCedula("");
+      setTel("");
+      setAddress("");
+      setApplicationSite("");
+      setDescription("");
+      setOnLoading(false)
+      toast.success(`Petición exitosa.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      setOnLoading(false)
+      toast.error(`Petición fue denegada, ${req.response.data.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   return (
@@ -275,16 +279,6 @@ const CreatePQRForm = () => {
                 <StyledOption value="denuncia">Denuncia</StyledOption>
                 <StyledOption value="sugerencia">Sugerencia</StyledOption>
               </StyledSelect>
-            </InputContainerItem>
-
-            <InputContainerItem>
-              <InputTitle>Nombre y apellido*</InputTitle>
-
-              <StyledInput
-                type="text"
-                placeholder="Ingresa Nombre & Apellido "
-                onChange={handleChangeName}
-              />
             </InputContainerItem>
 
             <InputContainerItem>
@@ -315,17 +309,55 @@ const CreatePQRForm = () => {
                 onChange={handleChangeAddress}
               />
             </InputContainerItem>
+            <InputContainerItem>
+              <InputTitle>Ciudad*</InputTitle>
+              <StyledSelect id="citySelect" onChange={handleChangeCity}>
+                <StyledOption value="" selected disabled hidden>
+                  Selecciona un Ciudad
+                </StyledOption>
+                <StyledOption value="Arauca">Arauca</StyledOption>
+                <StyledOption value="Armenia">Armenia</StyledOption>
+                <StyledOption value="Barranquilla">Barranquilla</StyledOption>
+                <StyledOption value="Bogotá">Bogotá</StyledOption>
+                <StyledOption value="Bucaramanga">Bucaramanga</StyledOption>
+                <StyledOption value="Cali">Cali</StyledOption>
+                <StyledOption value="Cartagena">Cartagena</StyledOption>
+                <StyledOption value="Cúcuta">Cúcuta</StyledOption>
+                <StyledOption value="Florencia">Florencia</StyledOption>
+                <StyledOption value="Ibagué">Ibagué</StyledOption>
+                <StyledOption value="Leticia">Leticia</StyledOption>
+                <StyledOption value="Manizales">Manizales</StyledOption>
+                <StyledOption value="Medellín">Medellín</StyledOption>
+                <StyledOption value="Mitú">Mitú</StyledOption>
+                <StyledOption value="Mocoa">Mocoa</StyledOption>
+                <StyledOption value="Montería">Montería</StyledOption>
+                <StyledOption value="Neiva">Neiva</StyledOption>
+                <StyledOption value="Pasto">Pasto</StyledOption>
+                <StyledOption value="Pereira">Pereira</StyledOption>
+                <StyledOption value="Popayán">Popayán</StyledOption>
+                <StyledOption value="Puerto Carreño">
+                  Puerto Carreño
+                </StyledOption>
+                <StyledOption value="Puerto Inírida">
+                  Puerto Inírida
+                </StyledOption>
+                <StyledOption value="Quibdó">Quibdó</StyledOption>
+                <StyledOption value="Riohacha">Riohacha</StyledOption>
+                <StyledOption value="San Andrés">San Andrés</StyledOption>
+                <StyledOption value="San José del Guaviare">
+                  San José del Guaviare
+                </StyledOption>
+                <StyledOption value="Santa Marta">Santa Marta</StyledOption>
+                <StyledOption value="Sincelejo">Sincelejo</StyledOption>
+                <StyledOption value="Tunja">Tunja</StyledOption>
+                <StyledOption value="Valledupar">Valledupar</StyledOption>
+                <StyledOption value="Villavicencio">Villavicencio</StyledOption>
+                <StyledOption value="Yopal">Yopal</StyledOption>
+              </StyledSelect>
+            </InputContainerItem>
+
           </FormSection>
           <FormSection>
-            <InputContainerItem>
-              <InputTitle>Correo electronico*</InputTitle>
-
-              <StyledInput
-                type="text"
-                placeholder="Ingresa tu Email"
-                onChange={handleChangeEmail}
-              />
-            </InputContainerItem>
             <InputContainerItem>
               <InputTitle>Sitio de Aplicación*</InputTitle>
               <StyledSelect id="applicationSelect" onChange={handleChangeASite}>

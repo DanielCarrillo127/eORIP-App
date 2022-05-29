@@ -104,6 +104,7 @@ const AdminForm = () => {
   const handleRequest = async (username: string) => {
     // const req = await consultDocumentsOwnerId(username);
     // if (req.status === 200) {
+      // setCedula("");
     //   setSuccess(true);
     // }
   };

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { consultDocumentsOwnerId } from "../../utils/request";
+import { consultDocumentsPQRSDOwnerId, ModPQRSD } from "../../utils/request";
+import { ContextActions, DataContext } from "../../utils/userContext";
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -20,20 +21,6 @@ const FromContainer = styled.div`
     padding-right: 0.7rem;
   }
 `;
-// const ContainerWidget = styled.div`
-//   background-color: rgb(255, 255, 255);
-//   border-radius: 0.5rem;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   padding-top: 1rem;
-//   margin-top: 1rem;
-//   padding-bottom: 1rem;
-//   padding-left: 1.5rem;
-//   padding-right: 1.5rem;
-//   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-//     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-// `;
 
 const StyledInput = styled.input`
   outline: 0px;
@@ -88,7 +75,7 @@ const InputTitle = styled.label`
   margin-bottom: 4px;
   font-size: 16px;
   color: rgb(53, 60, 78);
-  float:left;
+  float: left;
 `;
 
 const InputContainerItem = styled.div`
@@ -294,8 +281,6 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 15
       transform: rotate(360deg);
     }
   }`
-
- 
       : ``}
 `;
 
@@ -331,12 +316,13 @@ const ButtonSpinner = styled.button<loading>`
   }`};
 `;
 
-
 const ModPQRForm = () => {
   const [cedula, setCedula] = useState("");
   const [status, setStatus] = useState("");
   const [EnrollmentNumber, setEnrollmentNumber] = useState("");
   const [data, setData] = useState([]);
+
+  const { user } = React.useContext(DataContext) as ContextActions;
 
   const [onLoading, setOnLoading] = useState(false);
 
@@ -344,7 +330,7 @@ const ModPQRForm = () => {
   const handleChangeStatus = (e: any) => setStatus(e.target.value);
 
   const handleRequest = async () => {
-    const req = await consultDocumentsOwnerId(cedula);
+    const req = await consultDocumentsPQRSDOwnerId(cedula);
     if (req.status === 200) {
       setData(req.data.certificados);
       toast.success(`Petición exitosa.`, {
@@ -378,6 +364,7 @@ const ModPQRForm = () => {
               <THead>
                 <TableItem>
                   <TableHead scope="col">No. Matricula</TableHead>
+                  <TableHead scope="col">Tipo</TableHead>
                   <TableHead scope="col">Status</TableHead>
                   <TableHead scope="col">Fecha</TableHead>
                   <TableHead scope="col">Acciones</TableHead>
@@ -387,17 +374,21 @@ const ModPQRForm = () => {
               <TBody>
                 {data.map((value, index) => {
                   if (value[`type`] === "PQRSD") {
-                    const dt:any = new Date(value[`timeStamp`])
+                    const dt: any = new Date(value[`timeStamp`]);
+                    const metadata = value[`metadata`];
                     return (
                       <TableItem key={index}>
                         <TableItemRow data-label="No. Matricula">
                           {value[`enrollmentNumber`]}
                         </TableItemRow>
+                        <TableItemRow data-label="Tipo">
+                          {metadata[`type`] === null ? "SR" : metadata[`type`]}
+                        </TableItemRow>
                         <TableItemRow data-label="Status">
                           {value[`status`]}
                         </TableItemRow>
                         <TableItemRow data-label="Fecha">
-                          {dt.toLocaleString}
+                          {dt.toLocaleString()}
                         </TableItemRow>
                         <TableItemRow data-label="Acciones">
                           <ButtonDownload
@@ -423,7 +414,63 @@ const ModPQRForm = () => {
   };
 
   //set state spinner in modification
-  const handleRequestModifications = async () => {};
+  const handleRequestModifications = async () => {
+    if (
+      cedula !== "" &&
+      EnrollmentNumber !== "" &&
+      status !== "" &&
+      user?.cedula !== undefined
+    ) {
+      setOnLoading(true);
+      const req = await ModPQRSD(
+        EnrollmentNumber,
+        cedula,
+        user?.cedula,
+        status
+      );
+      if (req.status === 201) {
+        setCedula("");
+        setEnrollmentNumber("");
+        setStatus("");
+        setData([]);
+        setOnLoading(false);
+        toast.success(`Modificación de Status Exitosa.`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        setOnLoading(false);
+        toast.error(`Petición fue denegada, ${req.response.data.message}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } else {
+      setOnLoading(false);
+      toast.error(
+        `Debes completar todos los campos marcados con (*) Realizar la Modificación .`,
+        {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    }
+  };
 
   return (
     <>
@@ -433,7 +480,8 @@ const ModPQRForm = () => {
             <StyledContact>
               <StyledP>Formulario para Modificar Informes PQRSD.</StyledP>
             </StyledContact>
-            <br/><br/>
+            <br />
+            <br />
             <InputContainerItem>
               <InputTitle>Consultar PQRSD Registrada*</InputTitle>
 
@@ -465,10 +513,13 @@ const ModPQRForm = () => {
               <StyledInput type="text" value={EnrollmentNumber} />
             </InputContainerItem>
 
-            <ButtonSpinner onClick={() => handleRequestModifications()} loading={onLoading}
-              disabled={onLoading}>
-              {onLoading?'':'Registrar Modificación'}
-              <Spinner loading={onLoading}/>
+            <ButtonSpinner
+              onClick={() => handleRequestModifications()}
+              loading={onLoading}
+              disabled={onLoading}
+            >
+              {onLoading ? "" : "Registrar Modificación"}
+              <Spinner loading={onLoading} />
             </ButtonSpinner>
           </FormSection>
         </StyledForm>

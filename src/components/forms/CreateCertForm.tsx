@@ -236,6 +236,10 @@ const CreateCertForm = () => {
         city
       );
       if (req.status === 201) {
+        setCedulaOwner("");
+        setValor("");
+        setCity("");
+        setDescription("");
         setOnLoading(false);
         toast.success(`✅ Certificado creado de forma exitoso.`, {
           position: "top-right",

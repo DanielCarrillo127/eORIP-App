@@ -132,6 +132,70 @@ const ValidateMessage = styled.p`
   float: left;
 `;
 
+interface loading {
+  readonly loading: boolean;
+}
+
+const Spinner = styled.div<loading>`
+  ${(props) =>
+    props.loading
+      ? `
+border-width: 4px; 
+border-style: solid; 
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 153, 255);
+ border-image: initial; 
+ width: 26px; 
+ height: 26px;
+  border-radius: 50%; 
+  animation: spin 1s ease infinite;  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }`
+
+ 
+      : ``}
+`;
+
+const ButtonSpinner = styled.button<loading>`
+  background: ${(props) =>
+    props.loading
+      ? `#d4d5d6`
+      : `linear-gradient(
+    305.36deg,
+    #226fe1 10.86%,
+    rgba(34, 111, 225, 0.4) 93.49%
+  )`};
+  color: ${(props) => (props.loading ? `#000` : `#fff`)};
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  height: 42px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 12px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  ${(props) =>
+    props.loading
+      ? ``
+      : `&:hover {
+    transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
+    color: #fff;
+    text-decoration: none;
+  }`};
+`;
+
+
+
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -142,6 +206,7 @@ const Login = () => {
   const [validateP, setValidateP] = useState("");
   const [passwordValidation, setpasswordValidation] = useState(false);
   const [change, setChange] = useState(false);
+  const [onLoading, setOnLoading] = useState(false);
 
   const handleChangeUser = (e: any) => setUsername(e.target.value);
   const handleChangePassword = (e: any) => {
@@ -244,6 +309,7 @@ const Login = () => {
       if (surnames.length > 2) {
         surnames[1] = surnames[1] + " " + surnames[2];
       }
+      setOnLoading(true)
       const req = await createUser(
         surnames[0],
         surnames[1],
@@ -254,10 +320,12 @@ const Login = () => {
       );
       console.log(req);
       if (req.status === 201) {
+        setOnLoading(false)
         saveUser(req.data.token,cedula);
         navigate("/userDashboard");
       } else {
         //toast user already exist
+        setOnLoading(false)
         toast.error(`📑 Este ciudadano ya se encuentra registrado.`, {
           position: "top-right",
           autoClose: 3000,
@@ -321,13 +389,15 @@ const Login = () => {
                 onChange={handleChangeCedula}
               />
             </StyledForm>
-            <StyledButton
+            <ButtonSpinner
               onClick={() =>
                 handleRegister(username, password, nickname, email, cedula)
               }
+              loading={onLoading}
             >
-              Crear Cuenta
-            </StyledButton>
+              {onLoading?'':'Crear Cuenta'}
+              <Spinner loading={onLoading}/>
+            </ButtonSpinner>
             <StyledP>
               Ya estas registrado?{" "}
               <StyledA onClick={() => setChange(!change)}>
@@ -358,7 +428,7 @@ const Login = () => {
             </StyledButton>
             <StyledP>
               No estas registrado?{" "}
-              <StyledA onClick={() => setChange(!change)}>
+              <StyledA onClick={() => setChange(!change)} >
                 Crea una cuenta
               </StyledA>
             </StyledP>

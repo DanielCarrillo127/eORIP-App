@@ -19,7 +19,6 @@ export const login = async (username: string, password: string) => {
 };
 
 export const getUser = async (cedula: string) => {
-
   try {
     const req = await Axios_withoutInstance.get(
       `${process.env.REACT_APP_USERS_API}users?cedula=${cedula}`,
@@ -112,7 +111,7 @@ export const createCertificateTIL = async (
 export const NewAnotationCertificateTIL = async (
   enrollmentNumber: string,
   cedula: string,
-  adminCedula:string,
+  adminCedula: string,
   description: string,
   valorActo: string,
   city: string
@@ -143,25 +142,87 @@ export const NewAnotationCertificateTIL = async (
 
 export const NewBuySellCertificateTIL = async (
   enrollmentNumber: string,
-  cedula: string,
-  cedulaNewOwner: string,
-  adminCedula:string,
+  actualCedula: string,
+  newCedula: string,
+  adminCedula: string,
   description: string,
   valorActo: string,
   city: string
 ) => {
   const data = {
     enrollmentNumber,
-    cedula,
-    cedulaNewOwner,
-    description,
+    actualCedula,
+    newCedula,
     adminCedula,
+    description,
     valorActo,
     city,
   };
   try {
     const req = await axios.post(
-      `${process.env.REACT_APP_USERS_API}certificate/createCertificate/TIL`,
+      `${process.env.REACT_APP_USERS_API}certificate/transfer/TIL`,
+      data,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createPQRSD = async (
+  cedula: string,
+  description: string,
+  type: string,
+  phoneNumber: string,
+  address: string,
+  applicationSite: string,
+  city: string
+) => {
+  const data = {
+    cedula,
+    description,
+    type,
+    phoneNumber,
+    address,
+    applicationSite,
+    city,
+  };
+  try {
+    const req = await axios.post(
+      `${process.env.REACT_APP_USERS_API}certificate/createCertificate/PQRSD`,
+      data,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const ModPQRSD = async (
+  enrollmentNumber: string,
+  cedula: string,
+  adminCedula: string,
+  newStatus: string,
+) => {
+  const data = {
+    enrollmentNumber,
+    cedula,
+    adminCedula,
+    newStatus
+  };
+  try {
+    const req = await axios.put(
+      `${process.env.REACT_APP_USERS_API}certificate/modifyStatus/PQRSD`,
       data,
       {
         headers: {
@@ -192,10 +253,26 @@ export const consultDocumentsOwnerId = async (cedula: String) => {
   }
 };
 
+export const consultDocumentsPQRSDOwnerId = async (cedula: String) => {
+  try {
+    const req = await axios.get(
+      `${process.env.REACT_APP_USERS_API}certificate/verInfo/PQRSD?cedula=${cedula}`,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const consultDocumentsHistory = async (cedula: String) => {
   try {
     const req = await axios.get(
-      `${process.env.REACT_APP_USERS_API}certificate/verInfo/TIL/All?cedula=${cedula}`,
+      `${process.env.REACT_APP_USERS_API}certificate/verInfo/All?cedula=${cedula}`,
       {
         headers: {
           Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
@@ -218,9 +295,9 @@ export const consultDocumentsEnrollmentNumber = async (
         headers: {
           Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
         },
-        responseType: 'blob',
+        responseType: "blob",
         // content-type: 'application/pdf',
-      },
+      }
     );
     return req;
   } catch (error) {
@@ -233,11 +310,10 @@ export const consultNews = async () => {
     const req = await axios.get(
       `https://free-news.p.rapidapi.com/v1/search?q=gobierno&lang=es&page=1&page_size=10`,
       {
-        headers:{
-          'X-RapidAPI-Key': `${process.env.REACT_APP_NEWSAPI_KEY}`
-        }
+        headers: {
+          "X-RapidAPI-Key": `${process.env.REACT_APP_NEWSAPI_KEY}`,
+        },
       }
-
     );
     return req;
   } catch (error) {

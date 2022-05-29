@@ -265,6 +265,7 @@ const ConsultForm = () => {
   const handleRequestEnrollmentNumber = async (EnrollmentNumber: string) => {
     const req = await consultDocumentsEnrollmentNumber(EnrollmentNumber);
     if (req.status === 200) {
+      
       setOpenPdf(true);
       var file = new Blob([req.data], { type: "application/pdf" });
       //  fileURL = URL.createObjectURL(file);
@@ -296,8 +297,8 @@ const ConsultForm = () => {
   const handleRequest = async (username: string) => {
     const req = await consultDocumentsOwnerId(username);
     if (req.status === 200) {
+      setCedula("");
       setData(req.data.certificados);
-
       toast.success(`Petición exitosa.`, {
         position: "top-right",
         autoClose: 3000,
