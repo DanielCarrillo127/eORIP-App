@@ -32,8 +32,8 @@ jobs:
           npm run test --if-present
       # Zip artifacts to speed things up
       - name: Zip artifact for deployment
-      #Zip everuthing exluding node_modules
-      run: zip release.zip ./* -qr -x "node_modules/*"
+        #Zip everuthing exluding node_modules
+        run: zip release.zip ./* -qr -x "node_modules/*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
