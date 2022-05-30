@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { toast } from "react-toastify";
 import styled from "styled-components";
 
 import { VscFilePdf } from "react-icons/vsc";
@@ -54,7 +53,6 @@ const StyledContact = styled.div`
 `;
 const StyledP = styled.p``;
 
-// const StyledForm = styled.form``;
 
 const FromContainerWidget = styled.div`
   display: flex;
@@ -268,7 +266,7 @@ const ConsultForm = () => {
       
       setOpenPdf(true);
       var file = new Blob([req.data], { type: "application/pdf" });
-      //  fileURL = URL.createObjectURL(file);
+    
       setFileURL(URL.createObjectURL(file));
 
       toast.success(`Documento Obtenido de Forma Exitosa.`, {
@@ -372,6 +370,8 @@ const ConsultForm = () => {
                         </TableItemRow>
                       </TableItem>
                     );
+                  }else {
+                    return <></>;
                   }
                 })}
               </TBody>

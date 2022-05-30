@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/svgs/logo.svg";
 import { BsFacebook, BsTwitter, BsInstagram, BsLinkedin } from "react-icons/bs";
-import gov from "../../assets/svgs/gov.svg";
+
 const FooterC = styled.div`
   background: #fff;
   padding: 10px 0;
@@ -127,11 +127,15 @@ const MediaIcon = styled.a`
   flex-direction: columnn;
   margin: 20px 0 20px 10px;
 `;
-const ImgGov = styled.img`
-  float: left;
-  @media (max-width: 408px) {
-  }
+
+const TextDisclaimer = styled.p`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 20px;
+  color: #515151;
 `;
+
 const CopyRight = styled.p`
   font-style: normal;
   font-weight: 400;
@@ -165,8 +169,6 @@ const Footer = () => {
         <Row>
           <Col3>
             <ContainerName>
-              {/* <Link onClick={() => scroll.scrollToTop()}>
-                    </Link> */}
               <Img src={logo} />
               <LogoName>
                 eORIP <br /> OFFICE
@@ -192,6 +194,7 @@ const Footer = () => {
           </Col3>
           <Col7>
             <InformationContainer>
+            <TextDisclaimer>Información de canales oficiales gubernamentales de libre exposición.</TextDisclaimer>
               <Text>Asesoría Jurídica</Text>
               <Text>
                 Oficina de Registro de Instrumentos Públicos Bogotá Zona Centro
@@ -210,7 +213,7 @@ const Footer = () => {
           </Col7>
         </Row>
         <RowLast>
-        <ImgGov src={gov} />
+
         <CopyRight>© Copyright.all right reserved.</CopyRight>
         <Privacy>Privacy Policy Term & Conditions</Privacy>
       </RowLast>

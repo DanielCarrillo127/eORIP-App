@@ -94,6 +94,14 @@ const Button = styled.button`
   }
 `;
 
+const TextDisclaimer = styled.p`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 20px;
+  color: #515151;
+`;
+
 const Information = () => {
   return (
     <InformationC id="information">
@@ -105,7 +113,7 @@ const Information = () => {
             </ImgContainer>
           </Col6>
           <Col6>
-            <Text>Información de canales oficiales gubernamentales de libre exposición.</Text>
+            <TextDisclaimer>Información de canales oficiales gubernamentales de libre exposición.</TextDisclaimer>
             <TextTitle>Sede Principal y Atención al Ciudadano</TextTitle>
             <Text>Calle 26 No. 13-49 Interior 201, Bogotá D.C. Colombia.</Text>
             <TextSeparator />

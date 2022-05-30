@@ -25,20 +25,6 @@ const FromContainer = styled.div`
     padding-right: 0.7rem;
   }
 `;
-// const ContainerWidget = styled.div`
-//   background-color: rgb(255, 255, 255);
-//   border-radius: 0.5rem;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   padding-top: 1rem;
-//   margin-top: 1rem;
-//   padding-bottom: 1rem;
-//   padding-left: 1.5rem;
-//   padding-right: 1.5rem;
-//   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-//     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-// `;
 
 const StyledInput = styled.input`
   outline: 0px;
@@ -290,13 +276,13 @@ const StyledSelect = styled.select`
 `;
 const StyledOption = styled.option``;
 
-interface loading {
-  readonly loading: boolean;
+interface load {
+  readonly load: Boolean;
 }
 
-const Spinner = styled.div<loading>`
+const Spinner = styled.div<load>`
   ${(props) =>
-    props.loading
+    props.load
       ? `
 border-width: 4px; 
 border-style: solid; 
@@ -320,16 +306,16 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 15
       : ``}
 `;
 
-const ButtonSpinner = styled.button<loading>`
+const ButtonSpinner = styled.button<load>`
   background: ${(props) =>
-    props.loading
+    props.load
       ? `#d4d5d6`
       : `linear-gradient(
     305.36deg,
     #226fe1 10.86%,
     rgba(34, 111, 225, 0.4) 93.49%
   )`};
-  color: ${(props) => (props.loading ? `#000` : `#fff`)};
+  color: ${(props) => (props.load ? `#000` : `#fff`)};
   border-radius: 10px;
   outline: none;
   border: none;
@@ -343,7 +329,7 @@ const ButtonSpinner = styled.button<loading>`
   margin-left: auto;
   margin-right: auto;
   ${(props) =>
-    props.loading
+    props.load
       ? ``
       : `&:hover {
     transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
@@ -369,12 +355,13 @@ const ModCertForm = () => {
   const [onLoading, setOnLoading] = useState(false);
 
   const handleChangeCedulaOwner = (e: any) => setCedulaOwner(e.target.value);
+  const handleChangeEnrollmentNumber = (e: any) => setEnrollmentNumber(e.target.value);
   const handleChangeCedulaNewOwner = (e: any) =>
     setcedulaNewOwner(e.target.value);
   const handleChangeValor = (e: any) => setValor(e.target.value);
   const handleChangeDescription = (e: any) => setDescription(e.target.value);
   const handleChangeType = (e: any) => setType(e.target.value);
-  const handleChangeCity = (e: any) => setCity(e.target.value);
+  const handleChangeCity = (e: any) => {setCity(e.target.value)};
 
   const [cedulaSearch, setCedulaSearch] = useState("");
   const handleChangeCedulaSearch = (e: any) => setCedulaSearch(e.target.value);
@@ -593,6 +580,8 @@ const ModCertForm = () => {
                         </TableItemRow>
                       </TableItem>
                     );
+                  }else {
+                    return <></>;
                   }
                 })}
               </TBody>
@@ -630,14 +619,11 @@ const ModCertForm = () => {
 
               <InputContainerItem>
                 <InputTitle>No. de Matricula*</InputTitle>
-                <StyledInput type="text" value={EnrollmentNumber} />
+                <StyledInput type="text" value={EnrollmentNumber} onChange={handleChangeEnrollmentNumber} />
 
                 <InputContainerItem>
                   <InputTitle>Tipo*</InputTitle>
                   <StyledSelect id="tipoSelect" onChange={handleChangeType}>
-                    <StyledOption value="" selected disabled hidden>
-                      Selecciona un Tipo
-                    </StyledOption>
                     <StyledOption value="Anotacion">Anotacion</StyledOption>
                     <StyledOption value="Compra-venta">
                       Compra-venta
@@ -684,9 +670,6 @@ const ModCertForm = () => {
             <InputContainerItem>
               <InputTitle>Ciudad*</InputTitle>
               <StyledSelect id="citySelect" onChange={handleChangeCity}>
-                <StyledOption value="" selected disabled hidden>
-                  Selecciona un Ciudad
-                </StyledOption>
                 <StyledOption value="Arauca">Arauca</StyledOption>
                 <StyledOption value="Armenia">Armenia</StyledOption>
                 <StyledOption value="Barranquilla">Barranquilla</StyledOption>
@@ -738,10 +721,10 @@ const ModCertForm = () => {
               />
             </InputContainerItem>
 
-            <ButtonSpinner onClick={() => handleRequestModifications()} loading={onLoading}
+            <ButtonSpinner onClick={() => handleRequestModifications()} load={onLoading}
               disabled={onLoading}>
               {onLoading?'':'Registrar Modificación'}
-              <Spinner loading={onLoading}/>
+              <Spinner load={onLoading}/>
             </ButtonSpinner>
           </FormSection>
         </StyledForm>

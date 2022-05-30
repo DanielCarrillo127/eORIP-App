@@ -21,20 +21,6 @@ const FromContainer = styled.div`
     padding-right: 0.7rem;
   }
 `;
-// const ContainerWidget = styled.div`
-//   background-color: rgb(255, 255, 255);
-//   border-radius: 0.5rem;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   padding-top: 1rem;
-//   margin-top: 1rem;
-//   padding-bottom: 1rem;
-//   padding-left: 1.5rem;
-//   padding-right: 1.5rem;
-//   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-//     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-// `;
 
 const StyledInput = styled.input`
   outline: 0px;
@@ -131,13 +117,17 @@ const StyledTextarea = styled.textarea`
   }
 `;
 
-interface loading {
-  readonly loading: boolean;
+// interface loading {
+//   readonly loading: Boolean;
+// }
+
+interface load {
+  readonly load: Boolean;
 }
 
-const Spinner = styled.div<loading>`
+const Spinner = styled.div<load>`
   ${(props) =>
-    props.loading
+    props.load
       ? `
 border-width: 4px; 
 border-style: solid; 
@@ -159,16 +149,16 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 15
       : ``}
 `;
 
-const ButtonSpinner = styled.button<loading>`
+const ButtonSpinner = styled.button<load>`
   background: ${(props) =>
-    props.loading
+    props.load
       ? `#d4d5d6`
       : `linear-gradient(
     305.36deg,
     #226fe1 10.86%,
     rgba(34, 111, 225, 0.4) 93.49%
   )`};
-  color: ${(props) => (props.loading ? `#000` : `#fff`)};
+  color: ${(props) => (props.load ? `#000` : `#fff`)};
   border-radius: 10px;
   outline: none;
   border: none;
@@ -182,7 +172,7 @@ const ButtonSpinner = styled.button<loading>`
   margin-left: auto;
   margin-right: auto;
   ${(props) =>
-    props.loading
+    props.load
       ? ``
       : `&:hover {
     transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
@@ -323,7 +313,7 @@ const CreateCertForm = () => {
             <InputContainerItem>
               <InputTitle>Ciudad*</InputTitle>
               <StyledSelect id="citySelect" onChange={handleChangeCity}>
-                <StyledOption value="" selected disabled hidden>
+                <StyledOption value=""disabled >
                   Selecciona un Ciudad
                 </StyledOption>
                 <StyledOption value="Arauca">Arauca</StyledOption>
@@ -369,7 +359,7 @@ const CreateCertForm = () => {
           </FormSection>
           <FormSection>
             <InputContainerItem>
-              <InputTitle>Descripcion de la Transacción*</InputTitle>
+              <InputTitle>Descripción de la Transacción*</InputTitle>
               <StyledTextarea
                 name="DesTran"
                 id="destran"
@@ -380,11 +370,11 @@ const CreateCertForm = () => {
 
             <ButtonSpinner
               onClick={() => handleRequest()}
-              loading={onLoading}
+              load={onLoading}
               disabled={onLoading}
             >
               {onLoading ? "" : "Registrar Transacción"}
-              <Spinner loading={onLoading} />
+              <Spinner load={onLoading} />
             </ButtonSpinner>
           </FormSection>
         </StyledForm>

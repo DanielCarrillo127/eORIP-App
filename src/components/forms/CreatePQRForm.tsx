@@ -140,13 +140,13 @@ const StyledSelect = styled.select`
 `;
 const StyledOption = styled.option``;
 
-interface loading {
-  readonly loading: boolean;
+interface load {
+  readonly load: Boolean;
 }
 
-const Spinner = styled.div<loading>`
+const Spinner = styled.div<load>`
   ${(props) =>
-    props.loading
+    props.load
       ? `
 border-width: 4px; 
 border-style: solid; 
@@ -168,16 +168,16 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 15
       : ``}
 `;
 
-const ButtonSpinner = styled.button<loading>`
+const ButtonSpinner = styled.button<load>`
   background: ${(props) =>
-    props.loading
+    props.load
       ? `#d4d5d6`
       : `linear-gradient(
     305.36deg,
     #226fe1 10.86%,
     rgba(34, 111, 225, 0.4) 93.49%
   )`};
-  color: ${(props) => (props.loading ? `#000` : `#fff`)};
+  color: ${(props) => (props.load ? `#000` : `#fff`)};
   border-radius: 10px;
   outline: none;
   border: none;
@@ -191,7 +191,7 @@ const ButtonSpinner = styled.button<loading>`
   margin-left: auto;
   margin-right: auto;
   ${(props) =>
-    props.loading
+    props.load
       ? ``
       : `&:hover {
     transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
@@ -270,14 +270,11 @@ const CreatePQRForm = () => {
             <InputContainerItem>
               <InputTitle>Tipo*</InputTitle>
               <StyledSelect id="tipoSelect" onChange={handleChangeType}>
-                <StyledOption value="" selected disabled hidden>
-                  Selecciona un Tipo
-                </StyledOption>
-                <StyledOption value="peticion">Petición</StyledOption>
-                <StyledOption value="queja">Queja</StyledOption>
-                <StyledOption value="reclamo">Reclamo</StyledOption>
-                <StyledOption value="denuncia">Denuncia</StyledOption>
-                <StyledOption value="sugerencia">Sugerencia</StyledOption>
+                <StyledOption value="Peticion">Petición</StyledOption>
+                <StyledOption value="Queja">Queja</StyledOption>
+                <StyledOption value="Reclamo">Reclamo</StyledOption>
+                <StyledOption value="Denuncia">Denuncia</StyledOption>
+                <StyledOption value="Sugerencia">Sugerencia</StyledOption>
               </StyledSelect>
             </InputContainerItem>
 
@@ -312,9 +309,6 @@ const CreatePQRForm = () => {
             <InputContainerItem>
               <InputTitle>Ciudad*</InputTitle>
               <StyledSelect id="citySelect" onChange={handleChangeCity}>
-                <StyledOption value="" selected disabled hidden>
-                  Selecciona un Ciudad
-                </StyledOption>
                 <StyledOption value="Arauca">Arauca</StyledOption>
                 <StyledOption value="Armenia">Armenia</StyledOption>
                 <StyledOption value="Barranquilla">Barranquilla</StyledOption>
@@ -361,15 +355,12 @@ const CreatePQRForm = () => {
             <InputContainerItem>
               <InputTitle>Sitio de Aplicación*</InputTitle>
               <StyledSelect id="applicationSelect" onChange={handleChangeASite}>
-                <StyledOption value="" selected disabled hidden>
-                  Selecciona el sitio de Aplicación
-                </StyledOption>
-                <StyledOption value="oficina de instrumentos publicos">
+                <StyledOption value="Oficina de instrumentos publicos">
                   Oficina de instrumentos públicos
                 </StyledOption>
-                <StyledOption value="notaria">Notaria</StyledOption>
+                <StyledOption value="Notaria">Notaria</StyledOption>
                 <StyledOption value="Curaduria">Curaduria</StyledOption>
-                <StyledOption value="gestor catastral">
+                <StyledOption value="Gestor catastral">
                   Gestor Catastral
                 </StyledOption>
               </StyledSelect>
@@ -386,11 +377,11 @@ const CreatePQRForm = () => {
             </InputContainerItem>
             <ButtonSpinner
               onClick={() => handleRequest()}
-              loading={onLoading}
+              load={onLoading}
               disabled={onLoading}
             >
               {onLoading?'':'Registrar PQRSD'}
-              <Spinner loading={onLoading}/>
+              <Spinner load={onLoading}/>
             </ButtonSpinner>
           </FormSection>
         </StyledForm>

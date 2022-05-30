@@ -87,7 +87,7 @@ const SocialMedia = () => {
             <div>
                 <Common>
                     <MainHeader>Redes Sociales</MainHeader>
-                    <MainContent>Para más información, contáctate  con nosotros por nuestros canales informales.
+                    <MainContent>Para más información, contáctate con los canales informales de la superintendencia de notariado y registro de colombia.
 </MainContent>
                     <CommonBorder></CommonBorder>
                 </Common>

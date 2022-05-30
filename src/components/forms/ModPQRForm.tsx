@@ -256,13 +256,13 @@ const ButtonDownload = styled.button`
 
 const StyledOption = styled.option``;
 
-interface loading {
-  readonly loading: boolean;
+interface load {
+  readonly load: Boolean;
 }
 
-const Spinner = styled.div<loading>`
+const Spinner = styled.div<load>`
   ${(props) =>
-    props.loading
+    props.load
       ? `
 border-width: 4px; 
 border-style: solid; 
@@ -284,16 +284,16 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 15
       : ``}
 `;
 
-const ButtonSpinner = styled.button<loading>`
+const ButtonSpinner = styled.button<load>`
   background: ${(props) =>
-    props.loading
+    props.load
       ? `#d4d5d6`
       : `linear-gradient(
     305.36deg,
     #226fe1 10.86%,
     rgba(34, 111, 225, 0.4) 93.49%
   )`};
-  color: ${(props) => (props.loading ? `#000` : `#fff`)};
+  color: ${(props) => (props.load ? `#000` : `#fff`)};
   border-radius: 10px;
   outline: none;
   border: none;
@@ -307,7 +307,7 @@ const ButtonSpinner = styled.button<loading>`
   margin-left: auto;
   margin-right: auto;
   ${(props) =>
-    props.loading
+    props.load
       ? ``
       : `&:hover {
     transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
@@ -328,6 +328,7 @@ const ModPQRForm = () => {
 
   const handleChangeCedula = (e: any) => setCedula(e.target.value);
   const handleChangeStatus = (e: any) => setStatus(e.target.value);
+  const handleChangeEnrollmentNumber = (e: any) => setEnrollmentNumber(e.target.value);
 
   const handleRequest = async () => {
     const req = await consultDocumentsPQRSDOwnerId(cedula);
@@ -401,6 +402,8 @@ const ModPQRForm = () => {
                         </TableItemRow>
                       </TableItem>
                     );
+                  }else {
+                    return <></>;
                   }
                 })}
               </TBody>
@@ -532,11 +535,8 @@ const ModPQRForm = () => {
           </FormSection>
           <FormSection>
             <InputContainerItem>
-              <InputTitle>Status*</InputTitle>
+              <InputTitle>Nuevo Status*</InputTitle>
               <StyledSelect id="statusSelect" onChange={handleChangeStatus}>
-                <StyledOption value="" selected disabled hidden>
-                  Selecciona el Nuevo Status
-                </StyledOption>
                 <StyledOption value="creado">Creado</StyledOption>
                 <StyledOption value="En proceso">En proceso</StyledOption>
                 <StyledOption value="Cerrado">Resuelto</StyledOption>
@@ -546,16 +546,16 @@ const ModPQRForm = () => {
             <InputContainerItem>
               <InputTitle>Enrollment Number*</InputTitle>
 
-              <StyledInput type="text" value={EnrollmentNumber} />
+              <StyledInput type="text" value={EnrollmentNumber} onChange={handleChangeEnrollmentNumber}  />
             </InputContainerItem>
 
             <ButtonSpinner
               onClick={() => handleRequestModifications()}
-              loading={onLoading}
+              load={onLoading}
               disabled={onLoading}
             >
               {onLoading ? "" : "Registrar Modificación"}
-              <Spinner loading={onLoading} />
+              <Spinner load={onLoading} />
             </ButtonSpinner>
           </FormSection>
         </StyledForm>
