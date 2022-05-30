@@ -528,6 +528,7 @@ const ModPQRForm = () => {
                 type="text"
                 placeholder="Ingresa la cedula del cliente"
                 onChange={handleChangeCedula}
+                value={cedula}
               />
               <Button onClick={() => handleRequest()}>Consultar</Button>
               {handleTable()}
@@ -536,7 +537,7 @@ const ModPQRForm = () => {
           <FormSection>
             <InputContainerItem>
               <InputTitle>Nuevo Status*</InputTitle>
-              <StyledSelect id="statusSelect" onChange={handleChangeStatus}>
+              <StyledSelect id="statusSelect" onChange={handleChangeStatus} value={status}>
                 <StyledOption value="creado">Creado</StyledOption>
                 <StyledOption value="En proceso">En proceso</StyledOption>
                 <StyledOption value="Cerrado">Resuelto</StyledOption>
