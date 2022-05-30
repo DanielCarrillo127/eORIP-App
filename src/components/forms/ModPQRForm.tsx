@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { consultDocumentsPQRSDOwnerId, ModPQRSD } from "../../utils/request";
+import { consultDocumentsPQRSDOwnerId, ModPQRSD,ClosePQRSD } from "../../utils/request";
 import { ContextActions, DataContext } from "../../utils/userContext";
 
 const FromContainer = styled.div`
@@ -421,39 +421,75 @@ const ModPQRForm = () => {
       status !== "" &&
       user?.cedula !== undefined
     ) {
-      setOnLoading(true);
-      const req = await ModPQRSD(
-        EnrollmentNumber,
-        cedula,
-        user?.cedula,
-        status
-      );
-      if (req.status === 201) {
-        setCedula("");
-        setEnrollmentNumber("");
-        setStatus("");
-        setData([]);
-        setOnLoading(false);
-        toast.success(`Modificación de Status Exitosa.`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        setOnLoading(false);
-        toast.error(`Petición fue denegada, ${req.response.data.message}`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-        });
+      if(status !== "Cerrado"){
+        setOnLoading(true);
+        const req = await ModPQRSD(
+          EnrollmentNumber,
+          cedula,
+          user?.cedula,
+          status
+        );
+        if (req.status === 201) {
+          setCedula("");
+          setEnrollmentNumber("");
+          setStatus("");
+          setData([]);
+          setOnLoading(false);
+          toast.success(`Modificación de Status Exitosa.`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          setOnLoading(false);
+          toast.error(`Petición fue denegada, ${req.response.data.message}`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+      }else{
+        setOnLoading(true);
+        const req = await ClosePQRSD(
+          EnrollmentNumber,
+          cedula,
+          user?.cedula
+        );
+        if (req.status === 201) {
+          setCedula("");
+          setEnrollmentNumber("");
+          setStatus("");
+          setData([]);
+          setOnLoading(false);
+          toast.success(`La Petición se ha cerrado de forma Exitosa.`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          setOnLoading(false);
+          toast.error(`Petición fue denegada, ${req.response.data.message}`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       }
     } else {
       setOnLoading(false);
@@ -502,8 +538,8 @@ const ModPQRForm = () => {
                   Selecciona el Nuevo Status
                 </StyledOption>
                 <StyledOption value="creado">Creado</StyledOption>
-                <StyledOption value="en proceso">En proceso</StyledOption>
-                <StyledOption value="resuelto">Resuelto</StyledOption>
+                <StyledOption value="En proceso">En proceso</StyledOption>
+                <StyledOption value="Cerrado">Resuelto</StyledOption>
               </StyledSelect>
             </InputContainerItem>
 

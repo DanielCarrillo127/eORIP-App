@@ -224,7 +224,7 @@ const CreatePQRForm = () => {
   const handleRequest = async () => {
     setOnLoading(true)
     const req = await createPQRSD(cedula,description,type,tel,address,applicationSite,city);
-    if (req.status === 201) {
+    if (req.status === 200) {
       setType("");
       setCity("");
       setCedula("");

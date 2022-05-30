@@ -236,6 +236,32 @@ export const ModPQRSD = async (
   }
 };
 
+export const ClosePQRSD = async (
+  enrollmentNumber: string,
+  cedula: string,
+  adminCedula: string
+) => {
+  const data = {
+    enrollmentNumber,
+    cedula,
+    adminCedula
+  };
+  try {
+    const req = await axios.put(
+      `${process.env.REACT_APP_USERS_API}certificate/closePQRSD`,
+      data,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("TOKEN")}`,
+        },
+      }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
 
 export const consultDocumentsOwnerId = async (cedula: String) => {
   try {
