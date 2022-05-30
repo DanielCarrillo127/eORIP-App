@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-// import { toast } from "react-toastify";
+
 import styled from "styled-components";
 
 import { VscFilePdf } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import {
-  consultDocumentsEnrollmentNumber,
-  consultDocumentsOwnerId,
+
+  consultDocumentsEnrollmentNumberPQRSD,
+  consultDocumentsPQRSDOwnerId,
 } from "../../utils/request";
 
 const FromContainer = styled.div`
@@ -54,7 +55,6 @@ const StyledContact = styled.div`
 `;
 const StyledP = styled.p``;
 
-// const StyledForm = styled.form``;
 
 const FromContainerWidget = styled.div`
   display: flex;
@@ -165,7 +165,7 @@ const TableItemRow = styled.td`
   font-size: 0.8em;
   &:hover {
     white-space: initial;
-    overflow: scroll;
+    overflow: auto;
     // background-color:#fff;
   }
   @media (max-width: 600px) {
@@ -257,17 +257,12 @@ const ConsultPQRForm = () => {
 
   const handleChangeUser = (e: any) => setCedula(e.target.value);
 
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "COP",
-  });
 
   const handleRequestEnrollmentNumber = async (EnrollmentNumber: string) => {
-    const req = await consultDocumentsEnrollmentNumber(EnrollmentNumber);
+    const req = await consultDocumentsEnrollmentNumberPQRSD(EnrollmentNumber);
     if (req.status === 200) {
       setOpenPdf(true);
       var file = new Blob([req.data], { type: "application/pdf" });
-      //  fileURL = URL.createObjectURL(file);
       setFileURL(URL.createObjectURL(file));
 
       toast.success(`Documento Obtenido de Forma Exitosa.`, {
@@ -293,10 +288,10 @@ const ConsultPQRForm = () => {
   };
 
   const handleRequest = async (username: string) => {
-    const req = await consultDocumentsOwnerId(username);
+    const req = await consultDocumentsPQRSDOwnerId(username);
     if (req.status === 200) {
+      setCedula("");
       setData(req.data.certificados);
-
       toast.success(`Petición exitosa.`, {
         position: "top-right",
         autoClose: 3000,
@@ -321,11 +316,6 @@ const ConsultPQRForm = () => {
 
   const handleTable = () => {
     if (data.length > 0) {
-      const uniqueItems = [...new Set(data.map((value) => value[`enrollmentNumber`]))];
-      const dataFilter: any[] = [];
-      uniqueItems.forEach((unique) => {
-        dataFilter.push(data.find(element => element[`enrollmentNumber`] === unique));
-      });
       return (
         <>
           <TableContainer>
@@ -333,8 +323,8 @@ const ConsultPQRForm = () => {
               <THead>
                 <TableItem>
                   <TableHead scope="col">No. Matricula</TableHead>
-                  <TableHead scope="col">Valor del acto Inicial</TableHead>
-                  <TableHead scope="col">Id Administrador</TableHead>
+                  <TableHead scope="col">Tipo</TableHead>
+                  <TableHead scope="col">Ciudad</TableHead>
                   <TableHead scope="col">Status</TableHead>
                   <TableHead scope="col">Fecha</TableHead>
                   <TableHead scope="col">Documento</TableHead>
@@ -342,24 +332,26 @@ const ConsultPQRForm = () => {
               </THead>
 
               <TBody>
-                {dataFilter.map((value, index) => {
+                {data.map((value, index) => {
                   if (value[`type`] === "PQRSD") {
+                    const dt: any = new Date(value[`timeStamp`]);
+                    const metadata = value[`metadata`]
                     return (
                       <TableItem key={index}>
                         <TableItemRow data-label="No. Matricula">
                           {value[`enrollmentNumber`]}
                         </TableItemRow>
-                        <TableItemRow data-label="Valor del acto">
-                          {formatter.format(value[`actValue`])}
+                        <TableItemRow data-label="Tipo">
+                          {metadata[`type`] === null ? 'SR' : metadata[`type`]}
                         </TableItemRow>
-                        <TableItemRow data-label="Id Administrador">
-                          {value[`adminId`]}
+                        <TableItemRow data-label="Ciudad">
+                          {value[`city`]}
                         </TableItemRow>
                         <TableItemRow data-label="Status">
                           {value[`status`]}
                         </TableItemRow>
                         <TableItemRow data-label="Fecha">
-                          {value[`timeStamp`]}
+                          {dt.toLocaleString()}
                         </TableItemRow>
                         <TableItemRow data-label="Documento">
                           <ButtonDownload
@@ -374,6 +366,8 @@ const ConsultPQRForm = () => {
                         </TableItemRow>
                       </TableItem>
                     );
+                  }else {
+                    return <></>;
                   }
                 })}
               </TBody>

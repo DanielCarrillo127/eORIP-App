@@ -31,14 +31,12 @@ const Title = styled.h1`
   font-weight: 500;
   font-size: 14px;
   text-align: center;
+  margin: 10px auto;
   margin-bottom: 20px;
   color: #000;
   width: 152px;
 `;
-// @media (max-width: 768px) {
-//   width: 122px;
-//   height: 32px;
-// }
+
 const Button = styled.button`
 background: linear-gradient(305.36deg, #226FE1 10.86%, rgba(34, 111, 225, 0.4) 93.49%);
 color: white;            
@@ -72,4 +70,3 @@ const Card = (props: any) => {
 };
 
 export default Card;
-// onClick={props.setRoute()}

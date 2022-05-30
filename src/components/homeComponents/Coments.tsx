@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { FaQuoteRight } from "react-icons/fa";
-import { BsTwitter, BsNewspaper } from "react-icons/bs";
+import { BsTwitter } from "react-icons/bs";
 
 
 
@@ -112,7 +112,7 @@ const Coments = () => {
             <div>
                 <Common>
                     <MainHeader>¿Qué dicen las personas?</MainHeader>
-                    <MainContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque augue.</MainContent>
+                    <MainContent>Que esta pasando últimamente alrededor de la oficina de instrumentos públicos alrededor del pais.</MainContent>
                     <CommonBorder></CommonBorder>
                 </Common>
             </div>
@@ -121,24 +121,23 @@ const Coments = () => {
                     <TestimonialIcon>
                         <FaQuoteRight size={34} color='#fff'/>
                     </TestimonialIcon>
-                    <TestimonialContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum enim eu nibh finibus</TestimonialContent>
-                    <TestimonialTitle>~Carmen Uribe</TestimonialTitle>
+                    <TestimonialContent>Con éxito la Superintendente @fergar80 cerró el #CongresoNotariadoyRegistro, un espacio académico dirigido a notarios.</TestimonialContent>
+                    <TestimonialTitle>~@Supernotariado</TestimonialTitle>
                     <TestimonialSubTitle><BsTwitter size={15} color='C1C1C1'/></TestimonialSubTitle>
                 </Card>
                 <Card>  
                     <TestimonialIcon>
                         <FaQuoteRight size={34} color='#fff'/>
                     </TestimonialIcon>
-                    <TestimonialContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum enim eu nibh finibus</TestimonialContent>
-                    <TestimonialTitle>~Alberto Naders</TestimonialTitle>
-                    <TestimonialSubTitle><BsNewspaper size={11} color='C1C1C1'/> Portafolio 2022</TestimonialSubTitle>
+                    <TestimonialContent>Los usuarios podrán programar virtualmente su cita para ser atendidos, de forma presencial, en la Oficina de Registro de Instrumentos Públicos donde requieran realizar el trámite.</TestimonialContent>
+                    <TestimonialTitle>~ORIP Cali</TestimonialTitle>
                 </Card>
                 <Card>  
                     <TestimonialIcon>
                         <FaQuoteRight size={34} color='#fff'/>
                     </TestimonialIcon>
-                    <TestimonialContent>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer bibendum enim eu nibh finibus,</TestimonialContent>
-                    <TestimonialTitle>~Franklin Carrillo</TestimonialTitle>
+                    <TestimonialContent>El IGAC y la Superintendencia de Notariado y Registro habilitarán una plataforma para el registro masivo de predios en el país.</TestimonialContent>
+                    <TestimonialTitle>~@Supernotariado</TestimonialTitle>
                     <TestimonialSubTitle><BsTwitter size={15} color='C1C1C1'/></TestimonialSubTitle>
                 </Card>
                 

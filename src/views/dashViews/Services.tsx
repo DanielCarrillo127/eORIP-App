@@ -26,11 +26,6 @@ const ServiceContainer = styled.div`
 
 `;
 
-// const ContainerVertical = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-around;
-// `;
 
 const ContainerHeader = styled.div`
   display: flex;

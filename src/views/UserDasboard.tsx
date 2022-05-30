@@ -25,7 +25,7 @@ import CreateCertForm from "../components/forms/CreateCertForm";
 import ConsultPQRForm from "../components/forms/ConsultPQRForm";
 import AdminForm from "../components/forms/AdminForm";
 import { consultNews } from "../utils/request";
-import { toast } from "react-toastify";
+
 
 const Dasboard = styled.div`
   box-sizing: inherit;
@@ -329,9 +329,8 @@ const Panel: React.FC<any> = (props: HeaderProps) => {
 };
 
 const UserDasboard = () => {
-  // const sampleLocation = useLocation();
   const navigate = useNavigate();
-
+  const [news, setNews] = useState([]);
   const [headerRoute, setHeaderRoute] = useState("Inicio");
   const { logOutUser, user, Handleonclick, editHDL, handelSession } =
     React.useContext(DataContext) as ContextActions;
@@ -340,10 +339,7 @@ const UserDasboard = () => {
     handelSession();
     editHDL("home");
     handleNews();
-  }, []);
-
-  const [news, setNews] = useState([]);
-
+  }, [news]);
 
   const handleNews = async () => {
     const req = await consultNews();
@@ -442,10 +438,8 @@ const UserDasboard = () => {
         <DashboardContainer>
           <SideBarContainer>
             <StickyContainer>
-              <StyledMenuItem href="#">
+              <StyledMenuItem href="#" key={"logo"}>
                 <ContainerNameLogo>
-                  {/* <Link onClick={() => scroll.scrollToTop()}>
-                    </Link> */}
                   <Img src={logo} />
                   <LogoName>
                     eORIP <br /> Online Panel
@@ -453,7 +447,7 @@ const UserDasboard = () => {
                 </ContainerNameLogo>
               </StyledMenuItem>
               <HomeSection>
-                <StyledMenuItem
+                <StyledMenuItem key={"home"}
                   onClick={() => {
                     editHDL("home");
                     setHeaderRoute("Inicio");
@@ -469,8 +463,8 @@ const UserDasboard = () => {
                 <StyledH4>Recursos</StyledH4>
 
                 <ListItems>
-                  <ListNavItem>
-                    <StyledMenuItem
+                  <ListNavItem key={"servicesButton"}>
+                    <StyledMenuItem 
                       onClick={() => {
                         editHDL("services");
                         setHeaderRoute("Portafolio de Servicios");
@@ -483,7 +477,7 @@ const UserDasboard = () => {
                     </StyledMenuItem>
                   </ListNavItem>
 
-                  <ListItems>
+                  <ListItems key={"listservices"}>
                     {user?.actions?.map((action) => {
                       if (
                         action === "Editar información" ||
@@ -520,7 +514,7 @@ const UserDasboard = () => {
                     "Hacer administradores a otros usuarios"
                   ) ? (
                     <>
-                      <ListNavItem>
+                      <ListNavItem key={"adminform"}>
                         <StyledMenuItem
                           onClick={() => {
                             editHDL("adminForm");
@@ -540,7 +534,7 @@ const UserDasboard = () => {
                     <></>
                   )}
 
-                  <ListNavItem>
+                  <ListNavItem key={"history"}>
                     <StyledMenuItem
                       onClick={() => {
                         editHDL("history");
@@ -554,7 +548,7 @@ const UserDasboard = () => {
                     </StyledMenuItem>
                   </ListNavItem>
 
-                  <ListNavItem>
+                  <ListNavItem key={"profile"}>
                     <StyledMenuItem
                       onClick={() => {
                         editHDL("profile");
@@ -567,13 +561,11 @@ const UserDasboard = () => {
                       Usuario
                     </StyledMenuItem>
                   </ListNavItem>
-                  <ListNavItemLogOut>
-                    <StyledMenuItem onClick={() => HandleLogOut()}>
+                  <ListNavItemLogOut onClick={() => HandleLogOut()} key={"logoutbutton"} >
                       <StyledSvg>
                         <VscSignOut size={25} />
                       </StyledSvg>
                       Cerrar Sesión
-                    </StyledMenuItem>
                   </ListNavItemLogOut>
                 </ListItems>
               </MenuContainer>
@@ -595,7 +587,7 @@ const UserDasboard = () => {
                   }}
                 >
                   <StyledSpan>
-                    {/* add circle with initial letter names */}
+                   
                     <IconContainer>
                       {user?.name
                         ? `${user?.name
@@ -604,7 +596,7 @@ const UserDasboard = () => {
                             .substring(0, 1)
                             .toUpperCase()}`
                         : "JD"}
-                      {/* {user?.name.substring(0,1) + " " + user?.surnames.substring(0,1)} */}
+                     
                     </IconContainer>
                     {user?.name + " " + user?.surnames}
                   </StyledSpan>

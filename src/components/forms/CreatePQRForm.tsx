@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { ContextActions, DataContext } from "../../utils/userContext";
+import { createPQRSD } from "../../utils/request";
 
 const FromContainer = styled.div`
   box-sizing: inherit;
@@ -140,13 +140,13 @@ const StyledSelect = styled.select`
 `;
 const StyledOption = styled.option``;
 
-interface loading {
-  readonly loading: boolean;
+interface load {
+  readonly load: Boolean;
 }
 
-const Spinner = styled.div<loading>`
+const Spinner = styled.div<load>`
   ${(props) =>
-    props.loading
+    props.load
       ? `
 border-width: 4px; 
 border-style: solid; 
@@ -168,16 +168,16 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 15
       : ``}
 `;
 
-const ButtonSpinner = styled.button<loading>`
+const ButtonSpinner = styled.button<load>`
   background: ${(props) =>
-    props.loading
+    props.load
       ? `#d4d5d6`
       : `linear-gradient(
     305.36deg,
     #226fe1 10.86%,
     rgba(34, 111, 225, 0.4) 93.49%
   )`};
-  color: ${(props) => (props.loading ? `#000` : `#fff`)};
+  color: ${(props) => (props.load ? `#000` : `#fff`)};
   border-radius: 10px;
   outline: none;
   border: none;
@@ -191,7 +191,7 @@ const ButtonSpinner = styled.button<loading>`
   margin-left: auto;
   margin-right: auto;
   ${(props) =>
-    props.loading
+    props.load
       ? ``
       : `&:hover {
     transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
@@ -201,55 +201,59 @@ const ButtonSpinner = styled.button<loading>`
 `;
 
 const CreatePQRForm = () => {
-  const { user } = React.useContext(DataContext) as ContextActions;
 
   const [onLoading, setOnLoading] = useState(false);
 
   const [type, setType] = useState("");
-  const [name, setName] = useState("");
+  const [city, setCity] = useState("");
   const [cedula, setCedula] = useState("");
   const [tel, setTel] = useState("");
   const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
+
   const [applicationSite, setApplicationSite] = useState("");
   const [description, setDescription] = useState("");
 
   const handleChangeCedula = (e: any) => setCedula(e.target.value);
-  const handleChangeName = (e: any) => setName(e.target.value);
+  const handleChangeCity = (e: any) => setCity(e.target.value);
   const handleChangeTel = (e: any) => setTel(e.target.value);
   const handleChangeDescription = (e: any) => setDescription(e.target.value);
   const handleChangeType = (e: any) => setType(e.target.value);
   const handleChangeASite = (e: any) => setApplicationSite(e.target.value);
-  const handleChangeEmail = (e: any) => setEmail(e.target.value);
   const handleChangeAddress = (e: any) => setAddress(e.target.value);
 
   const handleRequest = async () => {
-    // setOnLoading(true)
-    // const req = await consultDocumentsOwnerId(username);
-    // if (req.status === 200) {
-      // setOnLoading(false)
-    //   toast.success(`Petición exitosa.`, {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: false,
-    //     draggable: true,
-    //     progress: undefined,
-    //   });
-    // } else {
-      // setOnLoading(false)
-    //   console.log(req.response.data);
-    //   toast.error(`${""} ,error.`, {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: false,
-    //     draggable: true,
-    //     progress: undefined,
-    //   });
-    // }
+    setOnLoading(true)
+    const req = await createPQRSD(cedula,description,type,tel,address,applicationSite,city);
+    if (req.status === 200) {
+      setType("");
+      setCity("");
+      setCedula("");
+      setTel("");
+      setAddress("");
+      setApplicationSite("");
+      setDescription("");
+      setOnLoading(false)
+      toast.success(`Petición exitosa.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      setOnLoading(false)
+      toast.error(`Petición fue denegada, ${req.response.data.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   return (
@@ -266,25 +270,12 @@ const CreatePQRForm = () => {
             <InputContainerItem>
               <InputTitle>Tipo*</InputTitle>
               <StyledSelect id="tipoSelect" onChange={handleChangeType}>
-                <StyledOption value="" selected disabled hidden>
-                  Selecciona un Tipo
-                </StyledOption>
-                <StyledOption value="peticion">Petición</StyledOption>
-                <StyledOption value="queja">Queja</StyledOption>
-                <StyledOption value="reclamo">Reclamo</StyledOption>
-                <StyledOption value="denuncia">Denuncia</StyledOption>
-                <StyledOption value="sugerencia">Sugerencia</StyledOption>
+                <StyledOption value="Peticion">Petición</StyledOption>
+                <StyledOption value="Queja">Queja</StyledOption>
+                <StyledOption value="Reclamo">Reclamo</StyledOption>
+                <StyledOption value="Denuncia">Denuncia</StyledOption>
+                <StyledOption value="Sugerencia">Sugerencia</StyledOption>
               </StyledSelect>
-            </InputContainerItem>
-
-            <InputContainerItem>
-              <InputTitle>Nombre y apellido*</InputTitle>
-
-              <StyledInput
-                type="text"
-                placeholder="Ingresa Nombre & Apellido "
-                onChange={handleChangeName}
-              />
             </InputContainerItem>
 
             <InputContainerItem>
@@ -315,29 +306,61 @@ const CreatePQRForm = () => {
                 onChange={handleChangeAddress}
               />
             </InputContainerItem>
+            <InputContainerItem>
+              <InputTitle>Ciudad*</InputTitle>
+              <StyledSelect id="citySelect" onChange={handleChangeCity}>
+                <StyledOption value="Arauca">Arauca</StyledOption>
+                <StyledOption value="Armenia">Armenia</StyledOption>
+                <StyledOption value="Barranquilla">Barranquilla</StyledOption>
+                <StyledOption value="Bogotá">Bogotá</StyledOption>
+                <StyledOption value="Bucaramanga">Bucaramanga</StyledOption>
+                <StyledOption value="Cali">Cali</StyledOption>
+                <StyledOption value="Cartagena">Cartagena</StyledOption>
+                <StyledOption value="Cúcuta">Cúcuta</StyledOption>
+                <StyledOption value="Florencia">Florencia</StyledOption>
+                <StyledOption value="Ibagué">Ibagué</StyledOption>
+                <StyledOption value="Leticia">Leticia</StyledOption>
+                <StyledOption value="Manizales">Manizales</StyledOption>
+                <StyledOption value="Medellín">Medellín</StyledOption>
+                <StyledOption value="Mitú">Mitú</StyledOption>
+                <StyledOption value="Mocoa">Mocoa</StyledOption>
+                <StyledOption value="Montería">Montería</StyledOption>
+                <StyledOption value="Neiva">Neiva</StyledOption>
+                <StyledOption value="Pasto">Pasto</StyledOption>
+                <StyledOption value="Pereira">Pereira</StyledOption>
+                <StyledOption value="Popayán">Popayán</StyledOption>
+                <StyledOption value="Puerto Carreño">
+                  Puerto Carreño
+                </StyledOption>
+                <StyledOption value="Puerto Inírida">
+                  Puerto Inírida
+                </StyledOption>
+                <StyledOption value="Quibdó">Quibdó</StyledOption>
+                <StyledOption value="Riohacha">Riohacha</StyledOption>
+                <StyledOption value="San Andrés">San Andrés</StyledOption>
+                <StyledOption value="San José del Guaviare">
+                  San José del Guaviare
+                </StyledOption>
+                <StyledOption value="Santa Marta">Santa Marta</StyledOption>
+                <StyledOption value="Sincelejo">Sincelejo</StyledOption>
+                <StyledOption value="Tunja">Tunja</StyledOption>
+                <StyledOption value="Valledupar">Valledupar</StyledOption>
+                <StyledOption value="Villavicencio">Villavicencio</StyledOption>
+                <StyledOption value="Yopal">Yopal</StyledOption>
+              </StyledSelect>
+            </InputContainerItem>
+
           </FormSection>
           <FormSection>
             <InputContainerItem>
-              <InputTitle>Correo electronico*</InputTitle>
-
-              <StyledInput
-                type="text"
-                placeholder="Ingresa tu Email"
-                onChange={handleChangeEmail}
-              />
-            </InputContainerItem>
-            <InputContainerItem>
               <InputTitle>Sitio de Aplicación*</InputTitle>
               <StyledSelect id="applicationSelect" onChange={handleChangeASite}>
-                <StyledOption value="" selected disabled hidden>
-                  Selecciona el sitio de Aplicación
-                </StyledOption>
-                <StyledOption value="oficina de instrumentos publicos">
+                <StyledOption value="Oficina de instrumentos publicos">
                   Oficina de instrumentos públicos
                 </StyledOption>
-                <StyledOption value="notaria">Notaria</StyledOption>
+                <StyledOption value="Notaria">Notaria</StyledOption>
                 <StyledOption value="Curaduria">Curaduria</StyledOption>
-                <StyledOption value="gestor catastral">
+                <StyledOption value="Gestor catastral">
                   Gestor Catastral
                 </StyledOption>
               </StyledSelect>
@@ -354,11 +377,11 @@ const CreatePQRForm = () => {
             </InputContainerItem>
             <ButtonSpinner
               onClick={() => handleRequest()}
-              loading={onLoading}
+              load={onLoading}
               disabled={onLoading}
             >
               {onLoading?'':'Registrar PQRSD'}
-              <Spinner loading={onLoading}/>
+              <Spinner load={onLoading}/>
             </ButtonSpinner>
           </FormSection>
         </StyledForm>

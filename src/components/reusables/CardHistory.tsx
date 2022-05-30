@@ -16,9 +16,6 @@ const ContainerWidget = styled.div`
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 `;
 
-const OwnerName = styled.p`
-  color: #d4d5d6;
-`;
 
 const ContainerColumns = styled.div`
   margin: 0px;

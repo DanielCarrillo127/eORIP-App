@@ -89,11 +89,11 @@ const Button = styled.button`
 const StyledP = styled.p``;
 
 const Answer = styled.p`
-margin: 0px;
-padding: 0px;
-letter-spacing: 1px;
-text-align: justify;
-text-justify: inter-word;
+  margin: 0px;
+  padding: 0px;
+  letter-spacing: 1px;
+  text-align: justify;
+  text-justify: inter-word;
 `;
 
 const AdminForm = () => {
@@ -102,10 +102,8 @@ const AdminForm = () => {
   const handleChangeUser = (e: any) => setCedula(e.target.value);
 
   const handleRequest = async (username: string) => {
-    // const req = await consultDocumentsOwnerId(username);
-    // if (req.status === 200) {
-    //   setSuccess(true);
-    // }
+    setCedula("");
+    setSuccess(true);
   };
 
   return (

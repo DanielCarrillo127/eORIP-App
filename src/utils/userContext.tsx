@@ -1,4 +1,4 @@
-import React, { useState, FC, useEffect } from "react";
+import React, { useState, FC } from "react";
 import { consultActions, getUser } from "./request";
 
 interface UserContextInterface {
@@ -37,7 +37,7 @@ export const UserContext: FC<PropType> = ({ children }) => {
 
   const handelSession = async () => {
     const jsonSessionStorage = window.sessionStorage.getItem("USER");
-    if (jsonSessionStorage !== "null" && jsonSessionStorage !== undefined) {
+    if (jsonSessionStorage !== "error" && jsonSessionStorage !== undefined) {
       const userData = JSON.parse(jsonSessionStorage || "{}");
       const reqUser = await getUser(userData.cedula);
 
@@ -134,7 +134,7 @@ export const UserContext: FC<PropType> = ({ children }) => {
     setUser(null);
   };
 
-  // localStorage.clear();
+
 
   return (
     <DataContext.Provider

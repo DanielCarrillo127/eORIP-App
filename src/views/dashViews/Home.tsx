@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import logovur from "../../assets/pngs/gov_offices/logo-vur.png";
 import logoigac from "../../assets/pngs/gov_offices/logo-igac.jpeg";
 import logopro from "../../assets/pngs/gov_offices/logo-Pro.png";
 import logosisg from "../../assets/pngs/gov_offices/logo-sisg.png";
 import logoant from "../../assets/pngs/gov_offices/logo-ant.png";
-import { toast } from "react-toastify";
-import { consultNews } from "../../utils/request";
+
 import NewsCard from "../../components/reusables/NewsCard";
 
 const StyledMenuIcon = styled.a`
@@ -179,10 +178,10 @@ const HomeSection = (props:any) => {
               {props.news?.length !== 0 ? (
                 <>
                   <NewsContainer>
-                    {props.news.map((value: string, index: number) => {
+                    {props.news.map((value: any) => {
                       return (
                         <>
-                          <NewsCard key={index} news={value} />
+                          <NewsCard news={value} key={value[`_id`]} />
                         </>
                       );
                     })}
