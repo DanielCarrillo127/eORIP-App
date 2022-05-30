@@ -301,8 +301,6 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(0, 15
       transform: rotate(360deg);
     }
   }`
-
- 
       : ``}
 `;
 
@@ -338,11 +336,6 @@ const ButtonSpinner = styled.button<load>`
   }`};
 `;
 
-
-
-
-
-
 const ModCertForm = () => {
   const [cedulaOwner, setCedulaOwner] = useState("");
   const [cedulaNewOwner, setcedulaNewOwner] = useState("");
@@ -355,13 +348,16 @@ const ModCertForm = () => {
   const [onLoading, setOnLoading] = useState(false);
 
   const handleChangeCedulaOwner = (e: any) => setCedulaOwner(e.target.value);
-  const handleChangeEnrollmentNumber = (e: any) => setEnrollmentNumber(e.target.value);
+  const handleChangeEnrollmentNumber = (e: any) =>
+    setEnrollmentNumber(e.target.value);
   const handleChangeCedulaNewOwner = (e: any) =>
     setcedulaNewOwner(e.target.value);
   const handleChangeValor = (e: any) => setValor(e.target.value);
   const handleChangeDescription = (e: any) => setDescription(e.target.value);
   const handleChangeType = (e: any) => setType(e.target.value);
-  const handleChangeCity = (e: any) => {setCity(e.target.value)};
+  const handleChangeCity = (e: any) => {
+    setCity(e.target.value);
+  };
 
   const [cedulaSearch, setCedulaSearch] = useState("");
   const handleChangeCedulaSearch = (e: any) => setCedulaSearch(e.target.value);
@@ -540,7 +536,6 @@ const ModCertForm = () => {
 
   const handleTable = () => {
     if (data.length > 0) {
-      
       return (
         <>
           <TableContainer>
@@ -557,7 +552,7 @@ const ModCertForm = () => {
               <TBody>
                 {data.map((value, index) => {
                   if (value[`type`] === "CTRA") {
-                    const dt:any = new Date(value[`timeStamp`])
+                    const dt: any = new Date(value[`timeStamp`]);
                     return (
                       <TableItem key={index}>
                         <TableItemRow data-label="No. Matricula">
@@ -580,7 +575,7 @@ const ModCertForm = () => {
                         </TableItemRow>
                       </TableItem>
                     );
-                  }else {
+                  } else {
                     return <></>;
                   }
                 })}
@@ -604,13 +599,15 @@ const ModCertForm = () => {
                 Formulario para Modificar Certificado de Transacciones.
               </StyledP>
             </StyledContact>
-            <br/><br/>
+            <br />
+            <br />
             <InputContainerItem>
               <InputTitle>Consultar Matriculas de la Transacciones*</InputTitle>
               <StyledInput
                 type="text"
                 placeholder="Ingresa la cedula del ciudadano"
                 onChange={handleChangeCedulaSearch}
+                value={cedulaSearch}
               />
               <Button onClick={() => handleRequest(cedulaSearch)}>
                 Consultar
@@ -619,11 +616,19 @@ const ModCertForm = () => {
 
               <InputContainerItem>
                 <InputTitle>No. de Matricula*</InputTitle>
-                <StyledInput type="text" value={EnrollmentNumber} onChange={handleChangeEnrollmentNumber} />
+                <StyledInput
+                  type="text"
+                  value={EnrollmentNumber}
+                  onChange={handleChangeEnrollmentNumber}
+                />
 
                 <InputContainerItem>
                   <InputTitle>Tipo*</InputTitle>
-                  <StyledSelect id="tipoSelect" onChange={handleChangeType}>
+                  <StyledSelect
+                    id="tipoSelect"
+                    onChange={handleChangeType}
+                    value={type}
+                  >
                     <StyledOption value="Anotacion">Anotacion</StyledOption>
                     <StyledOption value="Compra-venta">
                       Compra-venta
@@ -642,6 +647,7 @@ const ModCertForm = () => {
                     type="text"
                     placeholder="Ingresa la Cedula del ciudadano "
                     onChange={handleChangeCedulaNewOwner}
+                    value={cedulaNewOwner}
                   />
                 </InputContainerItem>
               </>
@@ -654,6 +660,7 @@ const ModCertForm = () => {
                 type="text"
                 placeholder="Ingresa la Cedula del Dueño actual  "
                 onChange={handleChangeCedulaOwner}
+                value={cedulaOwner}
               />
             </InputContainerItem>
 
@@ -664,12 +671,20 @@ const ModCertForm = () => {
                 type="text"
                 placeholder="Ingresa el costo "
                 onChange={handleChangeValor}
+                value={valor}
               />
             </InputContainerItem>
 
             <InputContainerItem>
               <InputTitle>Ciudad*</InputTitle>
-              <StyledSelect id="citySelect" onChange={handleChangeCity}>
+              <StyledSelect
+                id="citySelect"
+                onChange={handleChangeCity}
+                value={city}
+              >
+                <StyledOption value="" disabled>
+                  Selecciona un Ciudad
+                </StyledOption>
                 <StyledOption value="Arauca">Arauca</StyledOption>
                 <StyledOption value="Armenia">Armenia</StyledOption>
                 <StyledOption value="Barranquilla">Barranquilla</StyledOption>
@@ -718,13 +733,17 @@ const ModCertForm = () => {
                 id=""
                 placeholder="Ingresa la Descripción"
                 onChange={handleChangeDescription}
+                value={description}
               />
             </InputContainerItem>
 
-            <ButtonSpinner onClick={() => handleRequestModifications()} load={onLoading}
-              disabled={onLoading}>
-              {onLoading?'':'Registrar Modificación'}
-              <Spinner load={onLoading}/>
+            <ButtonSpinner
+              onClick={() => handleRequestModifications()}
+              load={onLoading}
+              disabled={onLoading}
+            >
+              {onLoading ? "" : "Registrar Modificación"}
+              <Spinner load={onLoading} />
             </ButtonSpinner>
           </FormSection>
         </StyledForm>

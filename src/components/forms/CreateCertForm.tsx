@@ -286,6 +286,7 @@ const CreateCertForm = () => {
                 type="number"
                 placeholder="Ingresa la cedula del Ciudadano"
                 onChange={handleChangeCedulaOwner}
+                value={cedulaOwner}
               />
             </InputContainerItem>
 
@@ -307,12 +308,13 @@ const CreateCertForm = () => {
                 type="number"
                 placeholder="Ingresa el valor de la Transacciones"
                 onChange={handleChangeValor}
+                value={valor}
               />
             </InputContainerItem>
 
             <InputContainerItem>
               <InputTitle>Ciudad*</InputTitle>
-              <StyledSelect id="citySelect" onChange={handleChangeCity}>
+              <StyledSelect id="citySelect" onChange={handleChangeCity} value={city}>
                 <StyledOption value=""disabled >
                   Selecciona un Ciudad
                 </StyledOption>
@@ -365,6 +367,7 @@ const CreateCertForm = () => {
                 id="destran"
                 placeholder="Ingresa la descripción de la Transacción "
                 onChange={handleChangeDescription}
+                value={description}
               />
             </InputContainerItem>
 

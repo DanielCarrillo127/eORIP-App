@@ -201,7 +201,6 @@ const ButtonSpinner = styled.button<load>`
 `;
 
 const CreatePQRForm = () => {
-
   const [onLoading, setOnLoading] = useState(false);
 
   const [type, setType] = useState("");
@@ -222,8 +221,16 @@ const CreatePQRForm = () => {
   const handleChangeAddress = (e: any) => setAddress(e.target.value);
 
   const handleRequest = async () => {
-    setOnLoading(true)
-    const req = await createPQRSD(cedula,description,type,tel,address,applicationSite,city);
+    setOnLoading(true);
+    const req = await createPQRSD(
+      cedula,
+      description,
+      type,
+      tel,
+      address,
+      applicationSite,
+      city
+    );
     if (req.status === 200) {
       setType("");
       setCity("");
@@ -232,7 +239,7 @@ const CreatePQRForm = () => {
       setAddress("");
       setApplicationSite("");
       setDescription("");
-      setOnLoading(false)
+      setOnLoading(false);
       toast.success(`Petición exitosa.`, {
         position: "top-right",
         autoClose: 3000,
@@ -243,7 +250,7 @@ const CreatePQRForm = () => {
         progress: undefined,
       });
     } else {
-      setOnLoading(false)
+      setOnLoading(false);
       toast.error(`Petición fue denegada, ${req.response.data.message}`, {
         position: "top-right",
         autoClose: 3000,
@@ -266,10 +273,15 @@ const CreatePQRForm = () => {
                 Formulario para Solicitud y Petición de Informes PQRSD.
               </StyledP>
             </StyledContact>
-            <br/><br/>
+            <br />
+            <br />
             <InputContainerItem>
               <InputTitle>Tipo*</InputTitle>
-              <StyledSelect id="tipoSelect" onChange={handleChangeType}>
+              <StyledSelect
+                id="tipoSelect"
+                onChange={handleChangeType}
+                value={type}
+              >
                 <StyledOption value="Peticion">Petición</StyledOption>
                 <StyledOption value="Queja">Queja</StyledOption>
                 <StyledOption value="Reclamo">Reclamo</StyledOption>
@@ -285,6 +297,7 @@ const CreatePQRForm = () => {
                 type="text"
                 placeholder="Ingresa la Cedula del Ciudadano "
                 onChange={handleChangeCedula}
+                value={cedula}
               />
             </InputContainerItem>
 
@@ -295,6 +308,7 @@ const CreatePQRForm = () => {
                 type="tel"
                 placeholder="Ingresa el Telefono"
                 onChange={handleChangeTel}
+                value={tel}
               />
             </InputContainerItem>
             <InputContainerItem>
@@ -304,11 +318,19 @@ const CreatePQRForm = () => {
                 type="text"
                 placeholder="Ingresa la Dirección"
                 onChange={handleChangeAddress}
+                value={address}
               />
             </InputContainerItem>
             <InputContainerItem>
               <InputTitle>Ciudad*</InputTitle>
-              <StyledSelect id="citySelect" onChange={handleChangeCity}>
+              <StyledSelect
+                id="citySelect"
+                onChange={handleChangeCity}
+                value={city}
+              >
+                <StyledOption value="" disabled>
+                  Selecciona un Ciudad
+                </StyledOption>
                 <StyledOption value="Arauca">Arauca</StyledOption>
                 <StyledOption value="Armenia">Armenia</StyledOption>
                 <StyledOption value="Barranquilla">Barranquilla</StyledOption>
@@ -349,12 +371,15 @@ const CreatePQRForm = () => {
                 <StyledOption value="Yopal">Yopal</StyledOption>
               </StyledSelect>
             </InputContainerItem>
-
           </FormSection>
           <FormSection>
             <InputContainerItem>
               <InputTitle>Sitio de Aplicación*</InputTitle>
-              <StyledSelect id="applicationSelect" onChange={handleChangeASite}>
+              <StyledSelect
+                id="applicationSelect"
+                onChange={handleChangeASite}
+                value={applicationSite}
+              >
                 <StyledOption value="Oficina de instrumentos publicos">
                   Oficina de instrumentos públicos
                 </StyledOption>
@@ -373,6 +398,7 @@ const CreatePQRForm = () => {
                 id=""
                 placeholder="Ingresa una descripción"
                 onChange={handleChangeDescription}
+                value={description}
               />
             </InputContainerItem>
             <ButtonSpinner
@@ -380,8 +406,8 @@ const CreatePQRForm = () => {
               load={onLoading}
               disabled={onLoading}
             >
-              {onLoading?'':'Registrar PQRSD'}
-              <Spinner load={onLoading}/>
+              {onLoading ? "" : "Registrar PQRSD"}
+              <Spinner load={onLoading} />
             </ButtonSpinner>
           </FormSection>
         </StyledForm>
