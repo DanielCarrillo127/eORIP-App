@@ -25,6 +25,8 @@ jobs:
       - name: npm install, build, and test
         env:
           CI: false
+          REACT_APP_USERS_API: ${{secrets.REACT_APP_USERS_API}}
+          REACT_APP_NEWSAPI_KEY: ${{secrets.REACT_APP_NEWSAPI_KEY}}
 
         run: |
           npm install
