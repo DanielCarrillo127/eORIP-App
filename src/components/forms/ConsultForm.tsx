@@ -165,7 +165,7 @@ const TableItemRow = styled.td`
   font-size: 0.8em;
   &:hover {
     white-space: initial;
-    overflow: scroll;
+    overflow: auto;
     // background-color:#fff;
   }
   @media (max-width: 600px) {
