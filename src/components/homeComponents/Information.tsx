@@ -48,7 +48,7 @@ const Img = styled.img`
 `;
 
 const Strong = styled.strong`
-    color: #515151;
+  color: #515151;
 `;
 const TextTitle = styled.p`
   font-style: normal;
@@ -65,7 +65,7 @@ const Text = styled.p`
   color: #515151;
 `;
 const TextSeparator = styled.div`
-    padding-top: 30px;
+  padding-top: 30px;
 `;
 
 const Button = styled.button`
@@ -105,9 +105,10 @@ const Information = () => {
             </ImgContainer>
           </Col6>
           <Col6>
+            <Text>Información de canales oficiales gubernamentales de libre exposición.</Text>
             <TextTitle>Sede Principal y Atención al Ciudadano</TextTitle>
             <Text>Calle 26 No. 13-49 Interior 201, Bogotá D.C. Colombia.</Text>
-            <TextSeparator/>
+            <TextSeparator />
             <Text>
               {" "}
               <Strong>Código postal: </Strong># 110311 – 110311000
@@ -126,26 +127,28 @@ const Information = () => {
             </Text>
             <Text>
               {" "}
-              <Strong>Correo Institucional: </Strong>correspondencia@supernotariado.gov.co
-              2121{" "}
+              <Strong>Correo Institucional: </Strong>
+              correspondencia@supernotariado.gov.co 2121{" "}
             </Text>
-            <TextSeparator/>
+            <TextSeparator />
             <Text>
               {" "}
               <Strong>Conmutador Atención al Ciudadano: </Strong>57+(601) 328
               2121{" "}
             </Text>
-            <TextSeparator/>
+            <TextSeparator />
             <Strong>Correo Notificaciones Judiciales: </Strong>
             <Text>notificaciones.juridica@supernotariado.gov.co </Text>
-            <TextSeparator/>
+            <TextSeparator />
             <Strong>Recibo de correspondencia horario de Atención: </Strong>
             <Text>08:00 a.m. a 05:00 p.m.</Text>
-            <TextSeparator/>
-            <a style={{textDecoration:'none',float:'left'}} href='https://www.supernotariado.gov.co/atencion-servicios-ciudadania/canales-de-atencion-y-pida-una-cita/'>
-            <Button>Contactar</Button>
+            <TextSeparator />
+            <a
+              style={{ textDecoration: "none", float: "left" }}
+              href="https://www.supernotariado.gov.co/atencion-servicios-ciudadania/canales-de-atencion-y-pida-una-cita/"
+            >
+              <Button>Contactar</Button>
             </a>
-           
           </Col6>
         </Row>
       </Container>
