@@ -629,6 +629,9 @@ const ModCertForm = () => {
                     onChange={handleChangeType}
                     value={type}
                   >
+                    <StyledOption value="" disabled>
+                      Selecciona un Tipo
+                    </StyledOption>
                     <StyledOption value="Anotacion">Anotacion</StyledOption>
                     <StyledOption value="Compra-venta">
                       Compra-venta

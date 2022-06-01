@@ -538,6 +538,9 @@ const ModPQRForm = () => {
             <InputContainerItem>
               <InputTitle>Nuevo Status*</InputTitle>
               <StyledSelect id="statusSelect" onChange={handleChangeStatus} value={status}>
+              <StyledOption value="" disabled>
+                  Selecciona un Status
+                </StyledOption>
                 <StyledOption value="creado">Creado</StyledOption>
                 <StyledOption value="En proceso">En proceso</StyledOption>
                 <StyledOption value="Cerrado">Resuelto</StyledOption>

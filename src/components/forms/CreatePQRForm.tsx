@@ -282,6 +282,9 @@ const CreatePQRForm = () => {
                 onChange={handleChangeType}
                 value={type}
               >
+                <StyledOption value="" disabled>
+                  Selecciona un Tipo
+                </StyledOption>
                 <StyledOption value="Peticion">Petición</StyledOption>
                 <StyledOption value="Queja">Queja</StyledOption>
                 <StyledOption value="Reclamo">Reclamo</StyledOption>
@@ -380,6 +383,9 @@ const CreatePQRForm = () => {
                 onChange={handleChangeASite}
                 value={applicationSite}
               >
+                <StyledOption value="" disabled>
+                  Selecciona un Lugar
+                </StyledOption>
                 <StyledOption value="Oficina de instrumentos publicos">
                   Oficina de instrumentos públicos
                 </StyledOption>
