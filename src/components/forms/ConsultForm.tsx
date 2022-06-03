@@ -423,6 +423,7 @@ const ConsultForm = () => {
               placeholder="Ingresa la Cédula del Ciudadano"
               onChange={handleChangeUser}
               required
+              value={cedula}
             />
             {/* </StyledForm> */}
             <Button onClick={() => handleRequest(cedula)}>Consultar</Button>
